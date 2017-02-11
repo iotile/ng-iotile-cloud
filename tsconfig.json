@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es5",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "inlineSourceMap": true,
+        "declaration": true,
+        "outDir": "./build",
+        "rootDir": "./src/iotile"
+    },
+    "exclude": [
+        "node_modules",
+        "demo",
+        "bundles",
+        "components",
+        "directives",
+        "src/test",
+        "build",
+        "**/*.spec.ts"
+    ]
+}
