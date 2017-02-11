@@ -7,13 +7,11 @@ module.exports = function (config) {
         singleRun: true,
         frameworks: ['jasmine'],
         reporters: ['spec'],
-        // browsers: ['PhantomJS'],
         browsers: ['Chrome'],
         files: [
             'node_modules/typescript/lib/typescript.js',
             'node_modules/jquery/dist/jquery.js',
             'node_modules/bootstrap/dist/js/bootstrap.js',
-            // 'node_modules/jasmine-jquery-matchers/dist/jasmine-jquery-matchers.js',
             'node_module/moment/moment.js',
 
             // System.js for module loading
