@@ -4,6 +4,9 @@ language: generic
 services:
   - docker
 
+notifications:
+  email: false
+
 before_script:
   - docker build -t ng2iotile .
 
