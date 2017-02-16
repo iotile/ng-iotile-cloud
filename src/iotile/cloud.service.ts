@@ -11,6 +11,7 @@ import {
   Project,
   Device,
   Variable,
+  VarType,
   Stream,
   Stats,
   DataPoint,
@@ -204,6 +205,28 @@ export class CloudService {
       .map((data: any) => {
         console.log('patchDevice() data', data);
         return new Device(data);
+      });
+  }
+
+  public getVariable(varSlug: string): Observable<Variable>  {
+
+    // return an observable
+    let url: string = '/variable/' + varSlug + '/';
+    // console.log(url);
+    return this._get(url)
+      .map((data: any) => {
+        return new Variable(data);
+      });
+  }
+
+  public getVariableType(varSlug: string): Observable<VarType>  {
+
+    // return an observable
+    let url: string = '/variable/' + varSlug + '/type/';
+    // console.log(url);
+    return this._get(url)
+      .map((data: any) => {
+        return new VarType(data);
       });
   }
 

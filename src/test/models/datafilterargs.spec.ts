@@ -1,7 +1,7 @@
 'use strict';
 import moment from 'moment';
 
-import { DataFilterArgs } from '../datafilterargs';
+import { DataFilterArgs } from '../../iotile/models/datafilterargs';
 
 describe('DataFilterArgsTest', () => {
 

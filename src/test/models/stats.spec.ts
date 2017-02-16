@@ -1,6 +1,6 @@
 'use strict';
 
-import { Stats } from '../stats';
+import { Stats } from '../../iotile/models/stats';
 
 describe('StatsTest', () => {
 

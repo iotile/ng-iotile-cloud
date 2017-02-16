@@ -1,13 +1,13 @@
 {
   "name": "ng2-iotile-cloud",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Angular IOTile Cloud interface",
   "main": "ng2-iotile-cloud.js",
   "scripts": {
     "start": "static",
     "peer": "npm install es6-promise@^3.0.2 es6-shim@^0.33.3 reflect-metadata@0.1.2 rxjs@5.0.3 zone.js@0.6.26",
     "lint": "tslint ./src/**/*.ts",
-    "clean": "rimraf bundles iotile **/*.ngfactory.ts",
+    "clean": "rimraf bundles iotile **/*.ngfactory.ts **/*.ngsummary.json",
     "tsc": "ngc -p .",
     "tsc:single": "tsc -p tsconfig.bundle.json",
     "uglify": "uglifyjs ./bundles/ng2-iotile-cloud.js --output ./bundles/ng2-iotile-cloud.min.js",

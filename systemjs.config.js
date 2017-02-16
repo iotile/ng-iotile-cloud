@@ -19,7 +19,6 @@ System.config({
         'moment': 'npm:moment/moment.js'
     },
     packages: {
-        'demo': { main: 'main', defaultExtension: 'ts' },
         'src': { defaultExtension: 'ts' },
         'rxjs': { defaultExtension: 'js' }
     }

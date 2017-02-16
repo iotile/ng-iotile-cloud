@@ -1,6 +1,6 @@
 'use strict';
 
-import { DataPoint } from '../datapoint';
+import { DataPoint } from '../../iotile/models/datapoint';
 
 describe('DataPointTest', () => {
 

@@ -1,6 +1,6 @@
 'use strict';
 
-import { Mdo } from '../mdo';
+import { Mdo } from '../../iotile/models/mdo';
 
 describe('MdoTest', () => {
 

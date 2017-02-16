@@ -1,7 +1,7 @@
 'use strict';
 
-import { Stream } from '../stream';
-import { Mdo } from '../mdo';
+import { Stream } from '../../iotile/models/stream';
+import { Mdo } from '../../iotile/models/mdo';
   
 const dummyStream0 = new Stream({
       project: "p--0000-0010",
