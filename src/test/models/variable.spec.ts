@@ -1,9 +1,9 @@
 'use strict';
 
-import { Project } from '../project';
-import { Variable } from '../variable';
-import { Unit } from '../unit';
-import { Mdo } from '../mdo';
+import { Project } from '../../iotile/models/project';
+import { Variable } from '../../iotile/models/variable';
+import { Unit } from '../../iotile/models/unit';
+import { Mdo } from '../../iotile/models/mdo';
 
 const dummyVariable: Variable = new Variable({
   "id": "e83cdfaf-144e-478a-92b2-b05a52bea2ae",

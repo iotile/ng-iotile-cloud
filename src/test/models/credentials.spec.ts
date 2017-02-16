@@ -1,6 +1,6 @@
 'use strict';
 
-import { Credentials } from '../credentials';
+import { Credentials } from '../../iotile/models/credentials';
 
 describe('CredentialsTest', () => {
 

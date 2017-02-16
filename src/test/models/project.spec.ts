@@ -1,9 +1,9 @@
 'use strict';
 
-import { Project } from '../project';
-import { Device } from '../device';
-import { Stream } from '../stream';
-import { Variable } from '../variable';
+import { Project } from '../../iotile/models/project';
+import { Device } from '../../iotile/models/device';
+import { Stream } from '../../iotile/models/stream';
+import { Variable } from '../../iotile/models/variable';
 
 const dummyProject: Project = new Project({
   "id": "84e3869d-1fdb-4203-9b69-18b417e2b0e0",

@@ -1,7 +1,7 @@
 'use strict';
 
-import { Project } from '../project';
-import { Device } from '../device';
+import { Project } from '../../iotile/models/project';
+import { Device } from '../../iotile/models/device';
 
 describe('DeviceTest', () => {
 

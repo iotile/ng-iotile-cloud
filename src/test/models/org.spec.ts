@@ -1,6 +1,6 @@
 'use strict';
 
-import { Org } from '../org';
+import { Org } from '../../iotile/models/org';
 
 describe('OrgTest', () => {
 
