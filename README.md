@@ -1,4 +1,6 @@
 # ng2-iotile-cloud
+[![PyPI version](https://img.shields.io/npm/v/ng2-iotile-cloud.svg)](https://www.npmjs.com/package/ng2-iotile-cloud) 
+
 Angular2 IOTile Cloud Interface
 
 
