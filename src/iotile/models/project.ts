@@ -43,33 +43,19 @@ export class Project {
     }
 
     public addDevices(devices: Array<Device>): void {
-      console.log('[Project] Add devices: ' + devices.length);
       this.devices = devices;
     }
 
     public addStreams(streams: Array<Stream>): void {
-      console.log('[Project] Add streams: ' + streams.length);
       this.streams = streams;
     }
 
     public addVariables(variables: Array<Variable>): void {
-      console.log('[Project] Add variables: ' + variables.length);
       this.variables = variables;
       this.variableMap = {};
       this.variables.forEach(v => {
         this.variableMap[v.slug] = v;
       });
-    }
-
-    public getDeviceUrl(deviceSlug: string): string {
-      let url: string = '/';
-      if (this.pageTemplateSlug === 'water-meter') {
-        url += 'water/' + deviceSlug;
-      } else {
-        url += this.pageTemplateSlug + '/' + deviceSlug;
-      }
-      console.log(url);
-      return url;
     }
 
     public getVariable(slug): Variable {

@@ -1,4 +1,5 @@
 import { Mdo } from './mdo';
+import { Unit } from './unit';
 
 export class Variable {
   public id: number;
@@ -10,6 +11,9 @@ export class Variable {
   public sysVar: boolean;
   public about: string;
   public mdo: Mdo;
+  public inputUnit: Unit;
+  public outputUnit: Unit; 
+  public type;
 
   constructor(data: any = {}) {
     this.id = data.id;
@@ -21,6 +25,13 @@ export class Variable {
     this.sysVar = data.project === null;
     this.about = data.about || '';
     this.mdo = new Mdo(data);
+    this.type = data.var_type;
+    if (data.input_unit) {
+      this.inputUnit = new Unit(data.input_unit);
+    }
+    if (data.output_unit) {
+      this.outputUnit = new Unit(data.output_unit);
+    }
   }
 
   public getHexLid(): string {

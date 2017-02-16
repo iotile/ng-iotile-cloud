@@ -5,9 +5,9 @@ export class Mdo {
   public label: string;
 
   constructor(data: any = {}) {
-    this.m = data.multiplication_factor;
-    this.d = data.division_factor;
-    this.o = data.offset;
+    this.m = data.multiplication_factor || data.m;
+    this.d = data.division_factor || data.d;
+    this.o = data.offset || data.o;
     if (data.mdo_label) {
         this.label = data.mdo_label;
     }
