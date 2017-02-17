@@ -7,7 +7,13 @@ module.exports = function (config) {
         singleRun: true,
         frameworks: ['jasmine'],
         reporters: ['spec'],
-        browsers: ['Chrome'],
+        browsers: ['Chrome_travis_ci'],
+        customLaunchers: {  
+            Chrome_travis_ci: {
+                base: 'Chrome',
+                flags: ['--no-sandbox']
+            }
+        },
         files: [
             'node_modules/typescript/lib/typescript.js',
             'node_modules/jquery/dist/jquery.js',
