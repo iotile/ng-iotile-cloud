@@ -41,7 +41,10 @@ export class Mdo {
       }
       if (src.o) {
           this.o = src.o;
-      }    
+      }
+      if (src.label) {
+          this.label = src.label;
+      }
   }
 
   public setFromFactor(factor: number, invert: boolean): void {

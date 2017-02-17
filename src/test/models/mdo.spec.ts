@@ -42,6 +42,15 @@ describe('MdoTest', () => {
     expect(dst.m).toEqual(100);
     expect(dst.d).toEqual(2);
     expect(dst.o).toEqual(10.0);
+    expect(dst.label).toBeUndefined();
+
+    src.label = 'UPP';
+    dst = new Mdo();
+    dst.setFromMdo(src);
+    expect(dst.m).toEqual(100);
+    expect(dst.d).toEqual(2);
+    expect(dst.o).toEqual(10.0);
+    expect(dst.label).toEqual('UPP');
   });
 
   it('check mdo.getPatchPayload', () => {
