@@ -52,3 +52,16 @@ To have karma to watch for changes:
 npm run test:w
 ```
 
+## Using Docker
+
+```
+# Build image
+docker build -t ng2iotile .
+# Runs test
+docker run --rm ng2iotile
+# Runs test with mounted drive
+docker run --rm -v $PWD/src:/usr/src/app/src ng2iotile
+# Build for release
+docker run --rm -v $PWD:/usr/src/app ng2iotile run build
+```
+
