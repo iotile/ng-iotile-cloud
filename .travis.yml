@@ -1,16 +1,11 @@
-sudo: required
-language: generic
-
-services:
-  - docker
+language: node_js
+node_js:
+  - "6"
 
 notifications:
   email: false
 
-before_script:
-  - docker build -t ng2iotile .
-
 script:
-  - docker run --rm ng2iotile
-  - docker run --rm -v $PWD:/usr/src/app ng2iotile run build
+- npm test
+
 
