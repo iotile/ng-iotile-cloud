@@ -18,20 +18,24 @@ export class VarType {
     this.unitFullName = data.storage_units_full;
     this.unitShortName = data.storage_units_short;
 
-    data['available_input_units'].forEach(u => {
-      if (!this.availableInputUnits) {
-        this.availableInputUnits = [];
-      }
-      let unit: Unit = new Unit(u);
-      this.availableInputUnits.push(unit);
-    });
+    if ('available_input_units' in data) {
+      data['available_input_units'].forEach(u => {
+        if (!this.availableInputUnits) {
+          this.availableInputUnits = [];
+        }
+        let unit: Unit = new Unit(u);
+        this.availableInputUnits.push(unit);
+      });
+    }
     
-    data['available_output_units'].forEach(u => {
-      if (!this.availableOutputUnits) {
-        this.availableOutputUnits = [];
-      }
-      let unit: Unit = new Unit(u);
-      this.availableOutputUnits.push(unit);
-    });
+    if ('available_output_units' in data) {
+      data['available_output_units'].forEach(u => {
+        if (!this.availableOutputUnits) {
+          this.availableOutputUnits = [];
+        }
+        let unit: Unit = new Unit(u);
+        this.availableOutputUnits.push(unit);
+      });
+    }
   }
 }
