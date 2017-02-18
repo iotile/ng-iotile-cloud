@@ -1,7 +1,12 @@
 import { Unit } from './unit';
 
+export interface VarTypeDictionary {
+    [ slug: string ]: VarType
+}
+
 export class VarType {
   public name: string;
+  public slug: string;
   public unitFullName: string;
   public unitShortName: string;
   public availableInputUnits: Array<Unit>;
@@ -9,6 +14,7 @@ export class VarType {
 
   constructor(data: any = {}) {
     this.name = data.name;
+    this.slug = data.slug;
     this.unitFullName = data.storage_units_full;
     this.unitShortName = data.storage_units_short;
 
