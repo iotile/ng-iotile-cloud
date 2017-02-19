@@ -73,8 +73,6 @@ describe('VarTypeTest', () => {
     let varType2: VarType = new VarType({
         "name": "Liquid Flow",
         "slug": "liquid-flow",
-        "available_input_units": [],
-        "available_output_units": [],
         "storage_units_full": "LPM",
         "storage_units_short": "lpm"
     });
