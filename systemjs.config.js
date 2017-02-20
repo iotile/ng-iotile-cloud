@@ -15,12 +15,10 @@ System.config({
         '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
         '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
         '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
-        'rxjs': 'npm:rxjs',
-        'moment': 'npm:moment/moment.js'
+        'rxjs': 'npm:rxjs'
     },
     packages: {
         'src': { defaultExtension: 'ts' },
-        'rxjs': { defaultExtension: 'js' },
-        'moment': { defaultExtension: 'js' }
+        'rxjs': { defaultExtension: 'js' }
     }
 });

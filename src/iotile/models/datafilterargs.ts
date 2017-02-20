@@ -1,6 +1,3 @@
-// See https://github.com/aurelia/skeleton-navigation/issues/606#issuecomment-234509751
-import * as moment from 'moment';
-// import moment from 'moment';
 
 export class DataFilterArgs {
   public startDate: Date;
@@ -10,10 +7,10 @@ export class DataFilterArgs {
   public buildFilterString(): string {
     let dataFilter: string = '?';
     if (this.startDate) {
-      dataFilter += '&start=' + (moment as any).default(this.startDate).toISOString();
+      dataFilter += '&start=' + this.startDate.toISOString();
     }
     if (this.endDate) {
-      dataFilter += '&end=' + (moment as any).default(this.endDate).toISOString();
+      dataFilter += '&end=' + this.endDate.toISOString();
     }
     if (this.lastN) {
       dataFilter += '&lastn=' + this.lastN;
@@ -24,10 +21,10 @@ export class DataFilterArgs {
   public buildFilterLabel(): string {
     let filterLabel: string = '';
     if (this.startDate) {
-      filterLabel += ' from ' + (moment as any).default(this.startDate).format('YYYY/MM/DD');
+      filterLabel += ' from ' + this.startDate.toLocaleDateString();
     }
     if (this.endDate) {
-      filterLabel += ' to ' + (moment as any).default(this.endDate).format('YYYY/MM/DD');
+      filterLabel += ' to ' + this.endDate.toLocaleDateString();
     }
     if (this.lastN) {
       filterLabel += ' last ' + this.lastN + ' entries';
