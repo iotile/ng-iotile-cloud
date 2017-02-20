@@ -56,6 +56,12 @@ export class Stream {
       mdo_type: this.mdoType
     }
     let payload: any = Object.assign(basic, this.mdo.getPatchPayload());
+    if (this.inputUnit) {
+      payload['input_unit'] = this.inputUnit.id;
+    }
+    if (this.outputUnit) {
+      payload['output_unit'] = this.outputUnit.id;
+    }
     return payload;
   }
 }
