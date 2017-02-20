@@ -11,6 +11,7 @@ const dummyVariable: Variable = new Variable({
   "lid": 20481,
   "var_type": "water-meter-volume",
   "input_unit": {
+    "id": 10,
     "unit_full": "Gallons",
     "unit_short": "g",
     "m": 378,
@@ -72,6 +73,8 @@ describe('VariableTest', () => {
     let payload: any = v.getPatchPayload();
     expect(payload.name).toEqual('IO 1');
     expect(payload.units).toEqual('Gallons');
+    expect(payload.input_unit).toEqual(10);
+    expect(payload.output_unit).toBeUndefined();
     expect(payload.multiplication_factor).toEqual(1);
     expect(payload.division_factor).toEqual(10);
     expect(payload.offset).toEqual(5.0);
