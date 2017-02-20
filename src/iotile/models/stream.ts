@@ -1,6 +1,7 @@
 import { Stats } from './stats';
 import { DataPoint } from './datapoint';
 import { Mdo } from './mdo';
+import { Unit } from './unit';
 
 export class Stream {
   public slug: string;
@@ -10,6 +11,8 @@ export class Stream {
   public template: string;
   public mdoType: string;
   public mdo: Mdo;
+  public inputUnit: Unit;
+  public outputUnit: Unit; 
   public stats: Stats;
   public data: Array<DataPoint>;
 
@@ -22,6 +25,12 @@ export class Stream {
     this.mdo = new Mdo(data);
     this.stats = new Stats();
     this.data;
+    if (data.input_unit) {
+      this.inputUnit = new Unit(data.input_unit);
+    }
+    if (data.output_unit) {
+      this.outputUnit = new Unit(data.output_unit);
+    }
   }
 
   public addStats(stats: Stats): void {

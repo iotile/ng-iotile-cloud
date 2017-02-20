@@ -12,7 +12,7 @@ export class Variable {
   public about: string;
   public mdo: Mdo;
   public inputUnit: Unit;
-  public outputUnit: Unit; 
+  public outputUnit: Unit;
   public type;
 
   constructor(data: any = {}) {
