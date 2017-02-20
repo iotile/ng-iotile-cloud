@@ -1,6 +1,6 @@
 {
   "name": "ng2-iotile-cloud",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Angular IOTile Cloud interface",
   "main": "ng2-iotile-cloud.js",
   "scripts": {
@@ -73,7 +73,5 @@
     "@angular/platform-browser": "^2.4.1",
     "@angular/platform-browser-dynamic": "^2.4.1"
   },
-  "dependencies": {
-    "moment": "^2.17.1"
-  }
+  "dependencies": {}
 }

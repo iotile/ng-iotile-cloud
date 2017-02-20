@@ -1,5 +1,5 @@
 'use strict';
-import moment from 'moment';
+// import moment from 'moment';
 
 import { DataFilterArgs } from '../../iotile/models/datafilterargs';
 
@@ -23,12 +23,12 @@ describe('DataFilterArgsTest', () => {
     expect(args).toBeTruthy();
     expect(args.buildFilterLabel()).toEqual(null);
     args.startDate = new Date("2016-09-13T20:29:13.825000Z");
-    expect(args.buildFilterLabel()).toEqual(" from 2016/09/13");
+    expect(args.buildFilterLabel()).toEqual(" from 9/13/2016");
     args = new DataFilterArgs();
     args.endDate = new Date("2016-10-13T20:29:13.825000Z");
-    expect(args.buildFilterLabel()).toEqual(" to 2016/10/13");
+    expect(args.buildFilterLabel()).toEqual(" to 10/13/2016");
     args.startDate = new Date("2016-09-13T20:29:13.825000Z");
-    expect(args.buildFilterLabel()).toEqual(" from 2016/09/13 to 2016/10/13");
+    expect(args.buildFilterLabel()).toEqual(" from 9/13/2016 to 10/13/2016");
   });
 
   it('check lastN', () => {

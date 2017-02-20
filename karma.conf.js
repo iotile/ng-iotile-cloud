@@ -16,7 +16,6 @@ module.exports = function (config) {
         },
         files: [
             'node_modules/typescript/lib/typescript.js',
-            'node_module/moment/moment.js',
 
             // System.js for module loading
             'node_modules/systemjs/dist/system.src.js',
