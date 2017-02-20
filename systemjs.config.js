@@ -20,6 +20,7 @@ System.config({
     },
     packages: {
         'src': { defaultExtension: 'ts' },
-        'rxjs': { defaultExtension: 'js' }
+        'rxjs': { defaultExtension: 'js' },
+        'moment': { defaultExtension: 'js' }
     }
 });
