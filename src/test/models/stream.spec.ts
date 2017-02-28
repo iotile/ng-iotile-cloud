@@ -9,7 +9,7 @@ const dummyStream0 = new Stream({
       variable: "v--0000-0010--5001",
       mdo_type: "S",
       input_unit: {
-        "id": 10,
+        "slug": "in--water-meter-volume--gallons",
         "unit_full": "Gallons",
         "unit_short": "g",
         "m": 378541,
@@ -51,7 +51,7 @@ describe('StreamTest', () => {
     let stream: Stream = dummyStream0;
     let payload: any = stream.getPatchPayload();
     expect(payload.mdo_type).toEqual('S');
-    expect(payload.input_unit).toEqual(10);
+    expect(payload.input_unit).toEqual('in--water-meter-volume--gallons');
     expect(payload.output_unit).toBeUndefined();
     expect(payload.multiplication_factor).toEqual(1);
     expect(payload.division_factor).toEqual(10);

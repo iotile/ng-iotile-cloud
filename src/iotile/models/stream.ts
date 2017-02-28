@@ -57,10 +57,10 @@ export class Stream {
     }
     let payload: any = Object.assign(basic, this.mdo.getPatchPayload());
     if (this.inputUnit) {
-      payload['input_unit'] = this.inputUnit.id;
+      payload['input_unit'] = this.inputUnit.slug;
     }
     if (this.outputUnit) {
-      payload['output_unit'] = this.outputUnit.id;
+      payload['output_unit'] = this.outputUnit.slug;
     }
     return payload;
   }

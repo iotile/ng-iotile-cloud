@@ -8,6 +8,7 @@ export class Variable {
   public name: string;
   public units: string;
   public appOnly: boolean;
+  public webOnly: boolean;
   public sysVar: boolean;
   public about: string;
   public mdo: Mdo;
@@ -21,7 +22,8 @@ export class Variable {
     this.lid = data.lid;
     this.name = data.name || data.slug;
     this.units = data.units;
-    this.appOnly = data.app_only;
+    this.appOnly = data.app_only || false;
+    this.webOnly = data.web_only || false;
     this.sysVar = data.project === null;
     this.about = data.about || '';
     this.mdo = new Mdo(data);
@@ -46,15 +48,17 @@ export class Variable {
 
   public getPatchPayload(): any {
     let basic: any = {
-      name: this.name,
-      units: this.units
+      name: this.name
     }
     let payload: any = Object.assign(basic, this.mdo.getPatchPayload());
+    if (this.units) {
+      payload['units'] = this.units;
+    }
     if (this.inputUnit) {
-      payload['input_unit'] = this.inputUnit.id;
+      payload['input_unit'] = this.inputUnit.slug;
     }
     if (this.outputUnit) {
-      payload['output_unit'] = this.outputUnit.id;
+      payload['output_unit'] = this.outputUnit.slug;
     }
     if (this.about) {
       payload['about'] = this.about;

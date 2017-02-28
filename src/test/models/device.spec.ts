@@ -10,7 +10,6 @@ describe('DeviceTest', () => {
         "id": 129,
         "slug": "d--0000-0000-0000-0081",
         "gid": "0000-0000-0000-0081",
-        "iotile_device_id": "0000-0000040D",
         "label": "1037 / 40D",
         "active": true,
         "project": "b83c6bd6-0f3f-4890-a390-d9d29d142966",

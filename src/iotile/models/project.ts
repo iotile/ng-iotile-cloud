@@ -3,6 +3,7 @@ import { Device } from './device';
 import { Stream } from './stream';
 import { Variable } from './variable';
 import { Mdo } from './mdo';
+import { DataPoint } from './datapoint';
 
 export interface VariableDictionary {
     [ index: string ]: Variable
@@ -73,32 +74,46 @@ export class Project {
       return;
     }
 
-    public computeValue(stream: Stream, value: number): number {
+    public computeValue(stream: Stream, data: DataPoint): number {
       let result: number;
       let mdo: Mdo;
       if (!stream) {
         return result;
       }
-      let varSlug: string = stream.variable;
-      let varObj: Variable = this.variableMap[varSlug];
-      switch (stream.mdoType) {
-        case 'S':
-          mdo = stream.mdo;
+      if (data.value) {
+        // New Scheme
+        // Only the outputUnits are used for display purposes
+        if (stream.outputUnit) {
+          mdo = stream.outputUnit.mdo;
           if (mdo) {
-            result = mdo.computeValue(value);
+            result = mdo.computeValue(data.value);
           }
-          break;
-        case 'V':
-          if (varObj && varObj.mdo) {
-            mdo = varObj.mdo;
-            result = mdo.computeValue(value);
-          }
-          break;
-        case 'P':
-          break;
-        default:
-          console.log('ERROR: Illegal mdoType: ' + stream.mdoType);
-          break;
+        } else {
+          result = data.outValue;
+        }
+      } else {
+        // Old Scheme
+        let varSlug: string = stream.variable;
+        let varObj: Variable = this.variableMap[varSlug];
+        switch (stream.mdoType) {
+          case 'S':
+            mdo = stream.mdo;
+            if (mdo) {
+              result = mdo.computeValue(data.rawValue);
+            }
+            break;
+          case 'V':
+            if (varObj && varObj.mdo) {
+              mdo = varObj.mdo;
+              result = mdo.computeValue(data.rawValue);
+            }
+            break;
+          case 'P':
+            break;
+          default:
+            console.log('ERROR: Illegal mdoType: ' + stream.mdoType);
+            break;
+        }
       }
       // console.log('Processing ' + value + ' for ' + varSlug + ': ' + result);
       return result;
