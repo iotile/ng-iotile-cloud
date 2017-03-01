@@ -1,3 +1,8 @@
+
+export interface MdoDictionary {
+    [ index: string ]: Mdo;
+}
+
 export class Mdo {
   public m: number;
   public d: number;
