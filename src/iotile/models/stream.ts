@@ -14,6 +14,7 @@ export class Stream {
   public inputUnit: Unit;
   public outputUnit: Unit; 
   public stats: Stats;
+  public dataLabel: string;
   public data: Array<DataPoint>;
 
   constructor(data: any = {}) {
@@ -24,6 +25,9 @@ export class Stream {
     this.mdoType = data.mdo_type || null;
     this.mdo = new Mdo(data);
     this.stats = new Stats();
+    if (data.data_label) {
+      this.dataLabel = data.data_label;
+    }
     this.data;
     if (data.input_unit) {
       this.inputUnit = new Unit(data.input_unit);
@@ -61,6 +65,9 @@ export class Stream {
     }
     if (this.outputUnit) {
       payload['output_unit'] = this.outputUnit.slug;
+    }
+    if (this.dataLabel) {
+      payload['data_label'] = this.dataLabel;
     }
     return payload;
   }

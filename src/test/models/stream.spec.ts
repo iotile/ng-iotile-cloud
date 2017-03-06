@@ -8,6 +8,7 @@ const dummyStream0 = new Stream({
       device: "d--0000-0000-0000-00ae",
       variable: "v--0000-0010--5001",
       mdo_type: "S",
+      "data_label": "My Data",
       input_unit: {
         "slug": "in--water-meter-volume--gallons",
         "unit_full": "Gallons",
@@ -34,6 +35,7 @@ describe('StreamTest', () => {
     expect(stream.device).toEqual('d--0000-0000-0000-00ae');
     expect(stream.project).toEqual('p--0000-0010');
     expect(stream.mdoType).toEqual('S');
+    expect(stream.dataLabel).toEqual('My Data');
     expect(stream.mdo.d).toEqual(10);
     expect(stream.mdo.computeValue(200)).toBe(25.0);
 

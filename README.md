@@ -53,6 +53,13 @@ To have karma to watch for changes:
 npm run test:w
 ```
 
+## release
+```
+npm run clean
+npm run build
+npm publish
+```
+
 ## Using Docker
 
 ```
