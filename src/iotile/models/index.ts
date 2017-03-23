@@ -11,3 +11,5 @@ export * from './variable';
 export * from './mdo';
 export * from './unit';
 export * from './vartype';
+export * from './displaywidget';
+export * from './sensorgraph';

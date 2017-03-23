@@ -38,4 +38,28 @@ export class VarType {
       });
     }
   }
+
+  public getInputUnitForSlug(slug): Unit {
+    let resultingUnit: Unit;
+
+    this.availableInputUnits.forEach(u => {
+      if (u.slug === slug) {
+        resultingUnit = u;
+      }
+    });
+
+    return resultingUnit;
+  }
+
+  public getOutputUnitForSlug(slug): Unit {
+    let resultingUnit: Unit;
+
+    this.availableOutputUnits.forEach(u => {
+      if (u.slug === slug) {
+        resultingUnit = u;
+      }
+    });
+
+    return resultingUnit;
+  }
 }

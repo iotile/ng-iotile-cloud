@@ -15,6 +15,7 @@ import {
   Stream,
   Stats,
   DataPoint,
+  SensorGraph,
   DataFilterArgs
 } from './models';
 
@@ -113,6 +114,21 @@ export class CloudService {
           user = new User(rawData);
         }
         return user;
+      });
+  }
+
+  public getSensorGraphs(): Observable<any> {
+    // return an observable
+    return this._get('/sg/')
+      .publishReplay(1).refCount()
+      .map((sgs: Array<any>) => {
+        let result: Array<SensorGraph> = [];
+        if (sgs) {
+          sgs['results'].forEach((item) => {
+            result.push(
+              new SensorGraph(item));
+          });
+        }
       });
   }
 
@@ -227,6 +243,25 @@ export class CloudService {
     return this._get(url)
       .map((data: any) => {
         return new VarType(data);
+      });
+  }
+
+  public getAllVarTypes(): Observable<any>  {
+
+    // return an observable
+    let url: string = '/vartype/';
+    // console.log(url);
+    return this._get(url)
+      .map((data: Array<any>) => {
+        let result: Array<VarType> = [];
+        if (data) {
+          // console.log(data);
+          data['results'].forEach((item) => {
+            result.push(
+              new VarType(item));
+          });
+        }
+        return result;
       });
   }
 
