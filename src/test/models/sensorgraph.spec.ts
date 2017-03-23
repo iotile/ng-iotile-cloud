@@ -242,21 +242,4 @@ const dummySg3 = new SensorGraph({
     expect(sg2.displayWidgetTemplates.length).toEqual(0);
   });
 
-  it('check adding sensorgraph to Project', () => {
-    let proj: Project = new Project({
-      "id": "84e3869d-1fdb-4203-9b69-18b417e2b0e0",
-      "name": "My Project",
-      "slug": "p--0000-0012",
-      "gid": "0000-0012",
-      "org": "my-org",
-      "created_by": "david"
-    });
-    let sg1: SensorGraph = dummySg1;
-    let sg2: SensorGraph = dummySg2;
-    proj.addSensorGraph(sg1);
-    proj.addSensorGraph(sg2);
-    expect(proj.sensorGraphs.length).toEqual(2);
-    expect(proj.sensorGraphMap[sg1.slug].slug).toEqual(sg1.slug);
-    expect(proj.sensorGraphMap[sg2.slug].name).toEqual('Water Meter');
-  });
 });

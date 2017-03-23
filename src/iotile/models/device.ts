@@ -21,4 +21,17 @@ export class Device {
     this.template = data.template || '';
     this.sensorGraphSlug = data.sg;
   }
+
+  public getPatchPayload(): any {
+    let payload: any = {
+      label: this.label
+    }
+    if (this.lat) {
+      payload.lat = this.lat;
+    }
+    if (this.lng) {
+      payload.lon = this.lng;
+    }
+    return payload;
+  }
 }
