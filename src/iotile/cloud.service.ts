@@ -132,6 +132,14 @@ export class CloudService {
       });
   }
 
+  public getSensorGraph(slug: string): Observable<SensorGraph> {
+    // return an observable
+    return this._get('/sg/' + slug + '/')
+      .map((data: any) => {
+        return new SensorGraph(data);
+      });
+  }
+
   public getOrgs(): Observable<any> {
     // return an observable
     return this._get('/org/')
