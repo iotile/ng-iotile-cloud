@@ -15,6 +15,7 @@ import {
   Stream,
   Stats,
   DataPoint,
+  SensorGraph,
   DataFilterArgs
 } from './models';
 
@@ -113,6 +114,21 @@ export class CloudService {
           user = new User(rawData);
         }
         return user;
+      });
+  }
+
+  public getSensorGraphs(): Observable<any> {
+    // return an observable
+    return this._get('/sg/')
+      .publishReplay(1).refCount()
+      .map((sgs: Array<any>) => {
+        let result: Array<SensorGraph> = [];
+        if (sgs) {
+          sgs['results'].forEach((item) => {
+            result.push(
+              new SensorGraph(item));
+          });
+        }
       });
   }
 
