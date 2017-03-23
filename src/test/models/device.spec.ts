@@ -13,7 +13,7 @@ describe('DeviceTest', () => {
     "label": "The Device",
     "active": true,
     "project": "b83c6bd6-0f3f-4890-a390-d9d29d142966",
-    "org": "netafim",
+    "org": "my-org",
     "template": "1d1p2bt101-v0-1-0",
     "firmware_versions": [],
     "sg": "single-soil-moisture-v1-1-0",

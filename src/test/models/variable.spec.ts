@@ -40,7 +40,7 @@ const dummyVariable: Variable = new Variable({
     }
   },
   "project": "1b5bfb6c-333b-4a57-9c7e-cb9dc4bc1b7f",
-  "org": "arch-systems",
+  "org": "my-org",
   "about": "Water flow rate (every 10min)",
   "created_on": "2017-01-22T23:29:45.813720Z",
   "units": "Gallons",
