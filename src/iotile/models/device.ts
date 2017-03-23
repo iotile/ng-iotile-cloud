@@ -1,3 +1,4 @@
+import { SensorGraph } from './sensorgraph';
 
 export class Device {
   public id: number;
@@ -7,6 +8,8 @@ export class Device {
   public lat: number;
   public lng: number;
   public template: string;
+  public sensorGraphSlug: string;
+  public sg: SensorGraph;
 
   constructor(data: any = {}) {
     this.id = data.id;
@@ -16,5 +19,6 @@ export class Device {
     this.lat = parseFloat(data.lat || 0);
     this.lng = parseFloat(data.lon || 0);
     this.template = data.template || '';
+    this.sensorGraphSlug = data.sg;
   }
 }

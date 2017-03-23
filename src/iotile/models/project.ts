@@ -4,7 +4,7 @@ import { Stream } from './stream';
 import { Variable } from './variable';
 import { Mdo } from './mdo';
 import { DataPoint } from './datapoint';
-import { SensorGraph, SensorGraphDictionary} from './sensorgraph';
+import { SensorGraph, SensorGraphDictionary } from './sensorgraph';
 
 export interface VariableDictionary {
     [ index: string ]: Variable
