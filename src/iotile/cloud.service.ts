@@ -246,6 +246,25 @@ export class CloudService {
       });
   }
 
+  public getAllVarTypes(): Observable<any>  {
+
+    // return an observable
+    let url: string = '/vartype/';
+    // console.log(url);
+    return this._get(url)
+      .map((data: Array<any>) => {
+        let result: Array<VarType> = [];
+        if (data) {
+          // console.log(data);
+          data['results'].forEach((item) => {
+            result.push(
+              new VarType(item));
+          });
+        }
+        return result;
+      });
+  }
+
   public getVariables(project: Project): Observable<any>  {
 
     // return an observable
