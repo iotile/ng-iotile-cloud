@@ -9,36 +9,40 @@ const dummyVarType: VarType = new VarType({
     "name": "Liquid Volume",
     "slug": "liquid-volume",
     "available_input_units": [
-        {
-            "unit_full": "Gallons",
-            "unit_short": "g",
-            "m": 378,
-            "d": 100,
-            "o": 0.0
-        },
-        {
-            "unit_full": "Liters",
-            "unit_short": "l",
-            "m": 1,
-            "d": 1,
-            "o": 0.0
-        }
+      {
+        "slug": "in--water-meter-volume--gallons",
+        "unit_full": "Gallons",
+        "unit_short": "g",
+        "m": 378,
+        "d": 100,
+        "o": 0.0
+      },
+      {
+        "slug": "in--water-meter-volume--liters",
+        "unit_full": "Liters",
+        "unit_short": "l",
+        "m": 1,
+        "d": 1,
+        "o": 0.0
+      }
     ],
     "available_output_units": [
-        {
-            "unit_full": "Foo",
-            "unit_short": "g",
-            "m": 100,
-            "d": 378,
-            "o": 0.0
-        },
-        {
-            "unit_full": "Bar",
-            "unit_short": "l",
-            "m": 1,
-            "d": 1,
-            "o": 0.0
-        }
+      {
+        "slug": "out--water-meter-volume--foo",
+        "unit_full": "Foo",
+        "unit_short": "g",
+        "m": 100,
+        "d": 378,
+        "o": 0.0
+      },
+      {
+        "slug": "out--water-meter-volume--bar",
+        "unit_full": "Bar",
+        "unit_short": "l",
+        "m": 1,
+        "d": 1,
+        "o": 0.0
+      }
     ],
     "storage_units_full": "Liters",
     "storage_units_short": "l"
@@ -84,6 +88,20 @@ describe('VarTypeTest', () => {
 
     expect(varTypeDict[varType1.slug].name).toEqual('Liquid Volume');
     expect(varTypeDict[varType2.slug].name).toEqual('Liquid Flow');
+  });
+
+  it('check getInputUnitForSlug', () => {
+    let varType: VarType = dummyVarType;
+    let u1: Unit = varType.getInputUnitForSlug('in--water-meter-volume--liters');
+    expect(u1.fullName).toEqual('Liters');
+    expect(u1.shortName).toEqual('l');
+  });
+
+  it('check getOutputUnitForSlug', () => {
+    let varType: VarType = dummyVarType;
+    let u1: Unit = varType.getOutputUnitForSlug('out--water-meter-volume--foo');
+    expect(u1.fullName).toEqual('Foo');
+    expect(u1.shortName).toEqual('g');
   });
 
 });
