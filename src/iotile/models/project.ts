@@ -4,7 +4,6 @@ import { Stream } from './stream';
 import { Variable } from './variable';
 import { Mdo } from './mdo';
 import { DataPoint } from './datapoint';
-import { SensorGraph, SensorGraphDictionary} from './sensorgraph';
 
 export interface VariableDictionary {
     [ index: string ]: Variable
@@ -24,16 +23,12 @@ export class Project {
     public streams: Array<Stream>;
     public variables: Array<Variable>;
     public variableMap: VariableDictionary;
-    public sensorGraphs: Array<SensorGraph>;
-    public sensorGraphMap: SensorGraphDictionary;
 
     constructor(data: any = {}) {
       this.id = data.id;
       this.gid = data.gid;
       this.name = data.name;
       this.orgSlug = data.org;
-      this.sensorGraphs = [];
-      this.sensorGraphMap = {};
       
       let page: any = data.page;
       if (page) {
@@ -46,15 +41,6 @@ export class Project {
         this.pageTemplateSlug = 'default';
         this.pageTemplateLabel = 'Dashboard';
       }
-    }
-
-    public addSensorGraph(sg: SensorGraph): void {
-      this.sensorGraphs.push(sg);
-      this.sensorGraphMap[sg.slug] = sg;
-    }
-
-    public getSensorGraph(slug: string): SensorGraph {
-      return this.sensorGraphMap[slug];
     }
 
     public addDevices(devices: Array<Device>): void {
