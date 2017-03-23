@@ -5,6 +5,8 @@ import { Org } from './models/org';
 import { Project } from './models/project';
 import { VarType } from './models/vartype';
 import { SensorGraph } from './models/sensorgraph';
+import { Variable } from './models/variable';
+import { Device } from './models/device';
 
 export class CloudServiceMock {
 
@@ -12,24 +14,45 @@ export class CloudServiceMock {
     let orgs: Array<Org> = [];
     let o0: Org = new Org({
       name: 'My Org',
-      slug: 'my-org'
+      slug: 'my-org',
+      avatar: {
+        thumbnail: 'https://image.com/thumbnail.jpg',
+        tiny: 'https://image.com/tiny.jpg'
+      }
     });
     orgs.push(o0);
+    let o1: Org = new Org({
+      name: 'His Org',
+      slug: 'his-org',
+      avatar: {
+        thumbnail: 'https://image.com/thumbnail.jpg',
+        tiny: 'https://image.com/tiny.jpg'
+      }
+    });
+    orgs.push(o1);
     return Observable.of(orgs);
   }
 
   public getProjects(): Observable<any> {
     let projects: Array<Project> = [];
     let project0: Project = new Project({
-      id: 'abc',
+      id: 'b83c6bd6-0f3f-4890-a390-d9d29d142966',
       gid: '0000-0001',
       name: 'My Project',
-      org: 'my-org'
+      org: 'my-org',
+      slug: 'p--0000-0001',
+      about: '',
+      page: {
+        'slug': 'water-meter',
+        'label': 'Water Meter',
+        'id': 2
+      }
     });
     projects.push(project0);
     let project1: Project = new Project({
       id: 'def',
       gid: '0000-0002',
+      slug: 'p--0000-0002',
       name: 'His Project',
       org: 'his-org'
     });
@@ -257,6 +280,81 @@ export class CloudServiceMock {
       'created_on': '2017-03-10T04:16:03.061729Z'
     });
     return Observable.of(sg);
+  }
+
+  public getVariables(project: Project): Observable<any> {
+    let vars: Array<Variable> = [];
+    let var1: Variable = new Variable({
+      'id': 'e83cdfaf-144e-478a-92b2-b05a52bea2ae',
+      'name': 'IO 1',
+      'lid': 20481,
+      'var_type': 'water-meter-volume',
+      'input_unit': {
+        'slug': 'in--water-meter-volume--gallons',
+        'unit_full': 'Gallons',
+        'unit_short': 'g',
+        'm': 378,
+        'd': 100,
+        'o': 0.0
+      },
+      'output_unit': {
+        'slug': 'out--water-meter-volume--liters',
+        'unit_full': 'Liters',
+        'unit_short': 'l',
+        'm': 2,
+        'd': 1,
+        'o': 0.0,
+        'decimal_places': 2,
+        'derived_units': {
+          'rate': {
+            'lph': {
+              'd': 1,
+              'm': 6
+            },
+            'lpm': {
+              'd': 10,
+              'm': 1
+            }
+          }
+        }
+      },
+      'project': 'b83c6bd6-0f3f-4890-a390-d9d29d142966',
+      'org': 'my-org',
+      'about': 'Water flow rate (every 10min)',
+      'created_on': '2017-01-22T23:29:45.813720Z',
+      'units': 'Gallons',
+      'multiplication_factor': 1,
+      'division_factor': 10,
+      'offset': 5.0,
+      'decimal_places': 2,
+      'mdo_label': '',
+      'type': 'Num',
+      'app_only': false,
+      'slug': 'v--0000-0001--5001'
+    });
+    vars.push(var1);
+    return Observable.of(vars);
+  }
+
+  public getDevices(project: Project): Observable<any> {
+    let devs: Array<Device> = [];
+    let device1 = new Device({
+      'id': 129,
+      'slug': 'd--0000-0000-0000-0081',
+      'gid': '0000-0000-0000-0081',
+      'label': 'The Device',
+      'active': true,
+      'project': 'b83c6bd6-0f3f-4890-a390-d9d29d142966',
+      'org': 'my-org',
+      'template': '1d1p2bt101-v0-1-0',
+      'firmware_versions': [],
+      'sg': 'single-soil-moisture-v1-1-0',
+      'lat': 2.345676,
+      'lon': -12.12345,
+      'created_on': '2016-12-05T21:20:53.500516Z'
+    });
+    devs.push(device1);
+    return Observable.of(devs);
   }
 
 }
