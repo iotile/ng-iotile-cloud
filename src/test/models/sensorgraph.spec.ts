@@ -198,7 +198,7 @@ const dummySg2 = new SensorGraph({
     "patch_version": 0,
     "created_on": "2017-03-10T04:16:03.061729Z"
   });
-const dummySg3 = new SensorGraph({
+  const dummySg3 = new SensorGraph({
     "id": 2,
     "name": "Water Meter",
     "slug": "water-meter-v0-1-0",
@@ -207,6 +207,23 @@ const dummySg3 = new SensorGraph({
     "variable_templates": [],
     "display_widget_templates": [],
     "ui_extra": null,
+    "major_version": 0,
+    "minor_version": 1,
+    "patch_version": 0,
+    "created_on": "2017-03-10T04:16:03.061729Z"
+  });
+  const dummySg4 = new SensorGraph({
+    "id": 2,
+    "name": "Water Meter",
+    "slug": "water-meter-v0-1-0",
+    "org": "arch-systems",
+    "project_template": "water-meter-template-v0-0-0",
+    "variable_templates": [],
+    "display_widget_templates": [],
+    "ui_extra": {
+      "mobile": { "a": 1 },
+      "web": { "a": 2}
+    },
     "major_version": 0,
     "minor_version": 1,
     "patch_version": 0,
@@ -240,6 +257,11 @@ const dummySg3 = new SensorGraph({
   it('check SensorGraph without available templates', () => {
     let sg2: SensorGraph = dummySg2;
     expect(sg2.displayWidgetTemplates.length).toEqual(0);
+  });
+  it('check SensorGraph.getUiExtra', () => {
+    let sg4: SensorGraph = dummySg4;
+    expect(sg4.getUiExtra('mobile').a).toEqual(1);
+    expect(sg4.getUiExtra('web').a).toEqual(2);
   });
 
 });
