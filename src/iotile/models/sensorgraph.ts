@@ -51,7 +51,7 @@ export class SensorGraph {
 
   public getUiExtra(type: string): any {
     if (this.uiExtra && this.uiExtra[type]) {
-      return this.uiExtra.mobile;
+      return this.uiExtra[type];
     }
     return null;
   };
