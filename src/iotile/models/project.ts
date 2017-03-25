@@ -1,13 +1,9 @@
 import { Org } from './org';
-import { Device } from './device';
+import { Device, DeviceDictionary } from './device';
 import { Stream } from './stream';
-import { Variable } from './variable';
+import { Variable, VariableDictionary } from './variable';
 import { Mdo } from './mdo';
 import { DataPoint } from './datapoint';
-
-export interface VariableDictionary {
-    [ index: string ]: Variable
-}
 
 export class Project {
     public id: string;
@@ -20,6 +16,7 @@ export class Project {
 
     public org: Org;
     public devices: Array<Device>;
+    public deviceMap: DeviceDictionary;
     public streams: Array<Stream>;
     public variables: Array<Variable>;
     public variableMap: VariableDictionary;
@@ -45,6 +42,14 @@ export class Project {
 
     public addDevices(devices: Array<Device>): void {
       this.devices = devices;
+      this.deviceMap = {};
+      this.devices.forEach(d => {
+        this.deviceMap[d.slug] = d;
+      });
+    }
+
+    public getDevice(slug): Device {
+      return this.deviceMap[slug];
     }
 
     public addStreams(streams: Array<Stream>): void {

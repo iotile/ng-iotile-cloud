@@ -1,6 +1,10 @@
 import { Mdo } from './mdo';
 import { Unit } from './unit';
 
+export interface VariableDictionary {
+    [ index: string ]: Variable
+}
+
 export class Variable {
   public id: number;
   public slug: string;

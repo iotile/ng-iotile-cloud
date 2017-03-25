@@ -1,5 +1,9 @@
 import { SensorGraph } from './sensorgraph';
 
+export interface DeviceDictionary {
+    [ index: string ]: Device
+}
+
 export class Device {
   public id: number;
   public slug: string;
