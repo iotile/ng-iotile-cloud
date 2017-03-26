@@ -28,6 +28,20 @@ export class Unit {
     }
   }
 
+  public setFromUnit(src: Unit) {
+    this.mdo.setFromMdo(src.mdo);
+    this.fullName = src.fullName;
+    this.shortName = src.shortName;
+    this.slug = src.slug;
+    if ('decimalPlaces' in src) {
+      this.decimalPlaces = src.decimalPlaces;
+    }
+
+    if ('derivedUnits' in src) {
+      this.derivedUnits = src.derivedUnits;
+    }
+  }
+
   public deriveUnitTypes(): string[] {
     var keySet: string[] = [];
 

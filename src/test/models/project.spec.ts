@@ -30,6 +30,7 @@ describe('ProjectTest', () => {
     let proj: Project = dummyProject;
     expect(proj.id).toEqual('84e3869d-1fdb-4203-9b69-18b417e2b0e0');
     expect(proj.gid).toEqual('0000-0012');
+    expect(proj.slug).toEqual('p--0000-0012');
     expect(proj.name).toEqual('My Project');
     expect(proj.orgSlug).toEqual('my-org');
     expect(proj.pageTemplateId).toEqual(2);

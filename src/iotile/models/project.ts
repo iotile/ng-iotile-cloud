@@ -8,6 +8,7 @@ import { DataPoint } from './datapoint';
 export class Project {
     public id: string;
     public gid: string;
+    public slug: string;
     public name: string;
     public orgSlug: string;
     public pageTemplateId: number;
@@ -24,6 +25,7 @@ export class Project {
     constructor(data: any = {}) {
       this.id = data.id;
       this.gid = data.gid;
+      this.slug = data.slug;
       this.name = data.name;
       this.orgSlug = data.org;
       

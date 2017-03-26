@@ -70,4 +70,17 @@ describe('UnitsTest', () => {
     expect(derivedUnits['rate']['lpm'].m).toEqual(2);
   });
 
+  it('check setFromUnit', () => {
+    let srcUnit: Unit = outputUnit;
+    let dstUnit: Unit = new Unit();
+    dstUnit.setFromUnit(srcUnit);
+    expect(dstUnit.slug).toEqual('out--water-meter-volume--liters');
+    expect(dstUnit.fullName).toEqual('Liters');
+    expect(dstUnit.shortName).toEqual('l');
+    expect(dstUnit.mdo.m).toEqual(2);
+    expect(dstUnit.mdo.d).toEqual(1);
+    expect(dstUnit.mdo.o).toBeUndefined();
+    expect(dstUnit.decimalPlaces).toEqual(2);
+  });
+
 });
