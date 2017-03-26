@@ -92,7 +92,7 @@ describe('SensorGraphTest', () => {
         "var_type": "water-meter-volume",
         "derived_unit_type": "",
         "show_in_app": false,
-        "show_in_web": false
+        "show_in_web": true
       },
       {
         "id": 2,
@@ -100,7 +100,7 @@ describe('SensorGraphTest', () => {
         "lid_hex": "5002",
         "var_type": "water-meter-volume",
         "derived_unit_type": "",
-        "show_in_app": false,
+        "show_in_app": true,
         "show_in_web": false
       },
       {
@@ -249,10 +249,12 @@ const dummySg2 = new SensorGraph({
     let sg: SensorGraph = dummySg1;
     expect(sg.displayWidgetTemplates.length).toEqual(4);
     let widget0 = sg.displayWidgetTemplates[0];
-    expect(widget0.show).toEqual(false);
+    expect(widget0.showInApp).toEqual(false);
+    expect(widget0.showInWeb).toEqual(true);
     expect(widget0.label).toEqual('IO 1');
     let widget3 = sg.displayWidgetTemplates[3];
-    expect(widget3.show).toEqual(true);
+    expect(widget3.showInApp).toEqual(true);
+    expect(widget3.showInWeb).toEqual(false);
   });
   it('check SensorGraph without available templates', () => {
     let sg2: SensorGraph = dummySg2;

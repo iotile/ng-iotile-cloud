@@ -3,6 +3,10 @@ import { DataPoint } from './datapoint';
 import { Mdo } from './mdo';
 import { Unit } from './unit';
 
+export interface StreamDictionary {
+    [ index: string ]: Stream
+}
+
 export class Stream {
   public slug: string;
   public variable: string;
