@@ -1,6 +1,6 @@
 import { Org } from './org';
 import { Device, DeviceDictionary } from './device';
-import { Stream } from './stream';
+import { Stream, StreamDictionary } from './stream';
 import { Variable, VariableDictionary } from './variable';
 import { Mdo } from './mdo';
 import { DataPoint } from './datapoint';
@@ -19,6 +19,7 @@ export class Project {
     public devices: Array<Device>;
     public deviceMap: DeviceDictionary;
     public streams: Array<Stream>;
+    public streamMap: StreamDictionary;
     public variables: Array<Variable>;
     public variableMap: VariableDictionary;
 
@@ -56,6 +57,14 @@ export class Project {
 
     public addStreams(streams: Array<Stream>): void {
       this.streams = streams;
+      this.streamMap = {};
+      this.streams.forEach(s => {
+        this.streamMap[s.slug] = s;
+      });
+    }
+
+    public getStream(slug): Stream {
+      return this.streamMap[slug];
     }
 
     public addVariables(variables: Array<Variable>): void {
