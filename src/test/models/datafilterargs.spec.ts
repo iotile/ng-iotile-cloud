@@ -8,14 +8,16 @@ describe('DataFilterArgsTest', () => {
   it('check buildFilterString() for dates', () => {
     let args: DataFilterArgs = new DataFilterArgs();
     expect(args).toBeTruthy();
-    expect(args.buildFilterString()).toEqual("?");
+    expect(args.buildFilterString()).toEqual('');
     args.startDate = new Date("2016-09-13T20:29:13.825000Z");
-    expect(args.buildFilterString()).toEqual("?&start=2016-09-13T20:29:13.825Z");
+    expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z");
     args = new DataFilterArgs();
     args.endDate = new Date("2016-10-13T20:29:13.825000Z");
-    expect(args.buildFilterString()).toEqual("?&end=2016-10-13T20:29:13.825Z");
+    expect(args.buildFilterString()).toEqual("?end=2016-10-13T20:29:13.825Z");
     args.startDate = new Date("2016-09-13T20:29:13.825000Z");
-    expect(args.buildFilterString()).toEqual("?&start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z");
+    expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z");
+    args.page = 2;
+    expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&page=2");
   });
 
   it('check buildFilterLabel() or dates', () => {
@@ -35,7 +37,7 @@ describe('DataFilterArgsTest', () => {
     let args: DataFilterArgs = new DataFilterArgs();
     expect(args).toBeTruthy();
     args.lastN = 10;
-    expect(args.buildFilterString()).toEqual("?&lastn=10");
+    expect(args.buildFilterString()).toEqual("?lastn=10");
     expect(args.buildFilterLabel()).toEqual(" last 10 entries");
   });
 });
