@@ -321,8 +321,19 @@ export class CloudService {
               new Device(item));
           });
         }
-        project.addDevices(result);
-        return result;
+        let sortedResults: Array<Device> = result.sort((a: Device, b: Device) => {
+          let nameA: string = a.label.toUpperCase() || a.slug;
+          let nameB: string = b.label.toUpperCase() || b.slug;
+          if (nameA < nameB) {
+            return -1;
+          } else if (nameA > nameB) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        project.addDevices(sortedResults);
+        return sortedResults;
       });
   }
 
