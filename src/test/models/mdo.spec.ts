@@ -30,6 +30,14 @@ describe('MdoTest', () => {
     expect(mdo.computeValue(5)).toBe(260);
   });
 
+  it('check limits to num decimals', () => {
+    let mdo: Mdo = new Mdo();
+    // Passing a 0.333... should limit to ten decimal points
+    mdo.setFromFactor(0.33333333333333, true); 
+    expect(mdo.m).toEqual(100000000);
+    expect(mdo.d).toEqual(33333333);
+  });
+
   it('check mdo.setFromMdo', () => {
     let src: Mdo = new Mdo();
     src.m = 100
