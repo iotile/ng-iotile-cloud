@@ -15,6 +15,7 @@ import {
   Stream,
   Stats,
   DataPoint,
+  DataPage,
   SensorGraph,
   DataFilterArgs
 } from './models';
@@ -50,7 +51,7 @@ export class CloudService {
     return new RequestOptions({ headers: headers });
   }
 
-  private _get(url: string): Observable<any> {
+  public _get(url: string): Observable<any> {
     let options: RequestOptions = this._getRequestOptions();
 
     return this._http.get(this._apiEndpoint + url, options)
@@ -378,24 +379,42 @@ export class CloudService {
       });
   }
 
-  public getStreamData(streamSlug: string, args: DataFilterArgs): Observable<Array<DataPoint>>  {
+  public getStreamData(stream: Stream, args: DataFilterArgs): Observable<Array<DataPoint>>  {
 
-    // return an observable
-    let url: string = '/stream/' + streamSlug + '/data/';
+    let url: string = '/stream/' + stream.slug + '/data/';
     url += args.buildFilterString();
+    console.debug('[CloudService] getStreamData ====> ' + url);
+    this._get(url).map((data: any) => {
+      let result: Array<DataPoint> = [];
+      if (data) {
+        data['results'].forEach((item) => {
+          result.push(new DataPoint(item));
+        });
+      }
+      let page: DataPage = new DataPage(1000, data['count'], args.page || 1);
+      page.data = result;
+      return page;
+    }).subscribe(
+      dataPage => {
+        // stream.data.concat(dataPage.data); TODO: Why is this not working
+        dataPage.data.forEach((item) => {
+          stream.data.push(item);
+        });
+        console.debug('[CloudService] getStreamData: SUBSCRIBE stream.data.length=' + stream.data.length);
 
-    // console.log(url);
-    return this._get(url)
-      .map((data: any) => {
-        let result: Array<DataPoint> = [];
-        if (data) {
-          data['results'].forEach((item) => {
-            result.push(
-              new DataPoint(item));
-          });
+        stream.returnedStreamData.next(dataPage.data);
+        if (dataPage.pageCount() > dataPage.page) {
+          args.page = dataPage.page + 1;
+          console.debug('[CloudService] getStreamData Settings args.page=' + args.page);
+          this.getStreamData(stream, args);
+        } else {
+          // call complete to close this stream
+          console.log('[CloudService] getStreamData COMPLETE. stream.data.length=' + stream.data.length);
+          stream.returnedStreamData.complete();
         }
-        return result;
-      });
+      }
+    );
+    return stream.returnedStreamData;
   }
 
   public uploadStreamData(payload: {}): Observable<any> {

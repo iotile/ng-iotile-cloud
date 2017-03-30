@@ -3,19 +3,28 @@ export class DataFilterArgs {
   public startDate: Date;
   public endDate: Date;
   public lastN: number;
+  public page: number;
 
   public buildFilterString(): string {
-    let dataFilter: string = '?';
+    
+    let parameters: Array<string> = [];
     if (this.startDate) {
-      dataFilter += '&start=' + this.startDate.toISOString();
+      parameters.push('start=' + this.startDate.toISOString());
     }
     if (this.endDate) {
-      dataFilter += '&end=' + this.endDate.toISOString();
+      parameters.push('end=' + this.endDate.toISOString());
     }
     if (this.lastN) {
-      dataFilter += '&lastn=' + this.lastN;
+      parameters.push('lastn=' + this.lastN);
     }
-    return dataFilter;
+    if (this.page) {
+      parameters.push('page=' + this.page);
+    }
+    if (parameters.length) {
+      let dataFilter: string = '?' + parameters.join('&');
+      return dataFilter;
+    }
+    return '';
   }
 
   public buildFilterLabel(): string {
