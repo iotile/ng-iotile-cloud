@@ -391,7 +391,7 @@ export class CloudService {
           result.push(new DataPoint(item));
         });
       }
-      let page: DataPage = new DataPage(100, data['count'], args.page || 1);
+      let page: DataPage = new DataPage(1000, data['count'], args.page || 1);
       page.data = result;
       return page;
     }).subscribe(

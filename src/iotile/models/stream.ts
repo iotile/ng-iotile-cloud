@@ -66,6 +66,11 @@ export class Stream {
     return '';
   }
 
+  public resetData(): void {
+    this.data = [];
+    this.returnedStreamData = new AsyncSubject();
+  }
+
   public getPatchPayload(): any {
     let basic: any = {
       mdo_type: this.mdoType
