@@ -1,3 +1,19 @@
+export class DataPage {
+  public pageSize: number;
+  public totalCount: number;
+  public page: number;
+  public data: Array<DataPoint>;
+
+  constructor(pageSize: number, count:number, thisPage: number) {
+    this.pageSize = pageSize;
+    this.totalCount = count;
+    this.page = thisPage;
+  }
+
+  public pageCount (): number {
+    return this.totalCount / this.pageSize;
+  }
+}
 
 export class DataPoint {
     public timestamp: Date;
