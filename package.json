@@ -1,6 +1,6 @@
 {
   "name": "ng2-iotile-cloud",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Angular IOTile Cloud interface",
   "main": "ng2-iotile-cloud.js",
   "scripts": {
