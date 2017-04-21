@@ -1,5 +1,4 @@
 'use strict';
-
 import { Org } from '../../iotile/models/org';
 
 describe('OrgTest', () => {
@@ -21,6 +20,15 @@ describe('OrgTest', () => {
     expect(org.name).toEqual('My Org');
     expect(org.tinyUrl).toEqual('https://image.com/tiny.jpg');
     expect(org.thumbnailUrl).toEqual('https://image.com/thumbnail.jpg');
+  });
+
+  it('check org.getPatchPayload', () => {
+    let org: Org = new Org({
+      name: 'My New Org'
+    });
+
+    let payload: any = org.getPatchPayload();
+    expect(payload.name).toEqual('My New Org');
   });
 
 });

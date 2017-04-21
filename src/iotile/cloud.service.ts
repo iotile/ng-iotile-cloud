@@ -70,6 +70,16 @@ export class CloudService {
       });
   }
 
+  private _post(url: string, payload: any): Observable<any>  {
+    let options: RequestOptions = this._getRequestOptions();
+    // console.log(url);
+    return this._http.post(this._apiEndpoint + url, payload, options)
+      .map((responseData) => {
+        console.log('_post() responseData', url, responseData);
+        return responseData.json();
+      });
+  }
+
   public setApiEndPoint (url: string): void {
     this._apiEndpoint = url;
   }
@@ -162,6 +172,18 @@ export class CloudService {
             return 0;
           }
         });
+      });
+  }
+
+  public postOrg(org: Org): Observable<Org>  {
+    // return an observable
+    let orgSlug: string = org.slug;
+    let url: string = '/org/' + orgSlug + '/';
+    let payload: any = org.getPatchPayload();
+    // console.log(url);
+    return this._post(url, payload)
+      .map((data: any) => {
+        return new Org(data);
       });
   }
 

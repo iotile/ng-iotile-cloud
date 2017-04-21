@@ -13,4 +13,12 @@ export class Org {
       this.tinyUrl = data.avatar.tiny;
     }
   }
+
+  public getPatchPayload(): any {
+    let payload: any = {
+      name: this.name
+    }
+    return payload;
+  }
+
 }
