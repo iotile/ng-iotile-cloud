@@ -177,11 +177,8 @@ export class CloudService {
 
   public postOrg(org: Org): Observable<Org>  {
     // return an observable
-    let orgSlug: string = org.slug;
-    let url: string = '/org/' + orgSlug + '/';
     let payload: any = org.getPatchPayload();
-    // console.log(url);
-    return this._post(url, payload)
+    return this._post('/org/', payload)
       .map((data: any) => {
         return new Org(data);
       });
