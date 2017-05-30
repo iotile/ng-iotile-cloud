@@ -4,9 +4,10 @@ export class DataFilterArgs {
   public endDate: Date;
   public lastN: number;
   public page: number;
+  public streamerId: number;
 
   public buildFilterString(): string {
-    
+
     let parameters: Array<string> = [];
     if (this.startDate) {
       parameters.push('start=' + this.startDate.toISOString());
@@ -19,6 +20,9 @@ export class DataFilterArgs {
     }
     if (this.page) {
       parameters.push('page=' + this.page);
+    }
+    if (this.streamerId) {
+      parameters.push('streamer_id=' + this.streamerId);
     }
     if (parameters.length) {
       let dataFilter: string = '?' + parameters.join('&');

@@ -18,6 +18,8 @@ describe('DataFilterArgsTest', () => {
     expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z");
     args.page = 2;
     expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&page=2");
+    args.streamerId = 3793;
+    expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&page=2&streamer_id=3793");
   });
 
   it('check buildFilterLabel() or dates', () => {
