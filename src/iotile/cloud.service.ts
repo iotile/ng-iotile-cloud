@@ -411,7 +411,7 @@ export class CloudService {
 
   public getStreamData(stream: Stream, args: DataFilterArgs): Observable<Array<DataPoint>>  {
 
-    let url: string = '/stream/' + stream.slug + '/data/';
+    let url: string = '/filter?=' + stream.slug;
     url += args.buildFilterString();
     console.debug('[CloudService] getStreamData ====> ' + url);
     this._get(url).map((data: any) => {
