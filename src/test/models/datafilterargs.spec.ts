@@ -20,16 +20,33 @@ describe('DataFilterArgsTest', () => {
     expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&page=2");
   });
 
-  it('check buildFilterString() for startStreamerId', () => {
-    let args: DataFilterArgs = new DataFilterArgs();
-    args.startStreamerId = 2412;
-    expect(args.buildFilterString()).toEqual("?streamer_id_0=2412");
+  describe('check buildFilterString()', () => {
+    let streamSlugMock = 's--0000-0000--0000-0000-0000--5001';
+
+    it ('should build filter', () => {
+      let args = new DataFilterArgs();
+      args.filter = streamSlugMock;
+      expect(args.buildFilterString()).toEqual(`?filter=${streamSlugMock}`);
+    });
+
+    it('should build startStreamerId', () => {
+      let args = new DataFilterArgs();
+      args.filter = streamSlugMock;
+      args.startStreamerId = 2412;
+      expect(args.buildFilterString()).toEqual(`?filter=${streamSlugMock}&streamer_id_0=${args.startStreamerId}`);
+    });
+
+    it('should build endStreamerId', () => {
+      let args = new DataFilterArgs();
+      args.filter = streamSlugMock;
+      args.endStreamerId = 3793;
+      expect(args.buildFilterString()).toEqual(`?filter=${streamSlugMock}&streamer_id_1=${args.endStreamerId}`);
+    });
   });
 
   it('check buildFilterString() for endStreamerId', () => {
     let args: DataFilterArgs = new DataFilterArgs();
-    args.endStreamerId = 3793;
-    expect(args.buildFilterString()).toEqual("?streamer_id_1=3793");
+
   });
 
   it('check buildFilterLabel() or dates', () => {

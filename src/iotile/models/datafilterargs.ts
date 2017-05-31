@@ -23,6 +23,9 @@ export class DataFilterArgs {
     if (this.page) {
       parameters.push('page=' + this.page);
     }
+    if (this.filter) {
+      parameters.push('filter=' + this.filter);
+    }
     if (this.startStreamerId) {
       parameters.push('streamer_id_0=' + this.startStreamerId);
     }
