@@ -20,6 +20,35 @@ describe('DataFilterArgsTest', () => {
     expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&page=2");
   });
 
+  describe('check buildFilterString()', () => {
+    let streamSlugMock = 's--0000-0000--0000-0000-0000--5001';
+
+    it ('should build filter', () => {
+      let args = new DataFilterArgs();
+      args.filter = streamSlugMock;
+      expect(args.buildFilterString()).toEqual(`?filter=${streamSlugMock}`);
+    });
+
+    it('should build startStreamerId', () => {
+      let args = new DataFilterArgs();
+      args.filter = streamSlugMock;
+      args.startStreamerId = 2412;
+      expect(args.buildFilterString()).toEqual(`?filter=${streamSlugMock}&streamer_id_0=${args.startStreamerId}`);
+    });
+
+    it('should build endStreamerId', () => {
+      let args = new DataFilterArgs();
+      args.filter = streamSlugMock;
+      args.endStreamerId = 3793;
+      expect(args.buildFilterString()).toEqual(`?filter=${streamSlugMock}&streamer_id_1=${args.endStreamerId}`);
+    });
+  });
+
+  it('check buildFilterString() for endStreamerId', () => {
+    let args: DataFilterArgs = new DataFilterArgs();
+
+  });
+
   it('check buildFilterLabel() or dates', () => {
     let args: DataFilterArgs = new DataFilterArgs();
     expect(args).toBeTruthy();
