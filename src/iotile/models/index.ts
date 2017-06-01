@@ -13,3 +13,4 @@ export * from './unit';
 export * from './vartype';
 export * from './displaywidget';
 export * from './sensorgraph';
+export * from  './gid';

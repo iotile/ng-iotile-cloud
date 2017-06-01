@@ -446,11 +446,28 @@ export class CloudService {
     return stream.returnedStreamData;
   }
 
-  public getData(returnedAsyncSubject: AsyncSubject<Array<DataPoint>>, dataArray: Array<DataPoint>, args: DataFilterArgs): Observable<Array<DataPoint>>  {
+  public getData(args: DataFilterArgs): Observable<Array<DataPoint>>  {
 
     let url: string = '/data/';
     url += args.buildFilterString();
     console.debug('[CloudService] getData ====> ' + url);
+    return this._get(url)
+      .map((data: Array<any>) => {
+        let result: Array<DataPoint> = [];
+        if (data) {
+          data['results'].forEach((item) => {
+            result.push(new DataPoint(item));
+          });
+        }
+        return result;
+      });
+  }
+
+  public getAllData(returnedAsyncSubject: AsyncSubject<Array<DataPoint>>, dataArray: Array<DataPoint>, args: DataFilterArgs): Observable<Array<DataPoint>>  {
+
+    let url: string = '/data/';
+    url += args.buildFilterString();
+    console.debug('[CloudService] getAllData ====> ' + url);
     this._get(url).map((data: any) => {
       let result: Array<DataPoint> = [];
       if (data) {
@@ -463,20 +480,19 @@ export class CloudService {
       return page;
     }).subscribe(
       dataPage => {
-        // stream.data.concat(dataPage.data); TODO: Why is this not working
         dataPage.data.forEach((item) => {
           dataArray.push(item);
         });
-        console.debug('[CloudService] getData: SUBSCRIBE dataArray.length=' + dataArray.length);
+        console.debug('[CloudService] getAllData: SUBSCRIBE dataArray.length=' + dataArray.length);
 
         returnedAsyncSubject.next(dataPage.data);
         if (dataPage.pageCount() > dataPage.page) {
           args.page = dataPage.page + 1;
-          console.debug('[CloudService] getData Settings args.page=' + args.page);
-          this.getData(returnedAsyncSubject, dataArray, args);
+          console.debug('[CloudService] getAllData Settings args.page=' + args.page);
+          this.getAllData(returnedAsyncSubject, dataArray, args);
         } else {
           // call complete to close this stream
-          console.log('[CloudService] getData COMPLETE. stream.data.length=' + dataArray.length);
+          console.log('[CloudService] getAllData COMPLETE. stream.data.length=' + dataArray.length);
           returnedAsyncSubject.complete();
         }
       }
