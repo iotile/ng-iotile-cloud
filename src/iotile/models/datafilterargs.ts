@@ -5,8 +5,8 @@ export class DataFilterArgs {
   public endDate: Date;
   public lastN: number;
   public page: number;
-  public startStreamerId: number;
-  public endStreamerId: number;
+  public startIncrementalId: number;
+  public endIncrementalId: number;
 
   public buildFilterString(): string {
 
@@ -26,11 +26,11 @@ export class DataFilterArgs {
     if (this.filter) {
       parameters.push('filter=' + this.filter);
     }
-    if (this.startStreamerId) {
-      parameters.push('streamer_id_0=' + this.startStreamerId);
+    if (this.startIncrementalId) {
+      parameters.push('streamer_id_0=' + this.startIncrementalId);
     }
-    if (this.endStreamerId) {
-      parameters.push('streamer_id_1=' + this.endStreamerId);
+    if (this.endIncrementalId) {
+      parameters.push('streamer_id_1=' + this.endIncrementalId);
     }
     if (parameters.length) {
       let dataFilter: string = '?' + parameters.join('&');

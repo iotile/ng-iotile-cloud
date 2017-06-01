@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import {Observable} from 'rxjs/Rx';
+import { Observable, AsyncSubject } from 'rxjs/Rx';
 
 import {
   Credentials,
@@ -411,8 +411,7 @@ export class CloudService {
 
   public getStreamData(stream: Stream, args: DataFilterArgs): Observable<Array<DataPoint>>  {
 
-    let url: string = '/data/';
-    args.filter = stream.slug;
+    let url: string = '/stream/' + stream.slug + '/data/';
     url += args.buildFilterString();
     console.debug('[CloudService] getStreamData ====> ' + url);
     this._get(url).map((data: any) => {
@@ -427,7 +426,6 @@ export class CloudService {
       return page;
     }).subscribe(
       dataPage => {
-        // stream.data.concat(dataPage.data); TODO: Why is this not working
         dataPage.data.forEach((item) => {
           stream.data.push(item);
         });
@@ -446,6 +444,44 @@ export class CloudService {
       }
     );
     return stream.returnedStreamData;
+  }
+
+  public getData(returnedAsyncSubject: AsyncSubject<Array<DataPoint>>, dataArray: Array<DataPoint>, args: DataFilterArgs): Observable<Array<DataPoint>>  {
+
+    let url: string = '/data/';
+    url += args.buildFilterString();
+    console.debug('[CloudService] getData ====> ' + url);
+    this._get(url).map((data: any) => {
+      let result: Array<DataPoint> = [];
+      if (data) {
+        data['results'].forEach((item) => {
+          result.push(new DataPoint(item));
+        });
+      }
+      let page: DataPage = new DataPage(1000, data['count'], args.page || 1);
+      page.data = result;
+      return page;
+    }).subscribe(
+      dataPage => {
+        // stream.data.concat(dataPage.data); TODO: Why is this not working
+        dataPage.data.forEach((item) => {
+          dataArray.push(item);
+        });
+        console.debug('[CloudService] getData: SUBSCRIBE dataArray.length=' + dataArray.length);
+
+        returnedAsyncSubject.next(dataPage.data);
+        if (dataPage.pageCount() > dataPage.page) {
+          args.page = dataPage.page + 1;
+          console.debug('[CloudService] getData Settings args.page=' + args.page);
+          this.getData(returnedAsyncSubject, dataArray, args);
+        } else {
+          // call complete to close this stream
+          console.log('[CloudService] getData COMPLETE. stream.data.length=' + dataArray.length);
+          returnedAsyncSubject.complete();
+        }
+      }
+    );
+    return returnedAsyncSubject;
   }
 
   public uploadStreamData(payload: {}): Observable<any> {
