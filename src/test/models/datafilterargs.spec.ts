@@ -32,15 +32,14 @@ describe('DataFilterArgsTest', () => {
     it('should build startStreamerId', () => {
       let args = new DataFilterArgs();
       args.filter = streamSlugMock;
-      args.startStreamerId = 2412;
-      expect(args.buildFilterString()).toEqual(`?filter=${streamSlugMock}&streamer_id_0=${args.startStreamerId}`);
+      args.startIncrementalId = 2412;
+      expect(args.buildFilterString()).toEqual(`?filter=${streamSlugMock}&streamer_id_0=${args.startIncrementalId}`);
     });
 
     it('should build endStreamerId', () => {
       let args = new DataFilterArgs();
-      args.filter = streamSlugMock;
-      args.endStreamerId = 3793;
-      expect(args.buildFilterString()).toEqual(`?filter=${streamSlugMock}&streamer_id_1=${args.endStreamerId}`);
+      args.endIncrementalId = 3793;
+      expect(args.buildFilterString()).toEqual(`?streamer_id_1=${args.endIncrementalId}`);
     });
   });
 
