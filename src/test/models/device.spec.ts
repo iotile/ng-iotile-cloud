@@ -2,6 +2,7 @@
 
 import { Project } from '../../iotile/models/project';
 import { Device } from '../../iotile/models/device';
+import { Properties } from '../../iotile/models/properties';
 
 
 describe('DeviceTest', () => {
@@ -36,6 +37,20 @@ describe('DeviceTest', () => {
     expect(payload.label).toEqual('The Device');
     expect(payload.lat).toEqual(2.345676);
     expect(payload.lon).toEqual(-12.12345);
+  });
+
+  it('it check device\'s property', () => {
+    let dev: Device = dummyDevice1;
+    dev.properties = new Properties({
+      shipFrom: 'Mountain View, CA',
+      shipTo: 'South Korea',
+      shipVia: 'Airplane',
+      loadingType: 'Forklift',
+      transportType: 'Air',
+      cargoDescription: 'Statement or description of the cargo.'
+    });
+    expect(dev.properties.shipFrom).toBe('Mountain View, CA');
+    expect(dev.properties.loadingType).toBe('Forklift');
   });
 
 });

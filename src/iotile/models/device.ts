@@ -1,4 +1,5 @@
 import { SensorGraph } from './sensorgraph';
+import { Properties } from './properties';
 
 export interface DeviceDictionary {
     [ index: string ]: Device
@@ -14,6 +15,7 @@ export class Device {
   public template: string;
   public sensorGraphSlug: string;
   public sg: SensorGraph;
+  public properties: Properties;
 
   constructor(data: any = {}) {
     this.id = data.id;
@@ -24,6 +26,7 @@ export class Device {
     this.lng = parseFloat(data.lon || 0);
     this.template = data.template || '';
     this.sensorGraphSlug = data.sg;
+    this.properties = new Properties(data);
   }
 
   public getPatchPayload(): any {
