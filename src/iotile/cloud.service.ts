@@ -17,7 +17,8 @@ import {
   DataPoint,
   DataPage,
   SensorGraph,
-  DataFilterArgs
+  DataFilterArgs,
+  Properties
 } from './models';
 
 /*
@@ -505,5 +506,16 @@ export class CloudService {
     let options: RequestOptions = this._getRequestOptions();
     return this._http.post(this._apiEndpoint + '/data/', payload, options)
       .map(res => res.json());
+  }
+
+  public getDeviceProperties(device: Device): Observable<Device> {
+    let options: RequestOptions = this._getRequestOptions();
+    return this._http
+               .get(this._apiEndpoint + device.slug + '/properties/', options)
+               .map(res => {
+                 let deviceProperties = new Properties(res.json());
+                 device.properties = deviceProperties;
+                 return device;
+               });
   }
 }
