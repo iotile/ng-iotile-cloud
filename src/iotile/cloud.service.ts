@@ -509,11 +509,10 @@ export class CloudService {
   }
 
   public getDeviceProperties(device: Device): Observable<Device> {
-    let options: RequestOptions = this._getRequestOptions();
-    return this._http
-               .get(this._apiEndpoint + device.slug + '/properties/', options)
+    let url = '/device/' + device.slug + '/properties/';
+    return this._get(url)
                .map(res => {
-                 let deviceProperties = new Properties(res.json());
+                 let deviceProperties: Properties = new Properties(res);
                  device.properties = deviceProperties;
                  return device;
                });
