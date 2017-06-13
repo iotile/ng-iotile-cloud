@@ -23,6 +23,39 @@ describe('DeviceTest', () => {
     "created_on": "2016-12-05T21:20:53.500516Z"
   });
 
+  const dummyProperties1 = new Properties([
+    {
+        "id": 8,
+        "name": "cargoDescription",
+        "value": "Statement or description of the cargo."
+    },
+    {
+        "id": 4,
+        "name": "loadingType",
+        "value": "Forklift"
+    },
+    {
+        "id": 1,
+        "name": "shipFrom",
+        "value": "Mountain View, CA"
+    },
+    {
+        "id": 2,
+        "name": "shipTo",
+        "value": "Seoul, South Korea"
+    },
+    {
+        "id": 3,
+        "name": "shipVia",
+        "value": "Airplane"
+    },
+    {
+        "id": 7,
+        "name": "transportType",
+        "value": "Air"
+    }
+  ]);
+
   it('check basic device', () => {
     let dev: Device = dummyDevice1;
     expect(dev.id).toEqual(129);
@@ -41,16 +74,12 @@ describe('DeviceTest', () => {
 
   it('it check device\'s property', () => {
     let dev: Device = dummyDevice1;
-    dev.properties = new Properties({
-      shipFrom: 'Mountain View, CA',
-      shipTo: 'South Korea',
-      shipVia: 'Airplane',
-      loadingType: 'Forklift',
-      transportType: 'Air',
-      cargoDescription: 'Statement or description of the cargo.'
-    });
-    expect(dev.properties.shipFrom).toBe('Mountain View, CA');
-    expect(dev.properties.loadingType).toBe('Forklift');
+    dev.properties = dummyProperties1;
+    console.log('what is dev?', dev.properties)
+    expect(dev.properties['shipFrom']).toBe('Mountain View, CA');
+    expect(dev.properties['loadingType']).toBe('Forklift');
+    expect(dev.getProperty('transportType')).toBe('Air');
+    expect(dev.getProperty('cargoDescription')).toBe('Statement or description of the cargo.');
   });
 
 });

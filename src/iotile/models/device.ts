@@ -26,7 +26,7 @@ export class Device {
     this.lng = parseFloat(data.lon || 0);
     this.template = data.template || '';
     this.sensorGraphSlug = data.sg;
-    this.properties = new Properties(data);
+    this.properties = data.properties;
   }
 
   public getPatchPayload(): any {
@@ -40,5 +40,9 @@ export class Device {
       payload.lon = this.lng;
     }
     return payload;
+  }
+
+  public getProperty(arg): any {
+    return this.properties[arg];
   }
 }
