@@ -1,4 +1,5 @@
 import { SensorGraph } from './sensorgraph';
+import { Property, PropertyDictionary } from './property';
 
 export interface DeviceDictionary {
     [ index: string ]: Device
@@ -14,6 +15,8 @@ export class Device {
   public template: string;
   public sensorGraphSlug: string;
   public sg: SensorGraph;
+  public propertyMap: PropertyDictionary;
+  public properties: Array<Property>;
 
   constructor(data: any = {}) {
     this.id = data.id;
@@ -38,4 +41,17 @@ export class Device {
     }
     return payload;
   }
+
+  public addProperties(properties: Array<Property>): void {
+    this.properties = properties;
+    this.propertyMap = {};
+    this.properties.forEach(property => {
+      this.propertyMap[property.name] = property;
+    });
+  }
+
+  public getProperty(name): Property {
+    return this.propertyMap[name];
+  }
+
 }

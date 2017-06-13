@@ -9,6 +9,7 @@ import { Variable } from './models/variable';
 import { Device } from './models/device';
 import { DataPoint } from './models/datapoint';
 import { DataFilterArgs } from './models/datafilterargs';
+import { Property } from './models/property';
 
 export class CloudServiceMock {
 
@@ -457,5 +458,26 @@ export class CloudServiceMock {
     });
     result.push(point3);
     return Observable.of(result);
+  }
+
+  public getDeviceProperties(device: Device): Observable<Device> {
+    let properties: Array<Property> = [];
+
+    let property1 = new Property({
+      id: 4,
+      name: 'loadingType',
+      value: 'Forklift'
+    });
+    properties.push(property1);
+
+    let property2 = new Property({
+      id: 3,
+      name: 'shipVia',
+      value: 'Airplane'
+    });
+    properties.push(property2);
+
+    device.addProperties(properties);
+    return Observable.of(device);
   }
 }

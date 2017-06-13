@@ -2,6 +2,7 @@
 
 import { Project } from '../../iotile/models/project';
 import { Device } from '../../iotile/models/device';
+import { Property } from '../../iotile/models/property';
 
 
 describe('DeviceTest', () => {
@@ -22,6 +23,39 @@ describe('DeviceTest', () => {
     "created_on": "2016-12-05T21:20:53.500516Z"
   });
 
+  const dummyProperties1: Array<Property> = [
+    {
+        "id": 8,
+        "name": "cargoDescription",
+        "value": "Statement or description of the cargo."
+    },
+    {
+        "id": 4,
+        "name": "loadingType",
+        "value": "Forklift"
+    },
+    {
+        "id": 1,
+        "name": "shipFrom",
+        "value": "Mountain View, CA"
+    },
+    {
+        "id": 2,
+        "name": "shipTo",
+        "value": "Seoul, South Korea"
+    },
+    {
+        "id": 3,
+        "name": "shipVia",
+        "value": "Airplane"
+    },
+    {
+        "id": 7,
+        "name": "transportType",
+        "value": "Air"
+    }
+  ];
+
   it('check basic device', () => {
     let dev: Device = dummyDevice1;
     expect(dev.id).toEqual(129);
@@ -36,6 +70,29 @@ describe('DeviceTest', () => {
     expect(payload.label).toEqual('The Device');
     expect(payload.lat).toEqual(2.345676);
     expect(payload.lon).toEqual(-12.12345);
+  });
+
+  it('it check device\'s property', () => {
+    let dev: Device = dummyDevice1;
+    let properties: Array<Properties> = [];
+
+    let dummyProperty1: Property = new Property({
+      "id": 7,
+      "name": "transportType",
+      "value": "Air"
+    });
+    properties.push(dummyProperty1);
+
+    let dummyProperty2 = new Property({
+      "id": 8,
+      "name": "cargoDescription",
+      "value": "Statement or description of the cargo."
+    });
+    properties.push(dummyProperty2);
+
+    dev.addProperties(properties);
+    expect(dev.getProperty('transportType')).toBe(dummyProperty1);
+    expect(dev.getProperty('cargoDescription')).toBe(dummyProperty2);
   });
 
 });
