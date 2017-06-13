@@ -29,7 +29,7 @@ export class Project {
       this.slug = data.slug;
       this.name = data.name;
       this.orgSlug = data.org;
-      
+
       let page: any = data.page;
       if (page) {
         this.pageTemplateId = page['id'];

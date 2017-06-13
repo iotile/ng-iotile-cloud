@@ -461,40 +461,23 @@ export class CloudServiceMock {
   }
 
   public getDeviceProperties(device: Device): Observable<Device> {
-    let properties1: Array<Property> = [
-      {
-          id: 8,
-          name: 'cargoDescription',
-          value: 'Statement or description of the cargo.'
-      },
-      {
-          id: 4,
-          name: 'loadingType',
-          value: 'Forklift'
-      },
-      {
-          id: 1,
-          name: 'shipFrom',
-          value: 'Mountain View, CA'
-      },
-      {
-          id: 2,
-          name: 'shipTo',
-          value: 'Seoul, South Korea'
-      },
-      {
-          id: 3,
-          name: 'shipVia',
-          value: 'Airplane'
-      },
-      {
-          id: 7,
-          name: 'transportType',
-          value: 'Air'
-      }
-    ];
-    let properties = properties1.map(property => new Property(property));
-    device.properties = properties;
+    let properties: Array<Property> = [];
+
+    let property1 = new Property({
+      id: 4,
+      name: 'loadingType',
+      value: 'Forklift'
+    });
+    properties.push(property1);
+
+    let property2 = new Property({
+      id: 3,
+      name: 'shipVia',
+      value: 'Airplane'
+    });
+    properties.push(property2);
+
+    device.addProperties(properties);
     return Observable.of(device);
   }
 }

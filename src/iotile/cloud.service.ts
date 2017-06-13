@@ -512,8 +512,8 @@ export class CloudService {
     let url = '/device/' + device.slug + '/properties/';
     return this._get(url)
                .map((results: Array<Property>) => {
-                 let properties = results.map(result => new Property(result));
-                 device.properties = properties;
+                 let properties: Array<Property> = results.map(result => new Property(result));
+                 device.addProperties(properties);
                  return device;
                });
   }

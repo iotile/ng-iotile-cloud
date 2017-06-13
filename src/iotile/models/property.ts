@@ -1,3 +1,7 @@
+export interface PropertyDictionary {
+  [index: string]: Property;
+}
+
 export class Property {
   public id: number;
   public name: string;

@@ -1,5 +1,5 @@
 import { SensorGraph } from './sensorgraph';
-import { Property } from './property';
+import { Property, PropertyDictionary } from './property';
 
 export interface DeviceDictionary {
     [ index: string ]: Device
@@ -15,6 +15,7 @@ export class Device {
   public template: string;
   public sensorGraphSlug: string;
   public sg: SensorGraph;
+  public propertyMap: PropertyDictionary;
   public properties: Array<Property>;
 
   constructor(data: any = {}) {
@@ -26,7 +27,6 @@ export class Device {
     this.lng = parseFloat(data.lon || 0);
     this.template = data.template || '';
     this.sensorGraphSlug = data.sg;
-    this.properties = data.properties;
   }
 
   public getPatchPayload(): any {
@@ -42,8 +42,16 @@ export class Device {
     return payload;
   }
 
-  public getProperty(name): any {
-    let property = this.properties.filter(property => property.name === name)[0];
-    return property.value;
+  public addProperties(properties: Array<Property>): void {
+    this.properties = properties;
+    this.propertyMap = {};
+    this.properties.forEach(property => {
+      this.propertyMap[property.name] = property;
+    });
   }
+
+  public getProperty(name): Property {
+    return this.propertyMap[name];
+  }
+
 }

@@ -74,9 +74,25 @@ describe('DeviceTest', () => {
 
   it('it check device\'s property', () => {
     let dev: Device = dummyDevice1;
-    dev.properties = dummyProperties1.map(property => new Property(property));
-    expect(dev.getProperty('transportType')).toBe('Air');
-    expect(dev.getProperty('cargoDescription')).toBe('Statement or description of the cargo.');
+    let properties: Array<Properties> = [];
+
+    let dummyProperty1: Property = new Property({
+      "id": 7,
+      "name": "transportType",
+      "value": "Air"
+    });
+    properties.push(dummyProperty1);
+
+    let dummyProperty2 = new Property({
+      "id": 8,
+      "name": "cargoDescription",
+      "value": "Statement or description of the cargo."
+    });
+    properties.push(dummyProperty2);
+
+    dev.addProperties(properties);
+    expect(dev.getProperty('transportType')).toBe(dummyProperty1);
+    expect(dev.getProperty('cargoDescription')).toBe(dummyProperty2);
   });
 
 });
