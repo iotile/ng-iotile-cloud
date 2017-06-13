@@ -2,7 +2,7 @@
 
 import { Project } from '../../iotile/models/project';
 import { Device } from '../../iotile/models/device';
-import { Properties } from '../../iotile/models/properties';
+import { Property } from '../../iotile/models/property';
 
 
 describe('DeviceTest', () => {
@@ -23,7 +23,7 @@ describe('DeviceTest', () => {
     "created_on": "2016-12-05T21:20:53.500516Z"
   });
 
-  const dummyProperties1 = new Properties([
+  const dummyProperties1: Array<Property> = [
     {
         "id": 8,
         "name": "cargoDescription",
@@ -54,7 +54,7 @@ describe('DeviceTest', () => {
         "name": "transportType",
         "value": "Air"
     }
-  ]);
+  ];
 
   it('check basic device', () => {
     let dev: Device = dummyDevice1;
@@ -74,10 +74,7 @@ describe('DeviceTest', () => {
 
   it('it check device\'s property', () => {
     let dev: Device = dummyDevice1;
-    dev.properties = dummyProperties1;
-    console.log('what is dev?', dev.properties)
-    expect(dev.properties['shipFrom']).toBe('Mountain View, CA');
-    expect(dev.properties['loadingType']).toBe('Forklift');
+    dev.properties = dummyProperties1.map(property => new Property(property));
     expect(dev.getProperty('transportType')).toBe('Air');
     expect(dev.getProperty('cargoDescription')).toBe('Statement or description of the cargo.');
   });

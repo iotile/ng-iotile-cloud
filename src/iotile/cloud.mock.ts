@@ -9,7 +9,7 @@ import { Variable } from './models/variable';
 import { Device } from './models/device';
 import { DataPoint } from './models/datapoint';
 import { DataFilterArgs } from './models/datafilterargs';
-import { Properties } from './models/properties';
+import { Property } from './models/property';
 
 export class CloudServiceMock {
 
@@ -461,7 +461,7 @@ export class CloudServiceMock {
   }
 
   public getDeviceProperties(device: Device): Observable<Device> {
-    let properties1 = [
+    let properties1: Array<Property> = [
       {
           id: 8,
           name: 'cargoDescription',
@@ -493,7 +493,7 @@ export class CloudServiceMock {
           value: 'Air'
       }
     ];
-    let properties = new Properties(properties1);
+    let properties = properties1.map(property => new Property(property));
     device.properties = properties;
     return Observable.of(device);
   }
