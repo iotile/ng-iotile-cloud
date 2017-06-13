@@ -1,5 +1,5 @@
 import { SensorGraph } from './sensorgraph';
-import { Properties } from './properties';
+import { Property } from './property';
 
 export interface DeviceDictionary {
     [ index: string ]: Device
@@ -15,7 +15,7 @@ export class Device {
   public template: string;
   public sensorGraphSlug: string;
   public sg: SensorGraph;
-  public properties: Properties;
+  public properties: Array<Property>;
 
   constructor(data: any = {}) {
     this.id = data.id;
@@ -42,7 +42,8 @@ export class Device {
     return payload;
   }
 
-  public getProperty(arg): any {
-    return this.properties[arg];
+  public getProperty(name): any {
+    let property = this.properties.filter(property => property.name === name)[0];
+    return property.value;
   }
 }

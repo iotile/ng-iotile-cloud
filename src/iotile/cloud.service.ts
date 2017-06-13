@@ -18,7 +18,7 @@ import {
   DataPage,
   SensorGraph,
   DataFilterArgs,
-  Properties
+  Property
 } from './models';
 
 /*
@@ -511,9 +511,9 @@ export class CloudService {
   public getDeviceProperties(device: Device): Observable<Device> {
     let url = '/device/' + device.slug + '/properties/';
     return this._get(url)
-               .map(res => {
-                 let deviceProperties: Properties = new Properties(res);
-                 device.properties = deviceProperties;
+               .map((results: Array<Property>) => {
+                 let properties = results.map(result => new Property(result));
+                 device.properties = properties;
                  return device;
                });
   }
