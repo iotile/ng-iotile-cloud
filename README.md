@@ -54,6 +54,9 @@ npm run test:w
 ```
 
 ## release
+
+Update `package.json` with a new version number.
+
 ```
 npm run clean
 npm run build
