@@ -6,6 +6,7 @@ export * from './device';
 export * from './stream';
 export * from './stats';
 export * from './datapoint';
+export * from './eventpoint';
 export * from './datafilterargs';
 export * from './variable';
 export * from './mdo';
