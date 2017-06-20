@@ -16,6 +16,8 @@ import {
   Stats,
   DataPoint,
   DataPage,
+  EventPoint,
+  EventPage,
   SensorGraph,
   DataFilterArgs,
   Property
@@ -493,12 +495,56 @@ export class CloudService {
           this.getAllData(returnedAsyncSubject, dataArray, args);
         } else {
           // call complete to close this stream
-          console.log('[CloudService] getAllData COMPLETE. stream.data.length=' + dataArray.length);
+          console.log('[CloudService] getAllData COMPLETE. dataArray.length=' + dataArray.length);
           returnedAsyncSubject.complete();
         }
       }
     );
     return returnedAsyncSubject;
+  }
+
+  public getAllEvents(returnedAsyncSubject: AsyncSubject<Array<EventPoint>>, eventArray: Array<EventPoint>, args: DataFilterArgs): Observable<Array<EventPoint>>  {
+
+    let url: string = '/event/';
+    url += args.buildFilterString();
+    console.debug('[CloudService] getAllEvents ====> ' + url);
+    this._get(url).map((data: any) => {
+      let result: Array<EventPoint> = [];
+      if (data) {
+        data['results'].forEach((item) => {
+          result.push(new EventPoint(item));
+        });
+      }
+      let page: EventPage = new EventPage(1000, data['count'], args.page || 1);
+      page.data = result;
+      return page;
+    }).subscribe(
+      eventPage => {
+        eventPage.data.forEach((item) => {
+          eventArray.push(item);
+        });
+        console.debug('[CloudService] getAllEvents: SUBSCRIBE eventArray.length=' + eventArray.length);
+
+        returnedAsyncSubject.next(eventPage.data);
+        if (eventPage.pageCount() > eventPage.page) {
+          args.page = eventPage.page + 1;
+          console.debug('[CloudService] getAllEvents Settings args.page=' + args.page);
+          this.getAllEvents(returnedAsyncSubject, eventArray, args);
+        } else {
+          // call complete to close this stream
+          console.log('[CloudService] getAllEvents COMPLETE. eventArray.length=' + eventArray.length);
+          returnedAsyncSubject.complete();
+        }
+      }
+    );
+    return returnedAsyncSubject;
+  }
+
+  public getEventDataContent(id: number): Observable<any>  {
+
+    let url: string = '/event/' + id + '/data/';
+    console.debug('[CloudService] getEventData ====> ' + url);
+    return this._get(url);
   }
 
   public uploadStreamData(payload: {}): Observable<any> {
