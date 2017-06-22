@@ -1,3 +1,7 @@
+export interface BasicDictionary {
+  [index: string]: any;
+}
+
 export class EventPage {
   public pageSize: number;
   public totalCount: number;
@@ -21,6 +25,7 @@ export class EventPoint {
     public timestamp: Date;
     public incrementalId: number;
     public dirtyTimestamp: boolean;
+    public summaryData: BasicDictionary;
     public ext: string;
 
     constructor(data: any = {}) {
@@ -36,6 +41,9 @@ export class EventPoint {
       }
       if ('dirty_ts' in data) {
         this.dirtyTimestamp = data.dirty_ts;
+      }
+      if ('summary' in data) {
+        this.summaryData = data.summary;
       }
     }
   }
