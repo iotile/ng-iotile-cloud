@@ -33,6 +33,8 @@ describe('ProjectTest', () => {
     expect(proj.slug).toEqual('p--0000-0012');
     expect(proj.name).toEqual('My Project');
     expect(proj.orgSlug).toEqual('my-org');
+    expect(proj.createdOn.getFullYear()).toEqual(2016);
+    expect(proj.createdBy).toEqual('david');
     expect(proj.pageTemplateId).toEqual(2);
     expect(proj.pageTemplateSlug).toEqual('water-meter');
     expect(proj.pageTemplateLabel).toEqual('Water Meter');

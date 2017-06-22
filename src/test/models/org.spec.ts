@@ -20,6 +20,9 @@ describe('OrgTest', () => {
     expect(org.name).toEqual('My Org');
     expect(org.tinyUrl).toEqual('https://image.com/tiny.jpg');
     expect(org.thumbnailUrl).toEqual('https://image.com/thumbnail.jpg');
+    expect(org.createdOn.getFullYear()).toEqual(2016);
+    expect(org.createdBy).toEqual('david');
+    expect(org.about).toBeUndefined();
   });
 
   it('check org.getPatchPayload', () => {
@@ -29,6 +32,7 @@ describe('OrgTest', () => {
 
     let payload: any = org.getPatchPayload();
     expect(payload.name).toEqual('My New Org');
+
   });
 
 });

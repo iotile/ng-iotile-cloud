@@ -10,7 +10,10 @@ export class Project {
     public gid: string;
     public slug: string;
     public name: string;
+    public createdBy: string;
+    public createdOn: Date;
     public orgSlug: string;
+
     public pageTemplateId: number;
     public pageTemplateSlug: string;
     public pageTemplateLabel: string;
@@ -29,6 +32,8 @@ export class Project {
       this.slug = data.slug;
       this.name = data.name;
       this.orgSlug = data.org;
+      this.createdBy = data.created_by;
+      this.createdOn = new Date(data.created_on);
 
       let page: any = data.page;
       if (page) {
