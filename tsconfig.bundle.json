@@ -9,7 +9,7 @@
         "inlineSourceMap": true,
         "declaration": false,
         "rootDir": "./src",
-        "outFile": "./bundles/ng2-iotile-cloud.js"
+        "outFile": "./bundles/ng-iotile-cloud.js"
     },
     "exclude": [
         "node_modules",

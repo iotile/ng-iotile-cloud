@@ -1,8 +1,8 @@
 {
-  "name": "ng2-iotile-cloud",
-  "version": "0.7.1",
+  "name": "ng-iotile-cloud",
+  "version": "0.8.0",
   "description": "Angular IOTile Cloud interface",
-  "main": "ng2-iotile-cloud.js",
+  "main": "ng-iotile-cloud.js",
   "scripts": {
     "start": "static",
     "peer": "npm install es6-promise@^3.0.2 es6-shim@^0.33.3 reflect-metadata@0.1.2 rxjs@5.0.3 zone.js@0.6.26",
@@ -10,7 +10,7 @@
     "clean": "rimraf bundles iotile **/*.ngfactory.ts **/*.ngsummary.json",
     "tsc": "ngc -p .",
     "tsc:single": "tsc -p tsconfig.bundle.json",
-    "uglify": "uglifyjs ./bundles/ng2-iotile-cloud.js --output ./bundles/ng2-iotile-cloud.min.js",
+    "uglify": "uglifyjs ./bundles/ng-iotile-cloud.js --output ./bundles/ng-iotile-cloud.min.js",
     "bundle": "npm run tsc:single && npm run uglify",
     "build": "npm run clean && npm run typings && npm run lint && npm run tsc && npm run bundle",
     "prepublish": "npm run build",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/iotile/ng2-iotile-cloud.git"
+    "url": "git+ssh://git@github.com/iotile/ng-iotile-cloud.git"
   },
   "keywords": [
     "angular2",
@@ -30,16 +30,16 @@
   "author": "Arch Systems<help@arch-iot.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/iotile/ng2-iotile-cloud/issues"
+    "url": "https://github.com/iotile/ng-iotile-cloud/issues"
   },
-  "homepage": "https://github.com/iotile/ng2-iotile-cloud#readme",
+  "homepage": "https://github.com/iotile/ng-iotile-cloud#readme",
   "devDependencies": {
-    "@angular/common": ">=2.4.1 < 4.0.0",
-    "@angular/compiler": ">=2.4.1 < 4.0.0",
-    "@angular/compiler-cli": ">=2.4.1 < 4.0.0",
-    "@angular/core": ">=2.4.1 < 4.0.0",
-    "@angular/http": ">=2.4.1 < 4.0.0",
-    "@angular/platform-browser": ">=2.4.1 < 4.0.0",
+    "@angular/common": ">=2.4.1 < 5.0.0",
+    "@angular/compiler": ">=2.4.1 < 5.0.0",
+    "@angular/compiler-cli": ">=2.4.1 < 5.0.0",
+    "@angular/core": ">=2.4.1 < 5.0.0",
+    "@angular/http": ">=2.4.1 < 5.0.0",
+    "@angular/platform-browser": ">=2.4.1 < 5.0.0",
     "core-js": "^2.4.1",
     "es6-shim": "^0.35.0",
     "jasmine": "^2.4.1",
@@ -62,7 +62,8 @@
     "typescript": "^2.0.3",
     "typings": "^1.3.3",
     "uglify-js": "^2.6.2",
-    "zone.js": "^0.7.2"
+    "zone.js": "^0.7.2",
+    "ngc": "^1.0.0"
   },
   "peerDependencies": {
     "@angular/common": ">=2.4.1 < 5.0.0",
@@ -70,6 +71,5 @@
     "@angular/core": ">=2.4.1 < 5.0.0",
     "@angular/http": ">=2.4.1 < 5.0.0",
     "@angular/platform-browser": ">=2.4.1 < 5.0.0"
-  },
-  "dependencies": {}
+  }
 }

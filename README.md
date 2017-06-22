@@ -1,25 +1,25 @@
-# ng2-iotile-cloud
-[![Build Status](https://travis-ci.org/iotile/ng2-iotile-cloud.svg?branch=master)](https://travis-ci.org/iotile/ng2-iotile-cloud)
-[![NPM version](https://img.shields.io/npm/v/ng2-iotile-cloud.svg)](https://www.npmjs.com/package/ng2-iotile-cloud) 
+# ng-iotile-cloud
+[![Build Status](https://travis-ci.org/iotile/ng-iotile-cloud.svg?branch=master)](https://travis-ci.org/iotile/ng-iotile-cloud)
+[![NPM version](https://img.shields.io/npm/v/ng-iotile-cloud.svg)](https://www.npmjs.com/package/ng-iotile-cloud) 
 
 Angular2 IOTile Cloud Interface
 
 
 ## Prerequisites
 
-If you're using Typescript in your project, `ng2-iotile-cloud` requires Typescript v2.0.0 or greater. Also make sure that your editor (Visual Studio Code, Atom, Webstorm, etc.) supports Typescript >= v2.0.0 or you'll see errors even though it compiles.
+If you're using Typescript in your project, `ng-iotile-cloud` requires Typescript v2.0.0 or greater. Also make sure that your editor (Visual Studio Code, Atom, Webstorm, etc.) supports Typescript >= v2.0.0 or you'll see errors even though it compiles.
 
 ## Dependencies
 
-`ng2-iotile-cloud` depends on `moment` 
+`ng-iotile-cloud` depends on `moment` 
 
 ## Install
 
 ```bash
-npm install --save ng2-iotile-cloud
+npm install --save ng-iotile-cloud
 ```
 
-Then include the `ng2-iotile-cloud` in your project.
+Then include the `ng-iotile-cloud` in your project.
 
 ```Angular2
 
@@ -31,7 +31,7 @@ Then include the `ng2-iotile-cloud` in your project.
 ## Building
 
 ```bash
-git clone https://github.com/iotile/ng2-iotile-cloud.git
+git clone https://github.com/iotile/ng-iotile-cloud.git
 npm install
 npm run build
 ```
