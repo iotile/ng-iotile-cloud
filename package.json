@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/iotile/ng-iotile-cloud.git"
+    "url": "git+ssh://git@github.com/iotile/ng2-iotile-cloud.git"
   },
   "keywords": [
     "angular2",
@@ -34,12 +34,12 @@
   },
   "homepage": "https://github.com/iotile/ng-iotile-cloud#readme",
   "devDependencies": {
-    "@angular/common": ">=2.4.1 < 5.0.0",
-    "@angular/compiler": ">=2.4.1 < 5.0.0",
-    "@angular/compiler-cli": ">=2.4.1 < 5.0.0",
-    "@angular/core": ">=2.4.1 < 5.0.0",
-    "@angular/http": ">=2.4.1 < 5.0.0",
-    "@angular/platform-browser": ">=2.4.1 < 5.0.0",
+    "@angular/common": ">=2.4.1 < 4.0.0",
+    "@angular/compiler": ">=2.4.1 < 4.0.0",
+    "@angular/compiler-cli": ">=2.4.1 < 4.0.0",
+    "@angular/core": ">=2.4.1 < 4.0.0",
+    "@angular/http": ">=2.4.1 < 4.0.0",
+    "@angular/platform-browser": ">=2.4.1 < 4.0.0",
     "core-js": "^2.4.1",
     "es6-shim": "^0.35.0",
     "jasmine": "^2.4.1",
@@ -62,8 +62,7 @@
     "typescript": "^2.0.3",
     "typings": "^1.3.3",
     "uglify-js": "^2.6.2",
-    "zone.js": "^0.7.2",
-    "ngc": "^1.0.0"
+    "zone.js": "^0.7.2"
   },
   "peerDependencies": {
     "@angular/common": ">=2.4.1 < 5.0.0",
@@ -71,5 +70,6 @@
     "@angular/core": ">=2.4.1 < 5.0.0",
     "@angular/http": ">=2.4.1 < 5.0.0",
     "@angular/platform-browser": ">=2.4.1 < 5.0.0"
-  }
+  },
+  "dependencies": {}
 }
