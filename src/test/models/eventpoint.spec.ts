@@ -18,7 +18,7 @@ describe('EventPointTest', () => {
       "timestamp": "2016-03-25T05:13:38Z",
       "streamer_local_id": 1,
       "dirty_ts": false,
-      "summary": {
+      "extra_data": {
         "pressure": 4.7,
         "max_g": 0.48828125,
         "min_y": -0.5218505859375,

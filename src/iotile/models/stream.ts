@@ -14,6 +14,7 @@ export class Stream {
   public variable: string;
   public device: string;
   public project: string;
+  public enabled: boolean = true;
   public template: string;
   public mdoType: string;
   public mdo: Mdo;
@@ -32,6 +33,7 @@ export class Stream {
     this.mdoType = data.mdo_type || null;
     this.mdo = new Mdo(data);
     this.stats = new Stats();
+    this.enabled = data.enabled;
     if (data.data_label) {
       this.dataLabel = data.data_label;
     }
