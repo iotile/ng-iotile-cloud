@@ -42,8 +42,8 @@ export class EventPoint {
       if ('dirty_ts' in data) {
         this.dirtyTimestamp = data.dirty_ts;
       }
-      if ('summary' in data) {
-        this.summaryData = data.summary;
+      if ('extra_data' in data) {
+        this.summaryData = data.extra_data;
       }
     }
   }
