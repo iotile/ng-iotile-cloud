@@ -13,7 +13,7 @@ import { Property } from './models/property';
 
 export class CloudServiceMock {
 
-  public setApiEndPoint(s:string): void {
+  public setApiEndPoint( s ): void {
     return;
   }
 
