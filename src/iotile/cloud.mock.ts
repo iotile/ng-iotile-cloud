@@ -13,6 +13,10 @@ import { Property } from './models/property';
 
 export class CloudServiceMock {
 
+  public setApiEndPoint(s:string): void {
+    return;
+  }
+
   public getOrgs(): Observable<any> {
     let orgs: Array<Org> = [];
     let o0: Org = new Org({
