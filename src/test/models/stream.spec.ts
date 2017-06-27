@@ -21,6 +21,7 @@ const dummyStream0 = new Stream({
       multiplication_factor: 1,
       division_factor: 10,
       offset: 5.0,
+      enabled: false,
       org: "arch-internal",
       created_on: "2016-11-16T16:42:54.312425Z",
       slug: "s--0000-0010--0000-0000-0000-00ae--5001"
@@ -38,6 +39,7 @@ describe('StreamTest', () => {
     expect(stream.dataLabel).toEqual('My Data');
     expect(stream.mdo.d).toEqual(10);
     expect(stream.mdo.computeValue(200)).toBe(25.0);
+    expect(stream.enabled).toBeFalsy();
 
     expect(stream.template).toBeUndefined();
   });
@@ -58,5 +60,6 @@ describe('StreamTest', () => {
     expect(payload.multiplication_factor).toEqual(1);
     expect(payload.division_factor).toEqual(10);
     expect(payload.offset).toEqual(5.0);
+    expect(payload.enabled).toBeFalsy();
   });
 });
