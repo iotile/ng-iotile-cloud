@@ -75,7 +75,8 @@ export class Stream {
 
   public getPatchPayload(): any {
     let basic: any = {
-      mdo_type: this.mdoType
+      mdo_type: this.mdoType,
+      enabled: this.enabled
     }
     let payload: any = Object.assign(basic, this.mdo.getPatchPayload());
     if (this.inputUnit) {
