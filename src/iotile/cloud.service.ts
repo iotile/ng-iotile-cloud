@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import { Observable, AsyncSubject } from 'rxjs/Rx';
+import { Observable, AsyncSubject, ReplaySubject } from 'rxjs/Rx';
 
 import {
   Credentials,
@@ -562,5 +562,95 @@ export class CloudService {
                  device.addProperties(properties);
                  return device;
                });
+  }
+
+  public fetchDevicesAndVariablesForProject(project: Project): ReplaySubject<any> {
+    let returnedData = new ReplaySubject(1);
+
+    let firstObservable = Observable.forkJoin(
+      this.getVariables(project),
+      this.getDevices(project)
+    );
+
+    firstObservable.subscribe(data => {
+      let variables: Array<Variable> = data[0];
+      let devices: Array<Device> = data[1];
+
+      returnedData.next(project);
+    }, err => {
+      console.error(err);
+      returnedData.error(err);
+    });
+
+    return returnedData;
+  }
+
+  public fetchSensorGraphsForProject(project: Project): ReplaySubject<any> {
+    let returnedData = new ReplaySubject(1);
+    let slugDict = {};
+    let observables = [];
+
+    // 1.- Build a set of unique sensor graphs for all devices in project
+    project && project.devices.forEach(device => {
+      let sgSlug: string = device.sensorGraphSlug;
+      slugDict[sgSlug] = 'found';
+    });
+
+    // 2.- Build a list of required Observables (one per slug)
+    let sgSlugList: Array<string> = Object.keys(slugDict);
+    if (sgSlugList.length === 0) {
+      // Return Project as is if no SGs
+      returnedData.next(project);
+    }
+    console.log('Required SGs: ', sgSlugList);
+    sgSlugList.forEach(slug => {
+      observables.push(this.getSensorGraph(slug));
+    });
+
+    // 3.- Now do the actuall HTTP GETs
+    let firstObservable = Observable.forkJoin(observables);
+    firstObservable.subscribe(data => {
+      let sgMap = {};
+      data.forEach(sg => {
+        let slug: string = sg['slug'];
+        sgMap[slug] = <SensorGraph> sg;
+      });
+
+      // 4.- Finally, update all Device objects with their SensorGraph
+      project.devices.forEach(device => {
+        let sgSlug: string = device.sensorGraphSlug;
+        if (sgMap[sgSlug]) {
+          device.sg = sgMap[sgSlug];
+        } else {
+          console.error('SG ' + sgSlug + ' not found for Device ' + device.slug);
+        }
+      });
+
+      returnedData.next(project);
+    }, err => {
+      console.error(err);
+      returnedData.error(err);
+    });
+
+    return returnedData;
+  }
+
+  public getProject(projectId: string): Observable<any> {
+    let url = '/project/' + projectId;
+    return this._get(url)
+               .map((p: Project) => new Project(p),
+                     err => console.error(err));
+  }
+
+  public fetchProjectWithAssociatedData(projectId): Observable<Project> {
+    let url = '/project/' + projectId;
+
+    return this.getProject(projectId).flatMap((p: Project) => {
+      return this.fetchDevicesAndVariablesForProject(p).flatMap(p => {
+        return this.fetchSensorGraphsForProject(p).map(project => {
+          return project;
+        });
+      });
+    });
   }
 }
