@@ -21,9 +21,6 @@ export class Device {
   public properties: Array<Property>;
 
   constructor(data: any = {}) {
-
-    console.log('What is data -- device', data);
-
     this.id = data.id;
     this.slug = data.slug;
     this.gid = data.gid;
