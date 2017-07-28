@@ -62,6 +62,7 @@ describe('DeviceTest', () => {
     expect(dev.slug).toEqual('d--0000-0000-0000-0081');
     expect(dev.sensorGraphSlug).toEqual('single-soil-moisture-v1-1-0');
     expect(dev.label).toEqual('The Device');
+    expect(dev.project).toEqual('b83c6bd6-0f3f-4890-a390-d9d29d142966');
   });
 
   it('check payload generation', () => {

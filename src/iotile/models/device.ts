@@ -1,3 +1,4 @@
+import { Project } from './project';
 import { SensorGraph } from './sensorgraph';
 import { Property, PropertyDictionary } from './property';
 
@@ -15,6 +16,7 @@ export class Device {
   public template: string;
   public sensorGraphSlug: string;
   public sg: SensorGraph;
+  public project: Project;
   public propertyMap: PropertyDictionary;
   public properties: Array<Property>;
 
@@ -27,6 +29,7 @@ export class Device {
     this.lng = parseFloat(data.lon || 0);
     this.template = data.template || '';
     this.sensorGraphSlug = data.sg;
+    this.project = data.project;
   }
 
   public getPatchPayload(): any {
