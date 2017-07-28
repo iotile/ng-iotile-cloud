@@ -1,8 +1,8 @@
 # ng-iotile-cloud
 [![Build Status](https://travis-ci.org/iotile/ng-iotile-cloud.svg?branch=master)](https://travis-ci.org/iotile/ng-iotile-cloud)
-[![NPM version](https://img.shields.io/npm/v/ng-iotile-cloud.svg)](https://www.npmjs.com/package/ng-iotile-cloud) 
+[![NPM version](https://img.shields.io/npm/v/ng-iotile-cloud.svg)](https://www.npmjs.com/package/ng-iotile-cloud)
 
-Angular2 IOTile Cloud Interface
+Angular IOTile Cloud Interface
 
 
 ## Prerequisites
@@ -11,7 +11,7 @@ If you're using Typescript in your project, `ng-iotile-cloud` requires Typescrip
 
 ## Dependencies
 
-`ng-iotile-cloud` depends on `moment` 
+`ng-iotile-cloud` depends on `moment`
 
 ## Install
 
@@ -75,4 +75,3 @@ docker run --rm -v $PWD/src:/usr/src/app/src ng2iotile
 # Build for release
 docker run --rm -v $PWD:/usr/src/app ng2iotile run build
 ```
-
