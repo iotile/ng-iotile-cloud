@@ -40,6 +40,20 @@ describe('DataFilterArgsTest', () => {
       expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}`);
     });
 
+    it ('should build filter with extras', () => {
+      let args = new DataFilterArgs();
+      args.filter = streamSlugMock;
+      args.extras = ['staff=1'];
+      let filter_string = args.buildFilterString();
+      let end = args.endDate.toISOString();
+      expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}`+'&staff=1');
+      
+      args.extras = ['a=b', 'c=d'];
+      filter_string = args.buildFilterString();
+      end = args.endDate.toISOString();
+      expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}`+'&a=b&c=d');
+    });
+
     it('should build startStreamerId', () => {
       let args = new DataFilterArgs();
       args.filter = streamSlugMock;
