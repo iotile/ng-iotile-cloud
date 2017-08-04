@@ -5,6 +5,7 @@ export class DataFilterArgs {
   public endDate: Date;
   public lastN: number;
   public page: number;
+  public pageSize: number;
   public startIncrementalId: number;
   public endIncrementalId: number;
 
@@ -27,6 +28,9 @@ export class DataFilterArgs {
     }
     if (this.page) {
       parameters.push('page=' + this.page);
+    }
+    if (this.pageSize) {
+      parameters.push('page_size=' + this.pageSize);
     }
     if (this.filter) {
       parameters.push('filter=' + this.filter);

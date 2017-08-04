@@ -24,6 +24,9 @@ describe('DataFilterArgsTest', () => {
     expect(filter_string).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z");
     args.page = 2;
     expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&page=2");
+    args.pageSize=10000;
+    args.page = null;
+    expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&page_size=10000");
   });
 
   describe('check buildFilterString()', () => {
@@ -53,11 +56,6 @@ describe('DataFilterArgsTest', () => {
       let end = args.endDate.toISOString();
       expect(filter_string).toEqual(`?end=`+end+`&streamer_id_1=${args.endIncrementalId}`);
     });
-  });
-
-  it('check buildFilterString() for endStreamerId', () => {
-    let args: DataFilterArgs = new DataFilterArgs();
-
   });
 
   it('check buildFilterLabel() or dates', () => {
