@@ -1,17 +1,14 @@
-export class DataPage {
-  public pageSize: number;
-  public totalCount: number;
-  public page: number;
+import { Stream } from './stream';
+import { Page } from './page';
+
+export class DataPage extends Page {
   public data: Array<DataPoint>;
+  public stream: Stream;
 
-  constructor(pageSize: number, count:number, thisPage: number) {
-    this.pageSize = pageSize;
-    this.totalCount = count;
-    this.page = thisPage;
-  }
-
-  public pageCount (): number {
-    return this.totalCount / this.pageSize;
+  constructor(url: string, thisPage: number, pageCount: number, stream: Stream) {
+    super(url, thisPage, pageCount);
+    this.stream = stream;
+    this.data = [];
   }
 }
 

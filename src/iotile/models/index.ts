@@ -14,5 +14,6 @@ export * from './unit';
 export * from './vartype';
 export * from './displaywidget';
 export * from './sensorgraph';
-export * from  './gid';
-export * from  './property';
+export * from './gid';
+export * from './property';
+export * from './page';

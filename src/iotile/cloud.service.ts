@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import { Observable, AsyncSubject, ReplaySubject } from 'rxjs/Rx';
+import { Observable, ReplaySubject } from 'rxjs/Rx';
 
 import {
   Credentials,
@@ -412,45 +412,21 @@ export class CloudService {
       });
   }
 
-  public getStreamData(stream: Stream, args: DataFilterArgs): Observable<Array<DataPoint>>  {
+  public getPointCount(url): Observable<number>  {
 
-    let url: string = '/stream/' + stream.slug + '/data/';
-    url += args.buildFilterString();
-    console.debug('[CloudService] getStreamData ====> ' + url);
-    this._get(url).map((data: any) => {
-      let result: Array<DataPoint> = [];
-      if (data) {
-        data['results'].forEach((item) => {
-          result.push(new DataPoint(item));
-        });
-      }
-      let pageSize: number = args.pageSize || 1000;
-      let page: DataPage = new DataPage(pageSize, data['count'], args.page || 1);
-      page.data = result;
-      return page;
-    }).subscribe(
-      dataPage => {
-        dataPage.data.forEach((item) => {
-          stream.data.push(item);
-        });
-        console.debug('[CloudService] getStreamData: SUBSCRIBE stream.data.length=' + stream.data.length);
-
-        stream.returnedStreamData.next(dataPage.data);
-        if (dataPage.pageCount() > dataPage.page) {
-          args.page = dataPage.page + 1;
-          console.debug('[CloudService] getStreamData Settings args.page=' + args.page);
-          this.getStreamData(stream, args);
-        } else {
-          // call complete to close this stream
-          console.log('[CloudService] getStreamData COMPLETE. stream.data.length=' + stream.data.length);
-          stream.returnedStreamData.complete();
+    url += '&page_size=5';
+    console.debug('[CloudService] GET: ' + url);
+    return this._get(url)
+      .map((data: any) => {
+        let result: number = 0;
+        if (data) {
+          result = data['count'];
         }
-      }
-    );
-    return stream.returnedStreamData;
+        return result;
+      });
   }
 
-  public getData(args: DataFilterArgs): Observable<Array<DataPoint>>  {
+  public getData(args: DataFilterArgs): Observable<Array<DataPoint>> {
 
     let url: string = '/data/';
     url += args.buildFilterString();
@@ -467,78 +443,136 @@ export class CloudService {
       });
   }
 
-  public getAllData(returnedAsyncSubject: AsyncSubject<Array<DataPoint>>, dataArray: Array<DataPoint>, args: DataFilterArgs): Observable<Array<DataPoint>>  {
+  public getSingleDataPage(dataPage: DataPage): Observable<DataPage>  {
 
-    let url: string = '/data/';
-    url += args.buildFilterString();
-    console.debug('[CloudService] getAllData ====> ' + url);
-    this._get(url).map((data: any) => {
-      let result: Array<DataPoint> = [];
-      if (data) {
-        data['results'].forEach((item) => {
-          result.push(new DataPoint(item));
-        });
-      }
-      let page: DataPage = new DataPage(1000, data['count'], args.page || 1);
-      page.data = result;
-      return page;
-    }).subscribe(
-      dataPage => {
-        dataPage.data.forEach((item) => {
-          dataArray.push(item);
-        });
-        console.debug('[CloudService] getAllData: SUBSCRIBE dataArray.length=' + dataArray.length);
-
-        returnedAsyncSubject.next(dataPage.data);
-        if (dataPage.pageCount() > dataPage.page) {
-          args.page = dataPage.page + 1;
-          console.debug('[CloudService] getAllData Settings args.page=' + args.page);
-          this.getAllData(returnedAsyncSubject, dataArray, args);
-        } else {
-          // call complete to close this stream
-          console.log('[CloudService] getAllData COMPLETE. dataArray.length=' + dataArray.length);
-          returnedAsyncSubject.complete();
+    let url = dataPage.pageUrl();
+    console.debug('[CloudService] GET: ', url);
+    return this._get(url)
+      .map((data: any) => {
+        if (data) {
+          data['results'].forEach((item) => {
+            dataPage.data.push(new DataPoint(item));
+          });
         }
-      }
-    );
-    return returnedAsyncSubject;
+        return dataPage;
+      });
   }
 
-  public getAllEvents(returnedAsyncSubject: AsyncSubject<Array<EventPoint>>, eventArray: Array<EventPoint>, args: DataFilterArgs): Observable<Array<EventPoint>>  {
+  public getSingleEventPage(dataPage: EventPage): Observable<EventPage>  {
 
-    let url: string = '/event/';
-    url += args.buildFilterString();
-    console.debug('[CloudService] getAllEvents ====> ' + url);
-    this._get(url).map((data: any) => {
-      let result: Array<EventPoint> = [];
-      if (data) {
-        data['results'].forEach((item) => {
-          result.push(new EventPoint(item));
-        });
-      }
-      let page: EventPage = new EventPage(1000, data['count'], args.page || 1);
-      page.data = result;
-      return page;
-    }).subscribe(
-      eventPage => {
-        eventPage.data.forEach((item) => {
-          eventArray.push(item);
-        });
-        console.debug('[CloudService] getAllEvents: SUBSCRIBE eventArray.length=' + eventArray.length);
-
-        returnedAsyncSubject.next(eventPage.data);
-        if (eventPage.pageCount() > eventPage.page) {
-          args.page = eventPage.page + 1;
-          console.debug('[CloudService] getAllEvents Settings args.page=' + args.page);
-          this.getAllEvents(returnedAsyncSubject, eventArray, args);
-        } else {
-          // call complete to close this stream
-          console.log('[CloudService] getAllEvents COMPLETE. eventArray.length=' + eventArray.length);
-          returnedAsyncSubject.complete();
+    let url = dataPage.pageUrl();
+    console.debug('[CloudService] GET: ', url);
+    return this._get(url)
+      .map((data: any) => {
+        if (data) {
+          data['results'].forEach((item) => {
+            dataPage.data.push(new EventPoint(item));
+          });
         }
+        return dataPage;
+      });
+  }
+
+  public getAllStreamData(stream: Stream, args: DataFilterArgs): ReplaySubject<any>  {
+
+    // Uses getPointCount to get 10 entries, just to get a total count.
+    // It then uses that total count to calculate the number of total pages
+    // needed to fetch ALL entries, and generates a forkJoin with all GETs (getData)
+    // This ensures the function won't return results until all GETs return
+    // Each getData call returns a dataPage with the results for that page fetch
+    let returnedData = new ReplaySubject(1);
+
+    let urlBase: string = '/stream/' + stream.slug + '/data/';
+    let url: string = urlBase + args.buildFilterString();
+    console.debug('[CloudService] getAllData ====> ' + url);
+    this.getPointCount(url).subscribe(
+      count => {
+
+        // Reset pageSize to the default size to get proper sized data pages
+        args.pageSize = 1000;
+        let dataUrl = urlBase + args.buildFilterString();
+        let pageCount = Math.ceil(count / args.pageSize);
+        console.debug('No. of pages (to be forkJoin-ed): ' + count + '/' + args.pageSize + '=' + pageCount);
+        let observables = [];
+
+        let dataPages: Array<DataPage> = [];
+        for (let i = 1; i <= pageCount; i++) {
+          dataPages[i] = new DataPage(dataUrl, i, pageCount, stream);
+          observables.push(this.getSingleDataPage(dataPages[i]));
+        }
+        let firstObservable = Observable.forkJoin(observables);
+        firstObservable.subscribe(
+          allData => {
+            let totalCount = 0;
+            for (let key in allData) {
+              let dataPage = allData[key] as DataPage;
+
+              dataPage.data.forEach(item => {
+                dataPage.stream.data.push(item);
+                totalCount++;
+              });
+              console.log('Page ' + dataPage.page + ' for ' + dataPage.stream.slug + ': ' + totalCount);
+            }
+            returnedData.next(totalCount);
+          });
+      },
+      err => {
+        console.error(err);
+        returnedData.error(err);
       }
     );
-    return returnedAsyncSubject;
+    return returnedData;
+  }
+
+  public getAllEvents(args: DataFilterArgs, eventArray: Array<EventPoint>): ReplaySubject<any>  {
+
+    // Uses getPointCount to get 10 entries, just to get a total count.
+    // It then uses that total count to calculate the number of total pages
+    // needed to fetch ALL entries, and generates a forkJoin with all GETs (getData)
+    // This ensures the function won't return results until all GETs return
+    // Each getData call returns a dataPage with the results for that page fetch
+    let returnedData = new ReplaySubject(1);
+
+    let urlBase: string = '/event/';
+    let url: string = urlBase + args.buildFilterString();
+    console.debug('[CloudService] getAllData ====> ' + url);
+    this.getPointCount(url).subscribe(
+      count => {
+
+        // Reset pageSize to the default size to get proper sized data pages
+        args.pageSize = 1000;
+        let dataUrl = urlBase + args.buildFilterString();
+        let pageCount = Math.ceil(count / args.pageSize);
+        console.debug('No. of pages (to be forkJoin-ed): ' + args.pageSize + '/' + count + '=' + pageCount);
+        let observables = [];
+
+        let dataPages: Array<EventPage> = [];
+        for (let i = 1; i <= pageCount; i++) {
+          dataPages[i] = new EventPage(dataUrl, i, pageCount);
+          observables.push(this.getSingleEventPage(dataPages[i]));
+        }
+        let firstObservable = Observable.forkJoin(observables);
+        firstObservable.subscribe(
+          allData => {
+            let totalCount = 0;
+            for (let key in allData) {
+              let dataPage = allData[key] as EventPage;
+
+              dataPage.data.forEach(item => {
+                eventArray.push(item);
+                totalCount++;
+              });
+              console.log('Event Page ' + dataPage.page + ': ' + totalCount);
+            }
+            returnedData.next(totalCount);
+          });
+      },
+      err => {
+        console.error(err);
+        returnedData.error(err);
+      }
+    );
+    return returnedData;
   }
 
   public getEventDataContent(id: number): Observable<any>  {
