@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/publishReplay';
-import { Observable, AsyncSubject, ReplaySubject } from 'rxjs/Rx';
+import { Observable, ReplaySubject } from 'rxjs/Rx';
 
 import { Org } from './models/org';
 import { Project } from './models/project';
@@ -10,6 +10,7 @@ import { Device } from './models/device';
 import { DataPoint } from './models/datapoint';
 import { DataFilterArgs } from './models/datafilterargs';
 import { Property } from './models/property';
+import { Stream } from './models/stream';
 
 export class CloudServiceMock {
 
@@ -364,7 +365,7 @@ export class CloudServiceMock {
     return Observable.of(devs);
   }
 
-  public getAllData(returnedAsyncSubject: AsyncSubject<Array<DataPoint>>, dataArray: Array<DataPoint>, args: DataFilterArgs): Observable<Array<DataPoint>> {
+  public getData(args: DataFilterArgs): Observable<Array<DataPoint>> {
     let result: Array<DataPoint> = [];
     let point1: DataPoint = new DataPoint({
       'id': 880971,
@@ -414,54 +415,21 @@ export class CloudServiceMock {
     return Observable.of(result);
   }
 
-  public getData(args: DataFilterArgs): Observable<Array<DataPoint>> {
-    let result: Array<DataPoint> = [];
-    let point1: DataPoint = new DataPoint({
-      'id': 880971,
-      'stream': 's--0000-006f--0000-0000-0000-00ae--5001',
-      'project': 'p--0000-006f',
-      'device': 'd--0000-0000-0000-00ae',
-      'variable': 'v--0000-006f--5001',
-      'type': 'ITR',
-      'device_timestamp': 9159600,
-      'timestamp': '2017-05-31T23:26:16Z',
-      'int_value': 2763,
-      'value': 67.4725274725275,
-      'streamer_local_id': 28027,
-      'dirty_ts': false
+  public getAllStreamData(stream: Stream, args: DataFilterArgs): ReplaySubject<any>  {
+    let returnedData = new ReplaySubject(1);
+
+    args.filter = stream.slug;
+    this.getData(args).subscribe(data => {
+
+      let totalCount = 0;
+      data.forEach(item => {
+          stream.data.push(item);
+          totalCount++;
+      });
+      returnedData.next(totalCount);
     });
-    result.push(point1);
-    let point2: DataPoint = new DataPoint({
-      'id': 880973,
-      'stream': 's--0000-006f--0000-0000-0000-00ae--5001',
-      'project': 'p--0000-006f',
-      'device': 'd--0000-0000-0000-00ae',
-      'variable': 'v--0000-006f--5001',
-      'type': 'ITR',
-      'device_timestamp': 9160200,
-      'timestamp': '2017-05-31T23:36:16Z',
-      'int_value': 2758,
-      'value': 67.3504273504274,
-      'streamer_local_id': 28028,
-      'dirty_ts': false
-    });
-    result.push(point2);
-    let point3: DataPoint = new DataPoint({
-      'id': 880975,
-      'stream': 's--0000-006f--0000-0000-0000-00ae--5001',
-      'project': 'p--0000-006f',
-      'device': 'd--0000-0000-0000-00ae',
-      'variable': 'v--0000-006f--5001',
-      'type': 'ITR',
-      'device_timestamp': 9160800,
-      'timestamp': '2017-05-31T23:46:16Z',
-      'int_value': 2749,
-      'value': 67.1306471306471,
-      'streamer_local_id': 28029,
-      'dirty_ts': false
-    });
-    result.push(point3);
-    return Observable.of(result);
+
+    return returnedData;
   }
 
   public getDeviceProperties(device: Device): Observable<Device> {

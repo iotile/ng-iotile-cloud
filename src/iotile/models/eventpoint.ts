@@ -1,21 +1,15 @@
+import { Page } from './page';
+
 export interface BasicDictionary {
   [index: string]: any;
 }
 
-export class EventPage {
-  public pageSize: number;
-  public totalCount: number;
-  public page: number;
+export class EventPage extends Page {
   public data: Array<EventPoint>;
 
-  constructor(pageSize: number, count:number, thisPage: number) {
-    this.pageSize = pageSize;
-    this.totalCount = count;
-    this.page = thisPage;
-  }
-
-  public pageCount (): number {
-    return this.totalCount / this.pageSize;
+  constructor(url: string, thisPage: number, pageCount: number) {
+    super(url, thisPage, pageCount);
+    this.data = [];
   }
 }
 
