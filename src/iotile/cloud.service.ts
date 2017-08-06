@@ -492,7 +492,7 @@ export class CloudService {
         args.pageSize = 1000;
         let dataUrl = urlBase + args.buildFilterString();
         let pageCount = Math.ceil(count / args.pageSize);
-        console.debug('No. of pages (to be forkJoin-ed): ' + args.pageSize + '/' + count + '=' + pageCount);
+        console.debug('No. of pages (to be forkJoin-ed): ' + count + '/' + args.pageSize + '=' + pageCount);
         let observables = [];
 
         let dataPages: Array<DataPage> = [];
