@@ -675,15 +675,13 @@ export class CloudService {
   }
 
   public getProject(projectId: string): Observable<any> {
-    let url = '/project/' + projectId;
+    let url = '/project/' + projectId + '/';
     return this._get(url)
                .map((p: Project) => new Project(p),
                      err => console.error(err));
   }
 
   public fetchProjectWithAssociatedData(projectId): Observable<Project> {
-    let url = '/project/' + projectId;
-
     return this.getProject(projectId).flatMap((p: Project) => {
       return this.fetchDevicesAndVariablesForProject(p).flatMap(p => {
         return this.fetchSensorGraphsForProject(p).map(project => {
