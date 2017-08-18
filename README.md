@@ -59,9 +59,10 @@ Update `package.json` with a new version number.
 
 ```
 npm run clean
-npm run build
 npm publish
 ```
+
+Travis will release automatically after a Tag is created in github
 
 ## Using Docker
 
