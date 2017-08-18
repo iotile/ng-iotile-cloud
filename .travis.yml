@@ -1,24 +1,24 @@
-sudo: required  
-dist: trusty 
-
+sudo: required
+dist: trusty
 language: node_js
-
 node_js:
-  - "6"
-
+- '6'
 notifications:
   email: false
-
-before_install: 
- - export CHROME_BIN=/usr/bin/google-chrome
- - export DISPLAY=:99.0 
- - sh -e /etc/init.d/xvfb start
- - sudo apt-get update
- - sudo apt-get install -y libappindicator1 fonts-liberation
- - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
- - sudo dpkg -i google-chrome*.deb
-
+before_install:
+- export CHROME_BIN=/usr/bin/google-chrome
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sudo apt-get update
+- sudo apt-get install -y libappindicator1 fonts-liberation
+- wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+- sudo dpkg -i google-chrome*.deb
 script:
 - npm test
-
-
+deploy:
+  provider: npm
+  email: dkarchmer@gmail.com
+  on:
+    tags: true
+  api_key:
+    secure: nX5Q8/luRrXV8C4fcspEy5N7vOMUX7xUetoPcn1GtPAohZyVwLzJZ8k/mGUZUg2qKULFyDLp6sT0Zk6v6CqiGNuXlrR44zI2Inh9rVFv0qcnJkThz2zD/uIVpsxsTnd1LPW5zS+D/KHV7G/6oQdLxgADUKGfySmTzurwoGoGBgYs16JREws6pFuESW+cKAYV0MTRFpGqKdch72oig0liZIEYmEbk8B7pfcJH3yZfswEflOnMZbDdHsJ4pHNgKrjdG68NGX3e7eRTjx5kAU6286bu+H8n/Ksff/GexM3oaofh3/ufOVv+a+nJ77f3dYamTore+/0QhqOxbX9GM4OvzwgJvF8GPjen8NcodrLpxPtqWD8v7NaDmSnmnyd6XNDDHJ4q+CUoIFaWLBhC7CMK800uZBLydm6+RObjRnOgwtQmko9m0ez8Kj+viZ1iF+9d3pooYRZwYB/RPyO4daySMazsmuWb4gOKXlGuYRjWHBe4MKp88G+o00mgxh7GJXPyLUvJjfN6+Wij9FLQbUeva8Cf6k8gFj8EpuIEqADccMiHnO9712SEre4fkO8uOXhXwzMEOcOyIqbwJrh9eaM6XfUbaoWebYSb3WAUd3EBqY6IyrFUwhQo9I36YYLZTrvuo+tSoivz8g4wXe4t2axuqeNPKmOre7CXVgP7zodknnA=
