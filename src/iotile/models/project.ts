@@ -46,6 +46,9 @@ export class Project {
         this.pageTemplateSlug = 'default';
         this.pageTemplateLabel = 'Dashboard';
       }
+      this.deviceMap = {};
+      this.streamMap = {};
+      this.variableMap = {};
     }
 
     public addDevices(devices: Array<Device>): void {

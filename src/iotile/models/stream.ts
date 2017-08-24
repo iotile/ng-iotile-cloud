@@ -12,6 +12,10 @@ export interface StreamDictionary {
 export class Stream {
   public slug: string;
   public variable: string;
+  public block: string;
+  public variableName: string;
+  public variableType: string;
+  public variableLocalId: number;
   public device: string;
   public project: string;
   public enabled: boolean = true;
@@ -34,6 +38,16 @@ export class Stream {
     this.mdo = new Mdo(data);
     this.stats = new Stats();
     this.enabled = data.enabled;
+    if (data.block) {
+      this.block = data.block;
+    }
+    if (data.var_name) {
+      this.variableName = data.var_name;
+    }
+    if (data.var_type) {
+      this.variableType = data.var_type;
+    }
+    this.variableLocalId = data.var_lid;
     if (data.data_label) {
       this.dataLabel = data.data_label;
     }
