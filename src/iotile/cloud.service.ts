@@ -362,7 +362,10 @@ export class CloudService {
   public getStreamsForDevice(deviceSlug: string, projectId: string): Observable<any>  {
 
     // return an observable
-    let url: string = '/stream/?device__slug=' + deviceSlug + '&project=' + projectId;
+    let url: string = '/stream/?device__slug=' + deviceSlug;
+    if (projectId) {
+      url += '&project=' + projectId;
+    }
     return this._get(url)
       .map((data: Array<any>) => {
         let result: Array<Stream> = [];
