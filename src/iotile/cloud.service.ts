@@ -266,10 +266,21 @@ export class CloudService {
       });
   }
 
-  public getVariableType(varSlug: string): Observable<VarType>  {
+  public getVariableTypeByVariable(varSlug: string): Observable<VarType>  {
 
     // return an observable
     let url: string = '/variable/' + varSlug + '/type/';
+    // console.log(url);
+    return this._get(url)
+      .map((data: any) => {
+        return new VarType(data);
+      });
+  }
+
+  public getVariableType(varTypeSlug: string): Observable<VarType>  {
+
+    // return an observable
+    let url: string = '/vartype/' + varTypeSlug + '/';
     // console.log(url);
     return this._get(url)
       .map((data: any) => {
