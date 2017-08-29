@@ -11,15 +11,8 @@ const dummyProject: Project = new Project({
   "slug": "p--0000-0012",
   "gid": "0000-0012",
   "org": "my-org",
+  "project_template": "default-template-v1-0-0",
   "about": "",
-  "pages": [
-    2
-  ],
-  "page": {
-    "slug": "water-meter",
-    "label": "Water Meter",
-    "id": 2
-  },
   "created_on": "2016-11-16T19:32:13.412718Z",
   "created_by": "david"
 });
@@ -33,11 +26,9 @@ describe('ProjectTest', () => {
     expect(proj.slug).toEqual('p--0000-0012');
     expect(proj.name).toEqual('My Project');
     expect(proj.orgSlug).toEqual('my-org');
+    expect(proj.projectTemplate).toEqual('default-template-v1-0-0');
     expect(proj.createdOn.getFullYear()).toEqual(2016);
     expect(proj.createdBy).toEqual('david');
-    expect(proj.pageTemplateId).toEqual(2);
-    expect(proj.pageTemplateSlug).toEqual('water-meter');
-    expect(proj.pageTemplateLabel).toEqual('Water Meter');
   });
 
   it('check default page template', () => {
@@ -47,8 +38,6 @@ describe('ProjectTest', () => {
       "page_templates": []
     });
     expect(proj.id).toEqual('84e3869d-1fdb-4203-9b69-18b417e2b0e0');
-    expect(proj.pageTemplateId).toEqual(1);
-    expect(proj.pageTemplateSlug).toEqual('default');
   });
 
   it('check project devices', () => {
