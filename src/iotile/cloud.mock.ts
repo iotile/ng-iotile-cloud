@@ -118,17 +118,17 @@ export class CloudServiceMock {
 
   public getProjectTemplate(slug: string): Observable<ProjectTemplate> {
     let pt: ProjectTemplate = new ProjectTemplate({
-      "id": 7,
-      "name": "Default Template",
-      "slug": "default-template-v1-0-0",
-      "org": "arch-systems",
-      "version": "v1.0.0",
-      "extra_data": {
-        "web": {
-          "projectTemplateSlug": "default"
+      'id': 7,
+      'name': 'Default Template',
+      'slug': 'default-template-v1-0-0',
+      'org': 'arch-systems',
+      'version': 'v1.0.0',
+      'extra_data': {
+        'web': {
+          'projectTemplateSlug': 'default'
         }
       },
-      "created_on": "2017-08-29T21:05:56.438500Z"
+      'created_on': '2017-08-29T21:05:56.438500Z'
     });
     return Observable.of(pt);
   }
