@@ -20,6 +20,7 @@ import {
   EventPoint,
   EventPage,
   SensorGraph,
+  ProjectTemplate,
   DataFilterArgs,
   Property
 } from './models';
@@ -129,6 +130,14 @@ export class CloudService {
           user = new User(rawData);
         }
         return user;
+      });
+  }
+
+  public getProjectTemplate(slug: string): Observable<ProjectTemplate> {
+    // return an observable
+    return this._get('/pt/' + slug + '/')
+      .map((data: any) => {
+        return new ProjectTemplate(data);
       });
   }
 
