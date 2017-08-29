@@ -1,4 +1,4 @@
-export * from './archive';
+export * from './datablock';
 export * from './credentials';
 export * from './user';
 export * from './org';

@@ -1,4 +1,4 @@
-export class Archive {
+export class DataBlock {
   public id: number;
   public slug: string;
   public title: string;

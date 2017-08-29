@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/publishReplay';
 import { Observable, ReplaySubject } from 'rxjs/Rx';
 
-import { Archive } from './models/archive';
+import { DataBlock } from './models/datablock';
 import { Org } from './models/org';
 import { Project } from './models/project';
 import { VarType } from './models/vartype';
@@ -759,9 +759,9 @@ export class CloudServiceMock {
     });
   }
 
-  getArchiveForOrg(orgSlug): Observable<Array<Archive>> {
-    let result: Array<Archive> = [];
-    let mockArchive: Archive = new Archive({
+  getDataBlocks(orgSlug): Observable<Array<DataBlock>> {
+    let result: Array<DataBlock> = [];
+    let mockArchive: DataBlock = new DataBlock({
       'id': 1,
       'slug': 'b--0001-0000-0000-0087',
       'title': 'from singapore to hong kong',
@@ -773,7 +773,7 @@ export class CloudServiceMock {
     });
     result.push(mockArchive);
 
-    let mockArchive2: Archive = new Archive({
+    let mockArchive2: DataBlock = new DataBlock({
       'id': 1,
       'slug': 'b--0001-0000-0000-0087',
       'title': 'from singapore to hong kong',
