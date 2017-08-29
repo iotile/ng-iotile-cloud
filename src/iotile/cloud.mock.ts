@@ -1,6 +1,7 @@
 import 'rxjs/add/operator/publishReplay';
 import { Observable, ReplaySubject } from 'rxjs/Rx';
 
+import { Archive } from './models/archive';
 import { Org } from './models/org';
 import { Project } from './models/project';
 import { VarType } from './models/vartype';
@@ -738,5 +739,32 @@ export class CloudServiceMock {
         });
       });
     });
+  }
+
+  getArchiveForOrg(orgSlug): Observable<Array<Archive>> {
+    let result: Array<Archive> = [];
+    let mockArchive: Archive = new Archive({
+      "id": 1,
+      "slug": "b--0001-0000-0000-0087",
+      "title": "from singapore to hong kong",
+      "org": "kt-savers",
+      "block": 1,
+      "created_on": "2017-08-29T01:04:06.572379Z",
+      "created_by": "vanielle"
+    });
+    result.push(mockArchive);
+
+    let mockArchive2: Archive = new Archive({
+      "id": 1,
+      "slug": "b--0001-0000-0000-0087",
+      "title": "from singapore to hong kong",
+      "org": "kt-savers",
+      "block": 1,
+      "created_on": "2017-08-29T01:04:06.572379Z",
+      "created_by": "vanielle"
+    });
+    result.push(mockArchive2);
+
+    return Observable.of(result);
   }
 }

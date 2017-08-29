@@ -5,6 +5,7 @@ import 'rxjs/add/operator/publishReplay';
 import { Observable, ReplaySubject } from 'rxjs/Rx';
 
 import {
+  Archive,
   Credentials,
   User,
   Org,
@@ -703,5 +704,15 @@ export class CloudService {
         });
       });
     });
+  }
+
+  public getArchiveForOrg(orgSlug: string): Observable<Array<Archive>> {
+    let url = `/archive/?org=${orgSlug}`;
+
+    return this._get(url).map((data: any) => {
+      if (data.count > 0) {
+        return data['results'].map(result => new Archive(result));
+      }
+    }, err => console.error(err));
   }
 }
