@@ -744,24 +744,24 @@ export class CloudServiceMock {
   getArchiveForOrg(orgSlug): Observable<Array<Archive>> {
     let result: Array<Archive> = [];
     let mockArchive: Archive = new Archive({
-      "id": 1,
-      "slug": "b--0001-0000-0000-0087",
-      "title": "from singapore to hong kong",
-      "org": "kt-savers",
-      "block": 1,
-      "created_on": "2017-08-29T01:04:06.572379Z",
-      "created_by": "vanielle"
+      'id': 1,
+      'slug': 'b--0001-0000-0000-0087',
+      'title': 'from singapore to hong kong',
+      'org': 'kt-savers',
+      'block': 1,
+      'created_on': '2017-08-29T01:04:06.572379Z',
+      'created_by': 'vanielle'
     });
     result.push(mockArchive);
 
     let mockArchive2: Archive = new Archive({
-      "id": 1,
-      "slug": "b--0001-0000-0000-0087",
-      "title": "from singapore to hong kong",
-      "org": "kt-savers",
-      "block": 1,
-      "created_on": "2017-08-29T01:04:06.572379Z",
-      "created_by": "vanielle"
+      'id': 1,
+      'slug': 'b--0001-0000-0000-0087',
+      'title': 'from singapore to hong kong',
+      'org': 'kt-savers',
+      'block': 1,
+      'created_on': '2017-08-29T01:04:06.572379Z',
+      'created_by': 'vanielle'
     });
     result.push(mockArchive2);
 
