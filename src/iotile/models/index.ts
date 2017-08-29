@@ -17,4 +17,5 @@ export * from './displaywidget';
 export * from './sensorgraph';
 export * from './gid';
 export * from './property';
+export * from './projecttemplate';
 export * from './page';

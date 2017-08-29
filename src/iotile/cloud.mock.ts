@@ -9,6 +9,7 @@ import { SensorGraph } from './models/sensorgraph';
 import { Variable } from './models/variable';
 import { Device } from './models/device';
 import { DataPoint } from './models/datapoint';
+import { ProjectTemplate } from './models/projecttemplate';
 import { DataFilterArgs } from './models/datafilterargs';
 import { Property } from './models/property';
 import { Stream } from './models/stream';
@@ -115,8 +116,25 @@ export class CloudServiceMock {
     return Observable.of(varType);
   }
 
+  public getProjectTemplate(slug: string): Observable<ProjectTemplate> {
+    let pt: ProjectTemplate = new ProjectTemplate({
+      "id": 7,
+      "name": "Default Template",
+      "slug": "default-template-v1-0-0",
+      "org": "arch-systems",
+      "version": "v1.0.0",
+      "extra_data": {
+        "web": {
+          "projectTemplateSlug": "default"
+        }
+      },
+      "created_on": "2017-08-29T21:05:56.438500Z"
+    });
+    return Observable.of(pt);
+  }
+
   public getSensorGraph(slug: string): Observable<SensorGraph> {
-    let sg = new SensorGraph({
+    let sg: SensorGraph = new SensorGraph({
       'id': 2,
       'name': 'Water Meter',
       'slug': slug,
