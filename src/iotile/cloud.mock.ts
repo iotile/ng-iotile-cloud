@@ -765,6 +765,7 @@ export class CloudServiceMock {
       'id': 1,
       'slug': 'b--0001-0000-0000-0087',
       'title': 'from singapore to hong kong',
+      'sg': 'saver-v1-1-0',
       'org': 'kt-savers',
       'block': 1,
       'created_on': '2017-08-29T01:04:06.572379Z',
