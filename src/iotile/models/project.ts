@@ -13,10 +13,7 @@ export class Project {
     public createdBy: string;
     public createdOn: Date;
     public orgSlug: string;
-
-    public pageTemplateId: number;
-    public pageTemplateSlug: string;
-    public pageTemplateLabel: string;
+    public projectTemplate: string;
 
     public org: Org;
     public devices: Array<Device>;
@@ -34,18 +31,10 @@ export class Project {
       this.orgSlug = data.org;
       this.createdBy = data.created_by;
       this.createdOn = new Date(data.created_on);
-
-      let page: any = data.page;
-      if (page) {
-        this.pageTemplateId = page['id'];
-        this.pageTemplateSlug = page['slug'];
-        this.pageTemplateLabel = page['label'];
-      } else {
-        // Assume default page
-        this.pageTemplateId = 1;
-        this.pageTemplateSlug = 'default';
-        this.pageTemplateLabel = 'Dashboard';
+      if ('project_template' in data) {
+        this.projectTemplate = data.project_template;
       }
+
       this.deviceMap = {};
       this.streamMap = {};
       this.variableMap = {};
