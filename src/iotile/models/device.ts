@@ -10,6 +10,7 @@ export class Device {
   public id: number;
   public slug: string;
   public gid: string;
+  public externalId: string;
   public label: string;
   public lat: number;
   public lng: number;
@@ -24,6 +25,7 @@ export class Device {
     this.id = data.id;
     this.slug = data.slug;
     this.gid = data.gid;
+    this.externalId = data.external_id;
     this.label = data.label || data.slug;
     this.lat = parseFloat(data.lat || 0);
     this.lng = parseFloat(data.lon || 0);
