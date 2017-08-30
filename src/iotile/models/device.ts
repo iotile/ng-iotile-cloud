@@ -1,6 +1,7 @@
 import { Project } from './project';
 import { SensorGraph } from './sensorgraph';
 import { Property, PropertyDictionary } from './property';
+import { DataBlock } from './datablock';
 
 export interface DeviceDictionary {
     [ index: string ]: Device
@@ -20,6 +21,7 @@ export class Device {
   public project: Project;
   public propertyMap: PropertyDictionary;
   public properties: Array<Property>;
+  public dataBlock: DataBlock;
 
   constructor(data: any = {}) {
     this.id = data.id;
@@ -57,6 +59,10 @@ export class Device {
 
   public getProperty(name): Property {
     return this.propertyMap[name];
+  }
+
+  public isDataBlock(): boolean {
+    return (this.dataBlock != null);
   }
 
 }

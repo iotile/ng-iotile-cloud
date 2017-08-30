@@ -5,7 +5,7 @@ import 'rxjs/add/operator/publishReplay';
 import { Observable, ReplaySubject } from 'rxjs/Rx';
 
 import {
-  Archive,
+  DataBlock,
   Credentials,
   User,
   Org,
@@ -438,7 +438,7 @@ export class CloudService {
 
   public getPointCount(url): Observable<number>  {
 
-    url += '&page_size=5';
+    url += '&page_size=2';
     console.debug('[CloudService] GET: ' + url);
     return this._get(url)
       .map((data: any) => {
@@ -715,12 +715,15 @@ export class CloudService {
     });
   }
 
-  public getArchiveForOrg(orgSlug: string): Observable<Array<Archive>> {
-    let url = `/archive/?org=${orgSlug}`;
+  public getDataBlocks(orgSlug: string): Observable<Array<DataBlock>> {
+    let url = '/datablock/';
+    if (orgSlug) {
+      url += `?org=${orgSlug}`;
+    }
 
     return this._get(url).map((data: any) => {
       if (data.count > 0) {
-        return data['results'].map(result => new Archive(result));
+        return data['results'].map(result => new DataBlock(result));
       }
     }, err => console.error(err));
   }

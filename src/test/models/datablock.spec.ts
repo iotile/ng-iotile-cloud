@@ -1,8 +1,8 @@
 'use strict';
 
-import { Archive } from '../../iotile/models/archive';
+import { DataBlock } from '../../iotile/models/datablock';
 
-const mockArchive: Archive= new Archive({
+const mockArchive: DataBlock= new DataBlock({
   "id": 1,
   "slug": "b--0001-0000-0000-0087",
   "title": "from singapore to hong kong",
@@ -13,9 +13,9 @@ const mockArchive: Archive= new Archive({
   "created_by": "vanielle"
 });
 
-describe('Archive', () => {
-  it('checks basic archive', () => {
-    let archive: Archive = mockArchive;
+describe('DataBlock', () => {
+  it('checks basic DataBlock', () => {
+    let archive: DataBlock = mockArchive;
     expect(archive.slug).toBe('b--0001-0000-0000-0087');
     expect(archive.sensorGraphSlug).toBe('saver-v1-1-0');
     expect(archive.title).toBe('from singapore to hong kong');
