@@ -738,9 +738,9 @@ export class CloudService {
 
   public postDataBlock(
     payload: {
-      title: string,
+      title: string;
       description: string;
-      device: string
+      device: string;
     }): Observable<DataBlock> {
     return this._post('/datablock/', payload)
                .map((data: any) => {

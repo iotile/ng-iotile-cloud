@@ -9,7 +9,6 @@ export class DataBlock {
   public createdBy: Date;
 
   public constructor(data) {
-    console.log('What is data for datablock', data)
     this.id = data.id;
     this.slug = data.slug;
     this.title = data.title;
