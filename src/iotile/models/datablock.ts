@@ -7,6 +7,7 @@ export class DataBlock {
   public sensorGraphSlug: string;
   public createdOn: Date;
   public createdBy: Date;
+  public description: string;
 
   public constructor(data) {
     this.id = data.id;
@@ -17,5 +18,14 @@ export class DataBlock {
     this.sensorGraphSlug = data.sg;
     this.createdOn = new Date(data.created_on);
     this.createdBy = data.created_by;
+    this.description = data.description;
+  }
+
+  public getPostPayload() {
+    return {
+      title: this.title,
+      description: this.description,
+      device: this.slug
+    };
   }
 }

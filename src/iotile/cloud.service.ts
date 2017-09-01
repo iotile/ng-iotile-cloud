@@ -736,12 +736,8 @@ export class CloudService {
     }, err => console.error(err));
   }
 
-  public postDataBlock(
-    payload: {
-      title: string;
-      description: string;
-      device: string;
-    }): Observable<DataBlock> {
+  public postDataBlock(dataBlock: DataBlock): Observable<DataBlock> {
+    let payload = dataBlock.getPostPayload();
     return this._post('/datablock/', payload)
                .map((data: any) => {
                  return new DataBlock(data);
