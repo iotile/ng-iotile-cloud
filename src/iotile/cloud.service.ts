@@ -728,12 +728,22 @@ export class CloudService {
     }, err => console.error(err));
   }
 
-  public postDataBlock(payload: { title: string, description: string, deviceSlug: string }): Observable<DataBlock> {
-    console.log('Received Payload', payload);
+  public getDataBlock(dataBlockSlug: string): Observable<DataBlock> {
+   let url = '/datablock/' + dataBlockSlug + '/';
+
+   return this._get(url).map((data: any) => {
+     return new DataBlock(data);
+   }, err => console.error(err));
+ }
+
+  public postDataBlock(
+    payload: {
+      title: string,
+      description: string;
+      device: string
+    }): Observable<DataBlock> {
     return this._post('/datablock/', payload)
                .map((data: any) => {
-                 console.log('Returned Data', data);
-                 console.log('Returned DataBlock', new DataBlock(data));
                  return new DataBlock(data);
                }, err => console.error(err));
   }
