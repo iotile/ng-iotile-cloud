@@ -728,15 +728,6 @@ export class CloudService {
     }, err => console.error(err));
   }
 
-  // public postOrg(org: Org): Observable<Org>  {
-  //   // return an observable
-  //   let payload: any = org.getPatchPayload();
-  //   return this._post('/org/', payload)
-  //     .map((data: any) => {
-  //       return new Org(data);
-  //     });
-  // }
-
   public postDataBlock(payload: { title: string, description: string, deviceSlug: string }): Observable<DataBlock> {
     console.log('Received Payload', payload);
     return this._post('/datablock/', payload)
