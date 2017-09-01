@@ -9,6 +9,7 @@ export class DataBlock {
   public createdBy: Date;
 
   public constructor(data) {
+    console.log('What is data for datablock', data)
     this.id = data.id;
     this.slug = data.slug;
     this.title = data.title;
@@ -16,6 +17,6 @@ export class DataBlock {
     this.block = data.block;
     this.sensorGraphSlug = data.sg;
     this.createdOn = new Date(data.created_on);
-    this.createdBy = new Date(data.created_by);
+    this.createdBy = data.created_by;
   }
 }
