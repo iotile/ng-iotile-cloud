@@ -730,7 +730,6 @@ export class CloudService {
 
   public getDataBlock(dataBlockSlug: string): Observable<DataBlock> {
     let url = '/datablock/' + dataBlockSlug + '/';
-    
     return this._get(url).map((data: any) => {
       return new DataBlock(data);
     }, err => console.error(err));

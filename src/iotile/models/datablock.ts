@@ -18,14 +18,22 @@ export class DataBlock {
     this.sensorGraphSlug = data.sg;
     this.createdOn = new Date(data.created_on);
     this.createdBy = data.created_by;
-    this.description = data.description;
+
+    if ('description' in data) {
+      this.description = data.description;
+    }
   }
 
   public getPostPayload() {
-    return {
+    let payload = {
       title: this.title,
-      description: this.description,
       device: this.slug
     };
+
+    if (this.description) {
+      payload['description'] = this.description;
+    }
+
+    return payload;
   }
 }
