@@ -742,4 +742,13 @@ export class CloudService {
                  return new DataBlock(data);
                }, err => console.error(err));
   }
+
+  public postDeviceProperties(device: DataBlock): Observable<Device> {
+    let url = '/device/' + device.slug + '/properties/';
+    let payload = device.getPostPayload();
+    return this._post(url, payload)
+               .map((data: any) => {
+                 return new Device(data);
+               }, err => console.error(err));
+  }
 }
