@@ -17,7 +17,7 @@ export class Property {
 
   public getPostPayload() {
     let payload = {};
-    let type = this.type + '_value';
+    let type = this.type.toLowerCase() + '_value';
 
     payload['id'] = this.id;
     payload['name'] = this.name;
