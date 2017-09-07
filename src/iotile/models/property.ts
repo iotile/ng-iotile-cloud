@@ -15,7 +15,7 @@ export class Property {
     this.type = data.type;
   }
 
-  getPostPayload() {
+  public getPostPayload() {
     let payload = {};
     let type = this.type + '_value';
 
