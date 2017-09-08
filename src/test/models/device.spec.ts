@@ -73,9 +73,9 @@ describe('DeviceTest', () => {
     expect(payload.lon).toEqual(-12.12345);
   });
 
-  it('it check device\'s property', () => {
+  it('it check device properties', () => {
     let dev: Device = dummyDevice1;
-    let properties: Array<Properties> = [];
+    let properties: Array<Property> = [];
 
     let dummyProperty1: Property = new Property({
       "id": 7,

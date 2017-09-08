@@ -4,6 +4,7 @@ import { Project } from '../../iotile/models/project';
 import { Device } from '../../iotile/models/device';
 import { Stream } from '../../iotile/models/stream';
 import { Variable } from '../../iotile/models/variable';
+import { Property } from '../../iotile/models/property';
 
 const dummyProject: Project = new Project({
   "id": "84e3869d-1fdb-4203-9b69-18b417e2b0e0",
@@ -117,5 +118,28 @@ describe('ProjectTest', () => {
     expect(proj.variables[1].id).toBe('5002');
     v = proj.getVariable('v--0000-0001--5001');
     expect(v.id).toBe('5001');
+  });
+
+  it('it check project properties', () => {
+    let proj: Project = dummyProject;
+    let properties: Array<Property> = [];
+
+    let dummyProperty1: Property = new Property({
+      "id": 7,
+      "name": "transportType",
+      "value": "Air"
+    });
+    properties.push(dummyProperty1);
+
+    let dummyProperty2 = new Property({
+      "id": 8,
+      "name": "cargoDescription",
+      "value": "Statement or description of the cargo."
+    });
+    properties.push(dummyProperty2);
+
+    proj.addProperties(properties);
+    expect(proj.getProperty('transportType')).toBe(dummyProperty1);
+    expect(proj.getProperty('cargoDescription')).toBe(dummyProperty2);
   });
 });
