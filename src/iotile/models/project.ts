@@ -4,6 +4,7 @@ import { Stream, StreamDictionary } from './stream';
 import { Variable, VariableDictionary } from './variable';
 import { Mdo } from './mdo';
 import { DataPoint } from './datapoint';
+import { Property, PropertyDictionary } from './property';
 
 export class Project {
     public id: string;
@@ -22,6 +23,8 @@ export class Project {
     public streamMap: StreamDictionary;
     public variables: Array<Variable>;
     public variableMap: VariableDictionary;
+    public properties: Array<Property>;
+    public propertyMap: PropertyDictionary;
 
     constructor(data: any = {}) {
       this.id = data.id;
@@ -85,6 +88,18 @@ export class Project {
         }
       }
       return;
+    }
+
+    public addProperties(properties: Array<Property>): void {
+      this.properties = properties;
+      this.propertyMap = {};
+      this.properties.forEach(property => {
+        this.propertyMap[property.name] = property;
+      });
+    }
+
+    public getProperty(name): Property {
+      return this.propertyMap[name];
     }
 
     public computeValue(stream: Stream, data: DataPoint): number {
