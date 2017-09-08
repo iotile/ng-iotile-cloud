@@ -90,7 +90,6 @@ export class Project {
       return;
     }
 
-
     public addProperties(properties: Array<Property>): void {
       this.properties = properties;
       this.propertyMap = {};

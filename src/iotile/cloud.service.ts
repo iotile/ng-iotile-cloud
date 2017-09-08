@@ -617,16 +617,6 @@ export class CloudService {
       .map(res => res.json());
   }
 
-  public getDeviceProperties(device: Device): Observable<Device> {
-    let url = '/device/' + device.slug + '/properties/';
-    return this._get(url)
-               .map((results: Array<Property>) => {
-                 let properties: Array<Property> = results.map(result => new Property(result));
-                 device.addProperties(properties);
-                 return device;
-               });
-  }
-
   public fetchDevicesAndVariablesForProject(project: Project): ReplaySubject<any> {
     let returnedData = new ReplaySubject(1);
 
@@ -743,11 +733,43 @@ export class CloudService {
                }, err => console.error(err));
   }
 
+  public getDeviceProperties(device: Device): Observable<Device> {
+    let url = '/device/' + device.slug + '/properties/';
+    return this._get(url)
+               .map((results: Array<Property>) => {
+                 let properties: Array<Property> = results.map(result => new Property(result));
+                 device.addProperties(properties);
+                 return device;
+               });
+  }
+
+  public getProjectProperties(project: Project): Observable<Project> {
+    let url = '/project/' + project.id + '/properties/';
+    return this._get(url)
+               .map((results: Array<Property>) => {
+                 let properties: Array<Property> = results.map(result => new Property(result));
+                 project.addProperties(properties);
+                 return project;
+               });
+  }
+
   public postDeviceProperty(
     deviceSlug: string,
     property: Property
   ): Observable<Property> {
     let url = '/device/' + deviceSlug + '/new_property/';
+    let payload = property.getPostPayload();
+    return this._post(url, payload)
+               .map((data: any) => {
+                 return new Property(data);
+               }, err => console.error(err));
+  }
+
+  public postProjectProperty(
+    projectId: string,
+    property: Property
+  ): Observable<Property> {
+    let url = '/project/' + projectId + '/new_property/';
     let payload = property.getPostPayload();
     return this._post(url, payload)
                .map((data: any) => {
