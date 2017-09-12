@@ -8,7 +8,6 @@ export class VarType {
   public name: string;
   public slug: string;
   public unitFullName: string;
-  public unitShortName: string;
   public availableInputUnits: Array<Unit>;
   public availableOutputUnits: Array<Unit>;
 
@@ -16,7 +15,6 @@ export class VarType {
     this.name = data.name;
     this.slug = data.slug;
     this.unitFullName = data.storage_units_full;
-    this.unitShortName = data.storage_units_short;
 
     if ('available_input_units' in data) {
       data['available_input_units'].forEach(u => {
