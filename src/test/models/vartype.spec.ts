@@ -44,8 +44,7 @@ const dummyVarType: VarType = new VarType({
         "o": 0.0
       }
     ],
-    "storage_units_full": "Liters",
-    "storage_units_short": "l"
+    "storage_units_full": "Liters"
 });
 
 describe('VarTypeTest', () => {
@@ -55,7 +54,6 @@ describe('VarTypeTest', () => {
     expect(varType.name).toEqual('Liquid Volume');
     expect(varType.slug).toEqual('liquid-volume');
     expect(varType.unitFullName).toEqual('Liters');
-    expect(varType.unitShortName).toEqual('l');
   });
 
   it('check available input in varType', () => {
