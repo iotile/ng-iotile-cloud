@@ -1,6 +1,6 @@
 'use strict';
 
-import { Fleet } from '../../iotile/models/fleet';
+import { Fleet, FleetDevice } from '../../iotile/models/fleet';
 
 it('check basic fleet', () => {
   let fleet: Fleet = new Fleet({
@@ -17,4 +17,15 @@ it('check basic fleet', () => {
   expect(fleet.name).toEqual('Fleet 1');
   expect(fleet.description).toEqual('This is the description');
   expect(fleet.isNetwork).toBeTruthy();
+});
+
+it('check basic fleet devices', () => {
+  let fd: FleetDevice = new FleetDevice({
+    "device": "d--0000-0000-0000-0006",
+    "always_on": true,
+    "is_access_point": false
+  });
+  expect(fd.device).toEqual('d--0000-0000-0000-0006');
+  expect(fd.alwaysOn).toBeTruthy();
+  expect(fd.isAccessPoint).toBeFalsy();
 });

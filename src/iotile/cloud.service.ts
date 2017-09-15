@@ -22,7 +22,8 @@ import {
   SensorGraph,
   ProjectTemplate,
   DataFilterArgs,
-  Property
+  Property,
+  Fleet
 } from './models';
 
 /*
@@ -775,5 +776,30 @@ export class CloudService {
                .map((data: any) => {
                  return new Property(data);
                }, err => console.error(err));
+  }
+
+  public getFleets(): Observable<Array<Fleet>>  {
+
+    let url: string = '/fleet/';
+    return this.get(url)
+      .map((data: Array<any>) => {
+        let result: Array<Fleet> = [];
+        if (data) {
+          data['results'].forEach((item) => {
+            result.push(
+              new Fleet(item));
+          });
+        }
+        return result;
+      });
+  }
+
+  public getFleet(fleetSlug: string): Observable<Fleet>  {
+
+    let url: string = '/fleet/' + fleetSlug + '/';
+    return this.get(url)
+      .map((data: any) => {
+        return new Fleet(data);
+      });
   }
 }
