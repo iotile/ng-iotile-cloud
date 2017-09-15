@@ -23,7 +23,9 @@ import {
   ProjectTemplate,
   DataFilterArgs,
   Property,
-  Fleet
+  Fleet,
+  FleetDevice,
+  ApiFilter
 } from './models';
 
 /*
@@ -165,9 +167,13 @@ export class CloudService {
       });
   }
 
-  public getOrgs(): Observable<any> {
+  public getOrgs(filter: ApiFilter): Observable<any> {
     // return an observable
-    return this.get('/org/')
+    let url: string = '/org/';
+    if (filter) {
+      url += filter.filterString();
+    }
+    return this.get(url)
       .publishReplay(1).refCount()
       .map((orgs: Array<any>) => {
         let result: Array<Org> = [];
@@ -198,10 +204,13 @@ export class CloudService {
       });
   }
 
-  public getProjects(): Observable<any>  {
+  public getProjects(filter: ApiFilter): Observable<any>  {
 
-    // return an observable
-    return this.get('/project/')
+    let url: string = '/project/';
+    if (filter) {
+      url += filter.filterString();
+    }
+    return this.get(url)
       .publishReplay(1).refCount()
       .map((projects: Array<any>) => {
         let result: Array<Project> = [];
@@ -778,13 +787,16 @@ export class CloudService {
                }, err => console.error(err));
   }
 
-  public getFleets(): Observable<Array<Fleet>>  {
+  public getFleets(filter: ApiFilter): Observable<Array<Fleet>>  {
 
     let url: string = '/fleet/';
+    if (filter) {
+      url += filter.filterString();
+    }
     return this.get(url)
       .map((data: Array<any>) => {
         let result: Array<Fleet> = [];
-        if (data) {
+        if (data && 'results' in data) {
           data['results'].forEach((item) => {
             result.push(
               new Fleet(item));
@@ -800,6 +812,21 @@ export class CloudService {
     return this.get(url)
       .map((data: any) => {
         return new Fleet(data);
+      });
+  }
+
+  public getFleetDevices(fleet: Fleet): Observable<Fleet> {
+    // Get all devices members for this fleet, and add them to the fleet
+
+    let url: string = '/fleet/' + fleet.slug + '/devices/';
+    return this.get(url)
+      .map((data: Array<any>) => {
+        if (data && 'results' in data) {
+          data['results'].forEach((item) => {
+            fleet.addDevice(new FleetDevice(item));
+          });
+        }
+        return fleet;
       });
   }
 }
