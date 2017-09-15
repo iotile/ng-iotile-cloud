@@ -167,7 +167,7 @@ export class CloudService {
       });
   }
 
-  public getOrgs(filter: ApiFilter): Observable<any> {
+  public getOrgs(filter?: ApiFilter): Observable<any> {
     // return an observable
     let url: string = '/org/';
     if (filter) {
@@ -204,7 +204,7 @@ export class CloudService {
       });
   }
 
-  public getProjects(filter: ApiFilter): Observable<any>  {
+  public getProjects(filter?: ApiFilter): Observable<any>  {
 
     let url: string = '/project/';
     if (filter) {
@@ -715,10 +715,10 @@ export class CloudService {
     });
   }
 
-  public getDataBlocks(orgSlug: string): Observable<Array<DataBlock>> {
+  public getDataBlocks(filter?: ApiFilter): Observable<Array<DataBlock>> {
     let url = '/datablock/';
-    if (orgSlug) {
-      url += `?org=${orgSlug}`;
+    if (filter) {
+      url += filter.filterString();
     }
 
     return this.get(url).map((data: any) => {
@@ -787,7 +787,7 @@ export class CloudService {
                }, err => console.error(err));
   }
 
-  public getFleets(filter: ApiFilter): Observable<Array<Fleet>>  {
+  public getFleets(filter?: ApiFilter): Observable<Array<Fleet>>  {
 
     let url: string = '/fleet/';
     if (filter) {
