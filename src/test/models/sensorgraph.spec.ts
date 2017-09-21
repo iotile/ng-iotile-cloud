@@ -89,6 +89,12 @@ describe('SensorGraphTest', () => {
         "id": 1,
         "label": "IO 1",
         "lid_hex": "5001",
+        "type": "val",
+        "args": {
+          "options": {
+            "showLastValueGauge": true
+          }
+        },
         "var_type": "water-meter-volume",
         "derived_unit_type": "",
         "show_in_app": false,
@@ -229,7 +235,7 @@ const dummySg2 = new SensorGraph({
     "patch_version": 0,
     "created_on": "2017-03-10T04:16:03.061729Z"
   });
-  
+
   it('check SensorGraph basics', () => {
     let sg: SensorGraph = dummySg1;
     expect(sg).toBeTruthy();
@@ -251,6 +257,8 @@ const dummySg2 = new SensorGraph({
     let widget0 = sg.displayWidgetTemplates[0];
     expect(widget0.showInApp).toEqual(false);
     expect(widget0.showInWeb).toEqual(true);
+    expect(widget0.type).toEqual('val');
+    expect(widget0.args.options.showLastValueGauge).toEqual(true);
     expect(widget0.label).toEqual('IO 1');
     let widget3 = sg.displayWidgetTemplates[3];
     expect(widget3.showInApp).toEqual(true);
