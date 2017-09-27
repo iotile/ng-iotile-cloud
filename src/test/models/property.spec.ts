@@ -50,7 +50,7 @@ describe('PropertyTest', () => {
 
     it('checks basic without id', () => {
       let dummyPayload4 = dummyProperty4.getPostPayload();
-      expect(dummyPayload4['id']).toBeUndefined();
+      expect('id' in dummyPayload4).toBeFalsy();
     });
 
     it('checks str_value', () => {
