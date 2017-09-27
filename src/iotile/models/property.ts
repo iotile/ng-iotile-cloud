@@ -9,17 +9,25 @@ export class Property {
   public type: string;
 
   constructor(data) {
-    this.id = data.id;
     this.name = data.name;
     this.value = data.value;
     this.type = data.type;
+
+    if ('id' in data) {
+      this.id = data.id;
+    } else {
+      delete this.id;
+    }
   }
 
   public getPostPayload() {
     let payload = {};
     let type = this.type.toLowerCase() + '_value';
 
-    payload['id'] = this.id;
+    if ('id' in this) {
+      payload['id'] = this.id;
+    }
+
     payload['name'] = this.name;
     payload[type] = this.value;
 
