@@ -24,33 +24,48 @@ describe('PropertyTest', () => {
     type: 'bool'
   });
 
-  it('check basic property', () => {
+  const dummyProperty4 = new Property({
+    name: 'cargoDescription',
+    value: 'Statement or description of the cargo.',
+    type: 'str'
+  });
+
+  it('checks basic property', () => {
     expect(dummyProperty1).toBeDefined();
     expect(dummyProperty1.id).toEqual(8);
     expect(dummyProperty1.name).toEqual('cargoDescription');
   });
 
+  it('checks property without id', () => {
+    expect(dummyProperty4.id).toBeUndefined();
+  });
+
   describe('getPostPayload()', () => {
 
     it('checks basic', () => {
-      let dummyPayload = dummyProperty1.getPostPayload();
-      expect(dummyPayload['id']).toEqual(8);
-      expect(dummyPayload['name']).toBe('cargoDescription');
+      let dummyPayload1 = dummyProperty1.getPostPayload();
+      expect(dummyPayload1['id']).toEqual(8);
+      expect(dummyPayload1['name']).toBe('cargoDescription');
+    });
+
+    it('checks basic without id', () => {
+      let dummyPayload4 = dummyProperty4.getPostPayload();
+      expect(dummyPayload4['id']).toBeUndefined();
     });
 
     it('checks str_value', () => {
-      let dummyPayload = dummyProperty1.getPostPayload();
-      expect(dummyPayload['str_value']).toBe('Statement or description of the cargo.');
+      let dummyPayload1 = dummyProperty1.getPostPayload();
+      expect(dummyPayload1['str_value']).toBe('Statement or description of the cargo.');
     });
 
     it('checks int_value', () => {
-      let dummyPayload = dummyProperty2.getPostPayload();
-      expect(dummyPayload['int_value']).toBe(100);
+      let dummyPayload2 = dummyProperty2.getPostPayload();
+      expect(dummyPayload2['int_value']).toBe(100);
     });
 
     it('checks bool_value', () => {
-      let dummyPayload = dummyProperty3.getPostPayload();
-      expect(dummyPayload['bool_value']).toBe(true);
+      let dummyPayload3 = dummyProperty3.getPostPayload();
+      expect(dummyPayload3['bool_value']).toBe(true);
     });
   });
 });

@@ -9,7 +9,10 @@ export class Property {
   public type: string;
 
   constructor(data) {
-    this.id = data.id;
+    if ('id' in data) {
+      this.id = data.id;
+    }
+
     this.name = data.name;
     this.value = data.value;
     this.type = data.type;
