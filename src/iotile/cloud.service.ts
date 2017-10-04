@@ -42,7 +42,7 @@ export class CloudService {
   constructor(
     http: Http,
   ) {
-    console.log('Hello CloudService Provider');
+    console.debug('Hello CloudService Provider');
     this._http = http;
   }
 
@@ -70,20 +70,18 @@ export class CloudService {
 
   public patch(url: string, payload: any): Observable<any>  {
     let options: RequestOptions = this._getRequestOptions();
-    // console.log(url);
     return this._http.patch(this._apiEndpoint + url, payload, options)
       .map((responseData) => {
-        console.log('_patch() responseData', url, responseData);
+        console.debug('_patch() responseData', url, responseData);
         return responseData.json();
       });
   }
 
   public post(url: string, payload: any): Observable<any>  {
     let options: RequestOptions = this._getRequestOptions();
-    // console.log(url);
     return this._http.post(this._apiEndpoint + url, payload, options)
       .map((responseData) => {
-        console.log('_post() responseData', url, responseData);
+        console.debug('_post() responseData', url, responseData);
         return responseData.json();
       });
   }
@@ -93,7 +91,7 @@ export class CloudService {
   }
 
   public setToken (token: string): void {
-    console.log('[CloudService] Setting token');
+    console.debug('[CloudService] Setting token');
     this._token = token;
   }
 
@@ -103,7 +101,7 @@ export class CloudService {
 
   public authenticate(credentials: Credentials): Observable<any> {
 
-    console.log('[CloudService] 1.- credentials.username=' + credentials.username);
+    console.debug('[CloudService] Authenticating @' + credentials.username);
     let headers: Headers = new Headers();
     this._createAuthorizationHeader(headers);
     let options: RequestOptions = new RequestOptions({ headers: headers });
@@ -114,7 +112,6 @@ export class CloudService {
         // login successful if there's a jwt token in the response
         let data: any = response.json();
         if (data && data.token) {
-            // console.log('[CloudService] 2.- Got jwt data: ', data);
             this._token = data.token;
             return this._token;
         }
@@ -129,7 +126,6 @@ export class CloudService {
         let user: User;
         if (results) {
           let rawData: {} = results['results'][0];
-          // console.log(rawData);
           user = new User(rawData);
         }
         return user;
@@ -240,10 +236,8 @@ export class CloudService {
     let payload: any = {
       name: project.name
     };
-    // console.log(url);
     return this.patch(url, payload)
       .map((data: any) => {
-        console.log('patchProject() data', data);
         return new Project(data);
       });
   }
@@ -252,7 +246,6 @@ export class CloudService {
 
     // return an observable
     let url: string = '/device/' + deviceSlug + '/';
-    // console.log(url);
     return this.get(url)
       .map((data: any) => {
         return new Device(data);
@@ -267,10 +260,8 @@ export class CloudService {
     let payload: any = {
       label: device.label
     };
-    // console.log(url);
     return this.patch(url, payload)
       .map((data: any) => {
-        console.log('patchDevice() data', data);
         return new Device(data);
       });
   }
@@ -279,7 +270,6 @@ export class CloudService {
 
     // return an observable
     let url: string = '/variable/' + varSlug + '/';
-    // console.log(url);
     return this.get(url)
       .map((data: any) => {
         return new Variable(data);
@@ -290,7 +280,6 @@ export class CloudService {
 
     // return an observable
     let url: string = '/variable/' + varSlug + '/type/';
-    // console.log(url);
     return this.get(url)
       .map((data: any) => {
         return new VarType(data);
@@ -301,7 +290,6 @@ export class CloudService {
 
     // return an observable
     let url: string = '/vartype/' + varTypeSlug + '/';
-    // console.log(url);
     return this.get(url)
       .map((data: any) => {
         return new VarType(data);
@@ -312,12 +300,10 @@ export class CloudService {
 
     // return an observable
     let url: string = '/vartype/';
-    // console.log(url);
     return this.get(url)
       .map((data: Array<any>) => {
         let result: Array<VarType> = [];
         if (data) {
-          // console.log(data);
           data['results'].forEach((item) => {
             result.push(
               new VarType(item));
@@ -331,12 +317,10 @@ export class CloudService {
 
     // return an observable
     let url: string = '/variable/?project=' + project.id;
-    // console.log(url);
     return this.get(url)
       .map((data: Array<any>) => {
         let result: Array<Variable> = [];
         if (data) {
-          // console.log(data);
           data['results'].forEach((item) => {
             result.push(
               new Variable(item));
@@ -353,7 +337,6 @@ export class CloudService {
     let variableSlug: string = variable.slug;
     let url: string = '/variable/' + variableSlug + '/';
     let payload: any = variable.getPatchPayload();
-    // console.log(url);
     return this.patch(url, payload)
       .map((data: any) => {
         return new Variable(data);
@@ -364,7 +347,6 @@ export class CloudService {
 
     // return an observable
     let url: string = '/device/?project=' + project.id;
-    // console.log(url);
     return this.get(url)
       .map((data: Array<any>) => {
         let result: Array<Device> = [];
@@ -426,7 +408,6 @@ export class CloudService {
     let streamSlug: string = stream.slug;
     let url: string = '/stream/' + streamSlug + '/';
     let payload: any = stream.getPatchPayload();
-    // console.log(url);
     return this.patch(url, payload)
       .map((data: any) => {
         return new Stream(data);
@@ -439,7 +420,6 @@ export class CloudService {
     let url: string = '/stream/' + streamSlug + '/stats/';
     url += args.buildFilterString();
 
-    // console.log(url);
     return this.get(url)
       .map((data: any) => {
         return new Stats(data);
@@ -464,7 +444,7 @@ export class CloudService {
 
     let url: string = '/data/';
     url += args.buildFilterString();
-    console.debug('[CloudService] getData ====> ' + url);
+    console.debug('[CloudService] GET: ' + url);
     return this.get(url)
       .map((data: Array<any>) => {
         let result: Array<DataPoint> = [];
@@ -518,7 +498,7 @@ export class CloudService {
 
     let urlBase: string = '/stream/' + stream.slug + '/data/';
     let url: string = urlBase + args.buildFilterString();
-    console.debug('[CloudService] getAllData ====> ' + url);
+    console.debug('[CloudService] GET: ' + url);
     this.getPointCount(url).subscribe(
       count => {
 
@@ -573,7 +553,7 @@ export class CloudService {
 
     let urlBase: string = '/event/';
     let url: string = urlBase + args.buildFilterString();
-    console.debug('[CloudService] getAllData ====> ' + url);
+    console.debug('[CloudService] GET: ' + url);
     this.getPointCount(url).subscribe(
       count => {
 
@@ -616,12 +596,10 @@ export class CloudService {
   public getEventDataContent(id: number): Observable<any>  {
 
     let url: string = '/event/' + id + '/data/';
-    console.debug('[CloudService] getEventData ====> ' + url);
     return this.get(url);
   }
 
   public uploadStreamData(payload: {}): Observable<any> {
-    console.log('[CloudService] uploadStreamData()');
     let options: RequestOptions = this._getRequestOptions();
     return this._http.post(this._apiEndpoint + '/data/', payload, options)
       .map(res => res.json());
@@ -665,7 +643,7 @@ export class CloudService {
       // Return Project as is if no SGs
       returnedData.next(project);
     }
-    console.log('Required SGs: ', sgSlugList);
+    console.debug('Required SGs: ', sgSlugList);
     sgSlugList.forEach(slug => {
       observables.push(this.getSensorGraph(slug));
     });
@@ -828,5 +806,23 @@ export class CloudService {
         }
         return fleet;
       });
+  }
+
+  public registerDeviceFleet(fleetSlug: string, deviceSlug: string): Observable<any> {
+
+    let url: string = '/fleet/' + fleetSlug + '/register/';
+    let payload: any = {
+      device: deviceSlug
+    };
+    return this.post(url, payload);
+  }
+
+  public deregisterDeviceFleet(fleetSlug: string, deviceSlug: string): Observable<any> {
+
+    let url: string = '/fleet/' + fleetSlug + '/deregister/';
+    let payload: any = {
+      device: deviceSlug
+    };
+    return this.post(url, payload);
   }
 }
