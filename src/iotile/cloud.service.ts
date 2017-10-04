@@ -813,7 +813,7 @@ export class CloudService {
     let url: string = '/fleet/' + fleetSlug + '/register/';
     let payload: any = {
       device: deviceSlug
-    }
+    };
     return this.post(url, payload);
   }
 
@@ -822,7 +822,7 @@ export class CloudService {
     let url: string = '/fleet/' + fleetSlug + '/deregister/';
     let payload: any = {
       device: deviceSlug
-    }
+    };
     return this.post(url, payload);
   }
 }
