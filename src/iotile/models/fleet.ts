@@ -30,6 +30,7 @@ export class Fleet {
     this.description = data.description;
     this.isNetwork = data.is_network;
     this.memberDictionary = {};
+    this.members = [];
   }
 
   public addDevice(item: FleetDevice): void {
