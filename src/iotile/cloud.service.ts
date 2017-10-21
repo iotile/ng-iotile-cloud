@@ -343,10 +343,14 @@ export class CloudService {
       });
   }
 
-  public getDevices(project: Project): Observable<any>  {
-
+  public getDevices(project: Project, filter?: ApiFilter): Observable<any>  {
+    // Merge the filter (if any) with the project filter we create here
+    if (!filter) {
+      filter = new ApiFilter();
+    }
+    filter.addFilter('project', project.id);
+    let url: string = '/device/' + filter.filterString();
     // return an observable
-    let url: string = '/device/?project=' + project.id;
     return this.get(url)
       .map((data: Array<any>) => {
         let result: Array<Device> = [];
@@ -793,10 +797,13 @@ export class CloudService {
       });
   }
 
-  public getFleetDevices(fleet: Fleet): Observable<Fleet> {
+  public getFleetDevices(fleet: Fleet, filter?: ApiFilter): Observable<Fleet> {
     // Get all devices members for this fleet, and add them to the fleet
 
     let url: string = '/fleet/' + fleet.slug + '/devices/';
+    if (filter) {
+      url += filter.filterString();
+    }
     return this.get(url)
       .map((data: Array<any>) => {
         if (data && 'results' in data) {
