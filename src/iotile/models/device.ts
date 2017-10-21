@@ -13,6 +13,7 @@ export class Device {
   public gid: string;
   public externalId: string;
   public label: string;
+  public active: boolean;
   public lat: number;
   public lng: number;
   public template: string;
@@ -27,6 +28,7 @@ export class Device {
     this.id = data.id;
     this.slug = data.slug;
     this.gid = data.gid;
+    this.active = data.active;
     this.externalId = data.external_id;
     this.label = data.label || data.slug;
     this.lat = parseFloat(data.lat || 0);
@@ -46,6 +48,7 @@ export class Device {
     if (this.lng) {
       payload.lon = this.lng;
     }
+    payload.active = this.active;
     return payload;
   }
 
