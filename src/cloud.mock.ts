@@ -1,12 +1,5 @@
 
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/publishReplay';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/flatmap';
-import 'rxjs/add/observable/first';
+import { Observable, ReplaySubject } from 'rxjs/Rx';
 
 import { DataBlock } from './models/datablock';
 import { Org } from './models/org';

@@ -4,11 +4,19 @@ import resolve from 'rollup-plugin-node-resolve';
 const globals = {
     '@angular/core': 'ng.core',
     '@angular/common': 'ng.common',
+    'rxjs/Rx': 'Rx',
     'rxjs/Observable': 'Rx',
     'rxjs/Observer': 'Rx',
     'rxjs/ReplaySubject': 'Rx',
-    'rxjs/add/operator/map': 'Rx',
-    'rxjs/add/operator/publishReplay': 'Rx'
+    'rxjs/BehaviorSubject': 'Rx',
+    'rxjs/add/operator/map': 'Rx.Observable.prototype',
+    'rxjs/add/operator/catch': 'Rx.Observable.prototype',
+    'rxjs/add/operator/publishReplay': 'Rx.Observable.prototype',
+    'rxjs/add/operator/of': 'Rx.Observable.prototype',
+    'rxjs/add/operator/forkJoin': 'Rx.Observable.prototype',
+    'rxjs/add/operator/flatmap': 'Rx.Observable.prototype',
+    'rxjs/add/observable/first': 'Rx.Observable',
+    'rxjs/add/observable/throw': 'Rx.Observable'
 };
 
 export default {
