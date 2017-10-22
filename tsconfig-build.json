@@ -1,22 +1,20 @@
 {
     "compilerOptions": {
         "baseUrl": ".",
-        "emitDecoratorMetadata": true,
+        "declaration": true,
         "experimentalDecorators": true,
         "strict": true,
-        "module": "commonjs",
+        "module": "es2015",
         "moduleResolution": "node",
+        "outDir": "dist",
         "rootDir": ".",
         "sourceMap": true,
         "inlineSources": true,
-        "target": "es5",
+        "target": "es2015",
         "skipLibCheck": true,
         "lib": [
             "es2015",
             "dom"
-        ],
-        "typeRoots": [
-            "./node_modules/@types/"
         ]
     },
     "files": [
@@ -24,8 +22,11 @@
         "node_modules/zone.js/dist/zone.js.d.ts",
         "public_api.ts"
     ],
-    "exclude": [
-        "node_modules",
-        "tests"
-    ]
+    "angularCompilerOptions": {
+        "skipTemplateCodegen": true,
+        "annotateForClosureCompiler": true,
+        "strictMetadataEmit": true,
+        "flatModuleOutFile": "iotile.js",
+        "flatModuleId": "iotile"
+    }
 }
