@@ -66,27 +66,6 @@ export class SensorGraph {
     return null;
   }
 
-  private getIoInfoParameter(
-    type: string, lid: string, name: string
-  ): string {
-
-    let ioInfo: any = this.getIoInfo(type);
-    // 1. Check if there is an ioInfo.map and if so, if there is
-    //    data for the given LID
-    if (ioInfo) {
-      if (ioInfo.map[lid][name]) {
-        return ioInfo.map[lid][name];
-      }
-    } else {
-      // 2. Look for a global value for that parameter name
-      let uiExtra: any = this.getUiExtra(type);
-      if (uiExtra[name]) {
-        return uiExtra[name];
-      }
-    }
-    return '';
-  }
-
   public toJson(): any {
     return this.rawData;
   }

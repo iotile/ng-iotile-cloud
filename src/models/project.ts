@@ -108,42 +108,15 @@ export class Project {
       if (!stream) {
         return result;
       }
-      if (data.value) {
-        // New Scheme
-        // Only the outputUnits are used for display purposes
-        if (stream.outputUnit) {
-          mdo = stream.outputUnit.mdo;
-          if (mdo) {
-            result = mdo.computeValue(data.value);
-          }
-        } else {
-          result = data.outValue;
+      if (stream.outputUnit) {
+        mdo = stream.outputUnit.mdo;
+        if (mdo) {
+          result = mdo.computeValue(data.value);
         }
       } else {
-        // Old Scheme
-        let varSlug: string = stream.variable;
-        let varObj: Variable = this.variableMap[varSlug];
-        switch (stream.mdoType) {
-          case 'S':
-            mdo = stream.mdo;
-            if (mdo) {
-              result = mdo.computeValue(data.rawValue);
-            }
-            break;
-          case 'V':
-            if (varObj && varObj.mdo) {
-              mdo = varObj.mdo;
-              result = mdo.computeValue(data.rawValue);
-            }
-            break;
-          case 'P':
-            break;
-          default:
-            console.log('ERROR: Illegal mdoType: ' + stream.mdoType);
-            break;
-        }
+        result = data.outValue ? data.outValue : data.value;
       }
-      // console.log('Processing ' + value + ' for ' + varSlug + ': ' + result);
+
       return result;
     }
   }

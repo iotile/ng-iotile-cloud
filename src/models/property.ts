@@ -7,11 +7,13 @@ export class Property {
   public name: string;
   public value: string;
   public type: string;
+  public isSystem: boolean;
 
   constructor(data: any) {
     this.name = data.name;
     this.value = data.value;
     this.type = data.type;
+    this.isSystem = data.is_system;
 
     if ('id' in data) {
       this.id = data.id;

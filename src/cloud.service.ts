@@ -52,7 +52,6 @@ export class CloudService {
   constructor(
     http: Http,
   ) {
-    console.debug('Hello CloudService Provider');
     this._http = http;
   }
 
@@ -82,7 +81,6 @@ export class CloudService {
     let options: RequestOptions = this._getRequestOptions();
     return this._http.patch(this._apiEndpoint + url, payload, options)
       .map((responseData: any) => {
-        console.debug('_patch() responseData', url, responseData);
         return responseData.json();
       });
   }
@@ -91,7 +89,6 @@ export class CloudService {
     let options: RequestOptions = this._getRequestOptions();
     return this._http.post(this._apiEndpoint + url, payload, options)
       .map((responseData: any) => {
-        console.debug('_post() responseData', url, responseData);
         return responseData.json();
       });
   }
@@ -101,7 +98,6 @@ export class CloudService {
   }
 
   public setToken (token: string): void {
-    console.debug('[CloudService] Setting token');
     this._token = token;
   }
 
@@ -456,7 +452,6 @@ export class CloudService {
 
     let url: string = '/data/';
     url += args.buildFilterString();
-    console.debug('[CloudService] GET: ' + url);
     return this.get(url)
       .map((data: any) => {
         let result: Array<DataPoint> = [];
@@ -472,7 +467,6 @@ export class CloudService {
   public getSingleDataPage(dataPage: DataPage): Observable<DataPage>  {
 
     let url = dataPage.pageUrl();
-    console.debug('[CloudService] GET: ', url);
     return this.get(url)
       .map((data: any) => {
         if (data) {
@@ -487,7 +481,6 @@ export class CloudService {
   public getSingleEventPage(dataPage: EventPage): Observable<EventPage>  {
 
     let url = dataPage.pageUrl();
-    console.debug('[CloudService] GET: ', url);
     return this.get(url)
       .map((data: any) => {
         if (data) {
@@ -510,7 +503,6 @@ export class CloudService {
 
     let urlBase: string = '/stream/' + stream.slug + '/data/';
     let url: string = urlBase + args.buildFilterString();
-    console.debug('[CloudService] GET: ' + url);
     this.getPointCount(url).subscribe(
       count => {
 
@@ -565,7 +557,6 @@ export class CloudService {
 
     let urlBase: string = '/event/';
     let url: string = urlBase + args.buildFilterString();
-    console.debug('[CloudService] GET: ' + url);
     this.getPointCount(url).subscribe(
       count => {
 

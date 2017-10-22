@@ -94,24 +94,6 @@ const dummyStream1 = new Stream({
 
 describe('ComputeValue', () => {
 
-  it('check Old Scheme', () => {
-    let proj: Project = dummyProject;
-    let variable: Variable = dummyVariable0;
-    let variables: Array<Variable> = [variable];
-    proj.addVariables(variables);
-    let stream: Stream = dummyStream0;
-    let streams: Array<Stream> = [stream];
-    proj.addStreams(streams);
-    let point: DataPoint = new DataPoint({
-      "type": "Num",
-      "timestamp": "2016-09-13T20:29:13.825000Z",
-      "int_value": 20,
-      "value": null,
-      "display_value": "4"
-    });
-    expect(proj.computeValue(stream, point)).toBe(7.5);
-  });
-
   it('check New Scheme', () => {
     let proj: Project = dummyProject;
     let stream: Stream = dummyStream1;
