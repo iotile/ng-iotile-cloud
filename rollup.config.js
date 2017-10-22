@@ -12,11 +12,11 @@ const globals = {
 };
 
 export default {
-    entry: './dist/modules/ng-iotile-cloud.es5.js',
-    dest: './dist/bundles/ng-iotile-cloud.umd.js',
+    entry: './dist/modules/iotile.es5.js',
+    dest: './dist/bundles/iotile.umd.js',
     format: 'umd',
     exports: 'named',
-    moduleName: 'ng.iotileCloud',
+    moduleName: 'ng.iotile',
     plugins: [resolve()],
     external: Object.keys(globals),
     globals: globals,

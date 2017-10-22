@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/publishReplay';
+
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/publishReplay';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/flatmap';
+import 'rxjs/add/observable/first';
 
 import {
   DataBlock,

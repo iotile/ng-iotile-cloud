@@ -3,7 +3,7 @@
 const shell = require('shelljs');
 const chalk = require('chalk');
 
-const PACKAGE = `ng-iotile-cloud`;
+const PACKAGE = `iotile`;
 const NPM_DIR = `dist`;
 const MODULES_DIR = `${NPM_DIR}/modules`;
 const BUNDLES_DIR = `${NPM_DIR}/bundles`;
