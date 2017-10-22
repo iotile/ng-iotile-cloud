@@ -242,11 +242,6 @@ _Pvt_Extensions
 
 # Generated output
 /bundles/
-/components/
-/directives/
-/test/
-/ng2-bs3-modal.*
 src/**.*.js
 src/**.*.d.ts
-**/*.ngfactory.ts
 .idea/

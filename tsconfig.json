@@ -19,6 +19,11 @@
             "./node_modules/@types/"
         ]
     },
+    "files": [
+        "node_modules/rxjs/Rx.d.ts",
+        "node_modules/zone.js/dist/zone.js.d.ts",
+        "public_api.ts"
+    ],
     "exclude": [
         "node_modules",
         "tests"

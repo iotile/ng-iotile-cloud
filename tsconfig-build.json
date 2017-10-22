@@ -19,8 +19,8 @@
     },
     "files": [
         "node_modules/rxjs/Rx.d.ts",
-        "public_api.ts",
-        "node_modules/zone.js/dist/zone.js.d.ts"
+        "node_modules/zone.js/dist/zone.js.d.ts",
+        "public_api.ts"
     ],
     "angularCompilerOptions": {
         "skipTemplateCodegen": true,

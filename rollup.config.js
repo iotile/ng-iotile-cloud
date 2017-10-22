@@ -6,7 +6,9 @@ const globals = {
     '@angular/common': 'ng.common',
     'rxjs/Observable': 'Rx',
     'rxjs/Observer': 'Rx',
-    'rxjs/add/operator/map': 'Rx'
+    'rxjs/ReplaySubject': 'Rx',
+    'rxjs/add/operator/map': 'Rx',
+    'rxjs/add/operator/publishReplay': 'Rx'
 };
 
 export default {

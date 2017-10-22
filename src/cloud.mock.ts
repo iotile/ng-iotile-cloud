@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/publishReplay';
-import { Observable } from 'rxjs/Rx';
-import { ReplaySubject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { DataBlock } from './models/datablock';
 import { Org } from './models/org';
