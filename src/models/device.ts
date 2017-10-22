@@ -1,4 +1,3 @@
-import { Project } from './project';
 import { SensorGraph } from './sensorgraph';
 import { Property, PropertyDictionary } from './property';
 import { DataBlock } from './datablock';
@@ -19,7 +18,7 @@ export class Device {
   public template: string;
   public sensorGraphSlug: string;
   public sg: SensorGraph;
-  public project: Project;
+  public project: string;
   public propertyMap: PropertyDictionary;
   public properties: Array<Property>;
   public dataBlock: DataBlock;
