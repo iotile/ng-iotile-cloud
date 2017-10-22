@@ -1,5 +1,5 @@
 
-const PADDING = "000000";
+const PADDING = '000000';
 
 export class Stats {
     public min: number;
@@ -21,7 +21,7 @@ export class Stats {
     private _formatNumber(value: number, decimals: number): string {
       let decimalDeparator: string = '.';
       let result: string;
-      let [ integer, fraction = "" ] = value.toString().split(decimalDeparator);
+      let [ integer, fraction = '' ] = value.toString().split(decimalDeparator);
       fraction = decimals > 0
         ? decimalDeparator + (fraction + PADDING).substring(0, decimals)
         : '';

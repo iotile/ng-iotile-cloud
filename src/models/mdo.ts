@@ -23,7 +23,7 @@ export class Mdo {
   private _retr_dec(num: number): number {
     // let numberFixedDecimal = num.toFixed(10);
     let numberString = num.toString();
-    let decimalLength: number = (numberString.split(".")[1] || []).length;
+    let decimalLength: number = (numberString.split('.')[1] || []).length;
     if (decimalLength > 8) {
       // Limit number of decimals to 8
       decimalLength = 8;
@@ -96,7 +96,7 @@ export class Mdo {
       multiplication_factor: this.m,
       division_factor: this.d,
       offset: this.o
-    }
+    };
     if (this.label) {
       payload['mdo_label'] = this.label;
     }

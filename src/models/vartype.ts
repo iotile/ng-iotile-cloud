@@ -1,7 +1,7 @@
 import { Unit } from './unit';
 
 export interface VarTypeDictionary {
-    [ slug: string ]: VarType
+    [ slug: string ]: VarType;
 }
 
 export class VarType {
@@ -25,7 +25,7 @@ export class VarType {
         this.availableInputUnits.push(unit);
       });
     }
-    
+
     if ('available_output_units' in data) {
       data['available_output_units'].forEach((u: any) => {
         if (!this.availableOutputUnits) {

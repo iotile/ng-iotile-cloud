@@ -7,9 +7,9 @@ export class User {
     public creationDate: string;
 
     public constructor(data: any = {}) {
-        this.username = data.username || "";
-        this.name = data.name || "";
-        this.email = data.email || "";
+        this.username = data.username || '';
+        this.name = data.name || '';
+        this.email = data.email || '';
         this.creationDate = data.created_at || Date.now();
         this.isStaff = data.is_staff || false;
         if (data.avatar) {
@@ -27,13 +27,13 @@ export class User {
         return name;
     }
     public getUsername() {
-        return '@'+this.username;
+        return '@' + this.username;
     }
     public getAvatar() {
         if (this.avatarUrl) {
-            return this.avatarUrl
+            return this.avatarUrl;
         } else {
-            return ''
+            return '';
         }
     }
 }

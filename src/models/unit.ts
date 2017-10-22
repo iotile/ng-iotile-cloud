@@ -43,9 +43,9 @@ export class Unit {
   }
 
   public deriveUnitTypes(): string[] {
-    var keySet: string[] = [];
+    let keySet: string[] = [];
 
-    for (var prop in this.derivedUnits) {
+    for (let prop in this.derivedUnits) {
       if (this.derivedUnits.hasOwnProperty(prop)) {
         keySet.push(prop);
       }
@@ -55,9 +55,9 @@ export class Unit {
   }
 
   public deriveUnitsByType(type: string): string[] {
-    var keySet: string[] = [];
+    let keySet: string[] = [];
 
-    for (var prop in this.derivedUnits[type]) {
+    for (let prop in this.derivedUnits[type]) {
       if (this.derivedUnits[type].hasOwnProperty(prop)) {
         keySet.push(prop);
       }

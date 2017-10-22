@@ -2,11 +2,11 @@ import { Mdo } from './mdo';
 import { Unit } from './unit';
 
 export interface VariableDictionary {
-    [ index: string ]: Variable
+    [ index: string ]: Variable;
 }
 
 export class Variable {
-  public id: number;
+  public id: string;
   public slug: string;
   public lid: number;
   public name: string;
@@ -53,7 +53,7 @@ export class Variable {
   public getPatchPayload(): any {
     let basic: any = {
       name: this.name
-    }
+    };
     let payload: any = Object.assign(basic, this.mdo.getPatchPayload());
     if (this.units) {
       payload['units'] = this.units;

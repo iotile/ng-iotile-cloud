@@ -23,6 +23,7 @@ bld/
 [Oo]bj/
 /iotile/
 /dist/
+/coverage/
 npm-debug.log
 *.ngsummary.json
 

@@ -1,55 +1,78 @@
 {
   "name": "ng-iotile-cloud",
-  "version": "0.11.9",
-  "description": "Angular IOTile Cloud interface",
-  "keywords": [
-    "angular 2",
-    "iotile",
-    "iot"
-  ],
-  "main": "ng-iotile-cloud.js",
+  "version": "0.12.0",
+  "description": "Build an Angular library compatible with AoT compilation and Tree shaking",
+  "main": "./bundles/ng-iotile-cloud.umd.js",
+  "module": "./modules/ng-iotile-cloud.es5.js",
+  "es2015": "./modules/ng-iotile-cloud.js",
   "scripts": {
-    "clean": "rimraf .tmp && rimraf dist",
-    "transpile": "ngc",
-    "package": "rollup -c",
-    "minify": "./node_modules/uglify-js/bin/uglifyjs dist/bundles/ng-iotile-cloud.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/ng-iotile-cloud.umd.min.js",
-    "copy": "cpx './package-dist.json' dist && renamer --find 'package-dist.json' --replace 'package.json' ./dist/*",
-    "build": "npm run clean && npm run transpile && npm run package && npm run minify && npm run copy",
-    "test": "karma start"
+    "build": "node build.js",
+    "test": "karma start",
+    "pack-lib": "npm pack ./dist",
+    "publish-lib": "npm publish ./dist",
+    "publish-lib:next": "npm publish --tag next ./dist",
+    "compodoc": "compodoc -p tsconfig.json",
+    "compodoc-serve": "compodoc -s"
   },
-  "license": "MIT",
-  "homepage": "https://github.com/iotile/ng-iotile-cloud",
-  "bugs": {
-    "url": "https://github.com/iotile/ng-iotile-cloud/issues"
-  },
+  "typings": "./ng-iotile-cloud.d.ts",
+  "author": "",
   "repository": {
     "type": "git",
     "url": "https://github.com/iotile/ng-iotile-cloud.git"
   },
-  "devDependencies": {
-    "@angular/compiler": "^2.4.4",
-    "@angular/compiler-cli": "^2.4.4",
-    "cpx": "^1.5.0",
-    "renamer": "^0.6.1",
-    "rimraf": "^2.5.4",
-    "rollup": "^0.41.4",
-    "typescript": "~2.0.0",
-    "uglify-js": "^2.7.5",
-    "jasmine": "2.8.0",
-    "jasmine-core": "2.8.0",
-    "karma": "1.5.0",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-cli": "1.0.1",
-    "karma-jasmine": "1.1.0",
-    "karma-remap-istanbul": "0.2.1",
-    "karma-spec-reporter": "0.0.24",
-    "moment": "^2.17.1"
+  "bugs": {
+    "url": "https://github.com/iotile/ng-iotile-cloud/issues"
   },
-  "dependencies": {
-    "@angular/common": "^2.4.4",
-    "@angular/http": "^2.4.4",
-    "@angular/core": "^2.4.4",
-    "rxjs": "^5.0.3",
-    "zone.js": "^0.7.6"
+  "homepage": "https://github.com/iotile/ng-iotile-cloud",
+  "keywords": [
+    "angular",
+    "javascript",
+    "typescript"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": ">= 4.1.0",
+    "@angular/core": ">= 4.1.0",
+    "@angular/http": ">= 4.1.0"
+  },
+  "devDependencies": {
+    "@angular/animations": "4.1.0",
+    "@angular/common": "4.1.0",
+    "@angular/compiler": "4.1.0",
+    "@angular/compiler-cli": "4.1.0",
+    "@angular/core": "4.1.0",
+    "@angular/http": "^4.1.0",
+    "@angular/platform-browser": "4.1.0",
+    "@angular/platform-browser-dynamic": "4.1.0",
+    "@angular/platform-server": "4.1.0",
+    "@compodoc/compodoc": "1.0.0-beta.10",
+    "@types/jasmine": "2.5.52",
+    "@types/node": "8.0.1",
+    "chalk": "1.1.3",
+    "codelyzer": "3.1.1",
+    "core-js": "2.4.1",
+    "istanbul-instrumenter-loader": "3.0.0",
+    "jasmine-core": "2.6.4",
+    "karma": "1.7.0",
+    "karma-chrome-launcher": "2.1.1",
+    "karma-coverage-istanbul-reporter": "1.3.0",
+    "karma-jasmine": "1.1.0",
+    "karma-sourcemap-loader": "0.3.7",
+    "karma-spec-reporter": "0.0.31",
+    "karma-webpack": "2.0.3",
+    "reflect-metadata": "0.1.10",
+    "rollup": "0.43.0",
+    "rollup-plugin-node-resolve": "3.0.0",
+    "rxjs": "5.4.1",
+    "shelljs": "0.7.8",
+    "sorcery": "0.10.0",
+    "source-map-loader": "0.2.1",
+    "ts-loader": "2.1.0",
+    "tslint": "5.4.3",
+    "typescript": "2.3.4",
+    "uglify-js": "2.8.29",
+    "webpack": "3.0.0",
+    "yargs": "8.0.2",
+    "zone.js": "0.8.12"
   }
 }

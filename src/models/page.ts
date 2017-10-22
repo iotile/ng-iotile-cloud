@@ -12,6 +12,6 @@ export class Page {
   public pageUrl() {
     let url: string = this.baseUrl;
     url += '&page=' + this.page;
-    return url
+    return url;
   }
 }

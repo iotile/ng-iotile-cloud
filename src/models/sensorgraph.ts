@@ -37,8 +37,8 @@ export class SensorGraph {
     if (!this.uiExtra) {
       this.uiExtra = {};
     }
-    if ("display_widget_templates" in data) {
-      data["display_widget_templates"].forEach((d: any) => {
+    if ('display_widget_templates' in data) {
+      data['display_widget_templates'].forEach((d: any) => {
         let widget: DisplayWidget = new DisplayWidget(d);
         this.displayWidgetTemplates.push(widget);
       });
@@ -54,7 +54,7 @@ export class SensorGraph {
       return this.uiExtra[type];
     }
     return null;
-  };
+  }
 
   public getIoInfo(type: string): any {
     if (this.getUiExtra(type)) {
@@ -64,10 +64,10 @@ export class SensorGraph {
       }
     }
     return null;
-  };
+  }
 
   private getIoInfoParameter(
-    type:string, lid: string, name: string
+    type: string, lid: string, name: string
   ): string {
 
     let ioInfo: any = this.getIoInfo(type);

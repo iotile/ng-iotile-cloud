@@ -4,7 +4,7 @@ import { Mdo } from './mdo';
 import { Unit } from './unit';
 
 export interface StreamDictionary {
-    [ index: string ]: Stream
+    [ index: string ]: Stream;
 }
 
 export class Stream {
@@ -21,7 +21,7 @@ export class Stream {
   public mdoType: string;
   public mdo: Mdo;
   public inputUnit: Unit;
-  public outputUnit: Unit; 
+  public outputUnit: Unit;
   public stats: Stats;
   public dataLabel: string;
   public data: Array<DataPoint>;
@@ -83,7 +83,7 @@ export class Stream {
     let basic: any = {
       mdo_type: this.mdoType,
       enabled: this.enabled
-    }
+    };
     let payload: any = Object.assign(basic, this.mdo.getPatchPayload());
     if (this.inputUnit) {
       payload['input_unit'] = this.inputUnit.slug;

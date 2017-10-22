@@ -25,7 +25,7 @@ export class Org {
   public getPatchPayload(): any {
     let payload: any = {
       name: this.name
-    }
+    };
     if (this.about) {
       payload.about = this.about;
     }

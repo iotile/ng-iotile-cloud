@@ -1,18 +1,22 @@
+import resolve from 'rollup-plugin-node-resolve';
+
+// Add here external dependencies that actually you use.
+const globals = {
+    '@angular/core': 'ng.core',
+    '@angular/common': 'ng.common',
+    'rxjs/Observable': 'Rx',
+    'rxjs/Observer': 'Rx',
+    'rxjs/add/operator/map': 'Rx'
+};
+
 export default {
-	entry: 'dist/ng-iotile-cloud.js',
-	dest: 'dist/bundles/ng-iotile-cloud.umd.js',
-	sourceMap: false,
-	format: 'umd',
-	moduleName: 'ng-iotile-cloud',
-	globals: {
-        '@angular/core': 'ng.core',
-        '@angular/http': 'ng.http',
-		'@angular/common': 'ng.common',
-		'rxjs/Observable': 'Rx',
-		'rxjs/ReplaySubject': 'Rx',
-		'rxjs/add/operator/map': 'Rx.Observable.prototype',
-		'rxjs/add/operator/mergeMap': 'Rx.Observable.prototype',
-		'rxjs/add/observable/fromEvent': 'Rx.Observable',
-		'rxjs/add/observable/of': 'Rx.Observable'
-	}
+    entry: './dist/modules/ng-iotile-cloud.es5.js',
+    dest: './dist/bundles/ng-iotile-cloud.umd.js',
+    format: 'umd',
+    exports: 'named',
+    moduleName: 'ng.iotileCloud',
+    plugins: [resolve()],
+    external: Object.keys(globals),
+    globals: globals,
+    onwarn: () => { return }
 }

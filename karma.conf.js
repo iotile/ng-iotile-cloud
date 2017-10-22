@@ -1,12 +1,28 @@
-/* global module */
-module.exports = function (config) {
-    'use strict';
-    config.set({
+// Karma configuration for Unit testing
 
-        basePath: '.',
-        singleRun: true,
+const path = require('path');
+
+module.exports = function (config) {
+
+    const configuration = {
+
+        // base path that will be used to resolve all patterns (eg. files, exclude)
+        basePath: '',
+
+        // frameworks to use
+        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ['jasmine'],
-        reporters: ['spec'],
+
+        plugins: [
+            require('karma-jasmine'),
+            require('karma-chrome-launcher'),
+            require('karma-webpack'),
+            require('karma-sourcemap-loader'),
+            require('karma-spec-reporter'),
+            require('karma-coverage-istanbul-reporter'),
+            require("istanbul-instrumenter-loader")
+        ],
+
         browsers: ['Chrome_travis_ci'],
         customLaunchers: {  
             Chrome_travis_ci: {
@@ -14,40 +30,103 @@ module.exports = function (config) {
                 flags: ['--no-sandbox']
             }
         },
+
+        // list of files / patterns to load in the browser
         files: [
-            'node_modules/typescript/lib/typescript.js',
+            { pattern: 'spec.bundle.js', watched: false }
+        ],
 
-            // System.js for module loading
-            'node_modules/systemjs/dist/system.src.js',
-            'node_modules/systemjs/dist/system-polyfills.js',
+        // list of files to exclude
+        exclude: [
+        ],
 
-            // Polyfills
-            'node_modules/core-js/client/shim.js',
-            'node_modules/reflect-metadata/Reflect.js',
+        // preprocess matching files before serving them to the browser
+        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+        preprocessors: {
+            'spec.bundle.js': ['webpack', 'sourcemap']
+        },
 
-            // zone.js
-            'node_modules/zone.js/dist/zone.js',
-            'node_modules/zone.js/dist/long-stack-trace-zone.js',
-            'node_modules/zone.js/dist/proxy.js',
-            'node_modules/zone.js/dist/sync-test.js',
-            'node_modules/zone.js/dist/jasmine-patch.js',
-            'node_modules/zone.js/dist/async-test.js',
-            'node_modules/zone.js/dist/fake-async-test.js',
+        // webpack
+        webpack: {
+            resolve: {
+                extensions: ['.ts', '.js']
+            },
+            module: {
+                rules: [
+                    {
+                        test: /\.ts/,
+                        use: [
+                            { loader: 'ts-loader' },
+                            { loader: 'source-map-loader' }
+                        ],
+                        exclude: /node_modules/
+                    },
+                    {
+                        enforce: 'post',
+                        test: /\.ts/,
+                        use: [
+                            {
+                                loader: 'istanbul-instrumenter-loader',
+                                options: { esModules: true }
+                            }
+                        ],
+                        exclude: [
+                            /\.spec.ts/,
+                            /node_modules/
+                        ]
+                    }
+                ],
+                exprContextCritical: false
+            },
+            devtool: 'inline-source-map',
+            performance: { hints: false }
+        },
 
-            // RxJs
-            { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
-            { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
+        webpackServer: {
+            noInfo: true
+        },
 
-            // Paths loaded via module imports:
-            // Angular itself
-            { pattern: 'node_modules/@angular/**/*.js', included: false, watched: false },
-            { pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: false },
 
-            { pattern: 'systemjs.config.js', included: false, watched: false },
-            'karma-test-shim.js',
+        // test results reporter to use
+        // possible values: 'dots', 'progress'
+        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+        reporters: ['spec', 'coverage-istanbul'],
 
-            // Project files
-            { pattern: 'test/**/*.ts', included: false, served: true, watched: true },
-        ]
-    });
-};
+        coverageIstanbulReporter: {
+            reports: ['html', 'lcovonly'],
+            dir: path.join(__dirname, 'coverage'),
+            fixWebpackSourcePaths: true
+        },
+
+
+        // web server port
+        port: 9876,
+
+
+        // enable / disable colors in the output (reporters and logs)
+        colors: true,
+
+
+        // level of logging
+        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+        logLevel: config.LOG_INFO,
+
+
+        // enable / disable watching file and executing tests whenever any file changes
+        autoWatch: true,
+
+
+        // start these browsers
+        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+        browsers: ['Chrome'],
+
+
+        // Continuous Integration mode
+        // if true, Karma captures browsers, runs the tests and exits
+        singleRun: true
+
+    };
+
+    config.set(configuration);
+
+}

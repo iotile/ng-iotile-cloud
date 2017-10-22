@@ -4,7 +4,7 @@ import { Property, PropertyDictionary } from './property';
 import { DataBlock } from './datablock';
 
 export interface DeviceDictionary {
-    [ index: string ]: Device
+    [ index: string ]: Device;
 }
 
 export class Device {
@@ -41,7 +41,7 @@ export class Device {
   public getPatchPayload(): any {
     let payload: any = {
       label: this.label
-    }
+    };
     if (this.lat) {
       payload.lat = this.lat;
     }

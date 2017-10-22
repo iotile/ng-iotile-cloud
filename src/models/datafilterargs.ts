@@ -16,10 +16,10 @@ export class DataFilterArgs {
     if (this.startDate) {
       parameters.push('start=' + this.startDate.toISOString());
     }
-    
+
     let now = new Date();
-    if (!this.endDate || this.endDate > now){
-      this.endDate = now
+    if (!this.endDate || this.endDate > now) {
+      this.endDate = now;
     }
     if (this.endDate) {
       parameters.push('end=' + this.endDate.toISOString());

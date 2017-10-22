@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import { Observable, ReplaySubject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
+import { ReplaySubject } from 'rxjs/Rx';
 
 import {
   DataBlock,
@@ -68,7 +69,7 @@ export class CloudService {
     let options: RequestOptions = this._getRequestOptions();
 
     return this._http.get(this._apiEndpoint + url, options)
-      .map((responseData) => {
+      .map((responseData: any) => {
         return responseData.json();
       });
   }
@@ -76,7 +77,7 @@ export class CloudService {
   public patch(url: string, payload: any): Observable<any>  {
     let options: RequestOptions = this._getRequestOptions();
     return this._http.patch(this._apiEndpoint + url, payload, options)
-      .map((responseData) => {
+      .map((responseData: any) => {
         console.debug('_patch() responseData', url, responseData);
         return responseData.json();
       });
@@ -85,7 +86,7 @@ export class CloudService {
   public post(url: string, payload: any): Observable<any>  {
     let options: RequestOptions = this._getRequestOptions();
     return this._http.post(this._apiEndpoint + url, payload, options)
-      .map((responseData) => {
+      .map((responseData: any) => {
         console.debug('_post() responseData', url, responseData);
         return responseData.json();
       });
@@ -611,7 +612,7 @@ export class CloudService {
   public uploadStreamData(payload: {}): Observable<any> {
     let options: RequestOptions = this._getRequestOptions();
     return this._http.post(this._apiEndpoint + '/data/', payload, options)
-      .map(res => res.json());
+      .map((res: any) => res.json());
   }
 
   public fetchDevicesAndVariablesForProject(project: Project): ReplaySubject<any> {
