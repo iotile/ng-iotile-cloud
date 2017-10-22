@@ -7,7 +7,7 @@ export class FleetDevice {
   public alwaysOn: boolean;
   public isAccessPoint: boolean;
 
-  constructor(data) {
+  constructor(data: any) {
     this.device = data.device;
     this.alwaysOn = data.always_on;
     this.isAccessPoint = data.is_access_point;
@@ -23,7 +23,7 @@ export class Fleet {
   public members: Array<FleetDevice>;
   public memberDictionary: FleetDeviceDictionary;
 
-  constructor(data) {
+  constructor(data: any) {
     this.id = data.id;
     this.name = data.name;
     this.slug = data.slug;
@@ -39,7 +39,7 @@ export class Fleet {
   }
 
   public getPostPayload() {
-    let payload = {};
+    let payload: any = {};
 
     payload['name'] = this.name;
     payload['description'] = this.description;

@@ -16,7 +16,7 @@ import { Stream } from './models/stream';
 
 export class CloudServiceMock {
 
-  public setApiEndPoint( s ): void {
+  public setApiEndPoint( s: string ): void {
     return;
   }
 
@@ -472,7 +472,7 @@ export class CloudServiceMock {
     return Observable.of(device);
   }
 
-  public fetchDevicesAndVariablesForProject(project): ReplaySubject<any> {
+  public fetchDevicesAndVariablesForProject(project: any): ReplaySubject<any> {
     let proj = new Project(project);
 
     let returnedData = new ReplaySubject(1);
@@ -746,7 +746,7 @@ export class CloudServiceMock {
     return Observable.of(project);
   }
 
-  fetchProjectWithAssociatedData(projectId): Observable<Project> {
+  fetchProjectWithAssociatedData(projectId: string): Observable<Project> {
     let mockProjectId = '2c8dadd7-add0-4157-90cd-036bcc178ec9';
     projectId = mockProjectId;
 
@@ -759,7 +759,7 @@ export class CloudServiceMock {
     });
   }
 
-  getDataBlocks(orgSlug): Observable<Array<DataBlock>> {
+  getDataBlocks(orgSlug: string): Observable<Array<DataBlock>> {
     let result: Array<DataBlock> = [];
     let mockArchive: DataBlock = new DataBlock({
       'id': 1,

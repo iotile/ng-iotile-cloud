@@ -1,0 +1,35 @@
+{
+    "name": "ng-iotile-cloud",
+    "version": "0.11.9",
+    "description": "Angular IOTile Cloud interface",
+	"main": "bundles/ng-iotile-cloud.umd.min.js",
+	"module": "index.js",
+	"typings": "index.d.ts",
+	"keywords": [
+		"angular",
+		"angular2",
+        "angular 2",
+        "iotile",
+        "iot"
+	],
+	"author": {
+		"name": "Arch Systems Inc",
+		"email": "help@arch-iot.com"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/iotile/ng-iotile-cloud.git"
+	},
+	"homepage": "https://github.com/iotile/ng-iotile-cloud",
+	"bugs": {
+		"url": "https://github.com/iotile/ng-iotile-cloud/issues"
+	},
+	"peerDependencies": {
+		"@angular/core": "^2.4.0",
+		"@angular/http": "^2.4.0",
+		"reflect-metadata": "^0.1.8",
+		"rxjs": "^5.0.1",
+		"zone.js": "^0.7.2"
+	}
+}

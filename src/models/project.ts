@@ -51,7 +51,7 @@ export class Project {
       });
     }
 
-    public getDevice(slug): Device {
+    public getDevice(slug: string): Device {
       return this.deviceMap[slug];
     }
 
@@ -63,7 +63,7 @@ export class Project {
       });
     }
 
-    public getStream(slug): Stream {
+    public getStream(slug: string): Stream {
       return this.streamMap[slug];
     }
 
@@ -75,11 +75,11 @@ export class Project {
       });
     }
 
-    public getVariable(slug): Variable {
+    public getVariable(slug: string): Variable {
       return this.variableMap[slug];
     }
 
-    public getVariableForStream(slug): Variable {
+    public getVariableForStream(slug: string): Variable | undefined {
       if (slug) {
         let elements: Array<string> = slug.split('--');
         if (elements.length === 4) {
@@ -98,12 +98,12 @@ export class Project {
       });
     }
 
-    public getProperty(name): Property {
+    public getProperty(name: string): Property {
       return this.propertyMap[name];
     }
 
-    public computeValue(stream: Stream, data: DataPoint): number {
-      let result: number;
+    public computeValue(stream: Stream, data: DataPoint): number | undefined {
+      let result: number | undefined = undefined;
       let mdo: Mdo;
       if (!stream) {
         return result;

@@ -21,9 +21,7 @@ System.config({
         '@angular/compiler/testing': 'npm:@angular/compiler/bundles/compiler-testing.umd.js',
         '@angular/platform-browser/testing': 'npm:@angular/platform-browser/bundles/platform-browser-testing.umd.js',
         '@angular/platform-browser-dynamic/testing': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
-        '@angular/http/testing': 'npm:@angular/http/bundles/http-testing.umd.js',
-        '@angular/router/testing': 'npm:@angular/router/bundles/router-testing.umd.js',
-        '@angular/forms/testing': 'npm:@angular/forms/bundles/forms-testing.umd.js',
+        '@angular/http/testing': 'npm:@angular/http/bundles/http-testing.umd.js'
     }
 });
 
@@ -38,7 +36,7 @@ function isSpecFile(path) {
 function initTestBed() {
     return Promise.all([
         System.import('@angular/core/testing'),
-        System.import('@angular/platform-browser-dynamic/testing')
+        System.import('@angular/http/testing')
     ])
         .then(function (providers) {
             var coreTesting = providers[0];

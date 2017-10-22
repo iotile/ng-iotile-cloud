@@ -47,7 +47,7 @@ module.exports = function (config) {
             'karma-test-shim.js',
 
             // Project files
-            { pattern: 'src/**/*.ts', included: false, served: true, watched: true },
+            { pattern: 'test/**/*.ts', included: false, served: true, watched: true },
         ]
     });
 };

@@ -18,7 +18,7 @@ export class Variable {
   public mdo: Mdo;
   public inputUnit: Unit;
   public outputUnit: Unit;
-  public type;
+  public type: string;
 
   constructor(data: any = {}) {
     this.id = data.id;

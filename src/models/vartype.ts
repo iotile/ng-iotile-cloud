@@ -17,7 +17,7 @@ export class VarType {
     this.unitFullName = data.storage_units_full;
 
     if ('available_input_units' in data) {
-      data['available_input_units'].forEach(u => {
+      data['available_input_units'].forEach((u: any) => {
         if (!this.availableInputUnits) {
           this.availableInputUnits = [];
         }
@@ -27,7 +27,7 @@ export class VarType {
     }
     
     if ('available_output_units' in data) {
-      data['available_output_units'].forEach(u => {
+      data['available_output_units'].forEach((u: any) => {
         if (!this.availableOutputUnits) {
           this.availableOutputUnits = [];
         }
@@ -37,8 +37,8 @@ export class VarType {
     }
   }
 
-  public getInputUnitForSlug(slug): Unit {
-    let resultingUnit: Unit;
+  public getInputUnitForSlug(slug: string): Unit | undefined {
+    let resultingUnit: Unit | undefined;
 
     this.availableInputUnits.forEach(u => {
       if (u.slug === slug) {
@@ -49,8 +49,8 @@ export class VarType {
     return resultingUnit;
   }
 
-  public getOutputUnitForSlug(slug): Unit {
-    let resultingUnit: Unit;
+  public getOutputUnitForSlug(slug: string): Unit | undefined {
+    let resultingUnit: Unit | undefined;
 
     this.availableOutputUnits.forEach(u => {
       if (u.slug === slug) {

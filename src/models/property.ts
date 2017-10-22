@@ -8,7 +8,7 @@ export class Property {
   public value: string;
   public type: string;
 
-  constructor(data) {
+  constructor(data: any) {
     this.name = data.name;
     this.value = data.value;
     this.type = data.type;
@@ -21,7 +21,7 @@ export class Property {
   }
 
   public getPostPayload() {
-    let payload = {};
+    let payload: any = {};
     let type = this.type.toLowerCase() + '_value';
 
     if ('id' in this) {

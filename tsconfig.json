@@ -1,23 +1,43 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "target": "es5",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "inlineSourceMap": true,
-        "declaration": true,
-        "outDir": "./iotile",
-        "rootDir": "./src/iotile"
-    },
-    "exclude": [
-        "node_modules",
-        "demo",
-        "bundles",
-        "components",
-        "directives",
-        "src/test",
-        "iotile",
-        "**/*.spec.ts"
-    ]
+	"compilerOptions": {
+		"baseUrl": ".",
+		"declaration": true,
+		"stripInternal": true,
+		"experimentalDecorators": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"module": "es2015",
+		"moduleResolution": "node",
+		"paths": {
+			"@angular/core": [
+				"node_modules/@angular/core"
+			],
+			"@angular/common": [
+				"node_modules/@angular/common"
+            ],
+            "@angular/http": [
+				"node_modules/@angular/http"
+			],
+			"rxjs/*": [
+				"node_modules/rxjs/*"
+			]
+		},
+		"rootDir": "src",
+		"outDir": "dist",
+		"sourceMap": true,
+		"inlineSources": true,
+		"target": "es5",
+		"skipLibCheck": true,
+		"lib": [
+			"es2015",
+			"dom"
+		]
+	},
+	"files": [
+		"./src/ng-iotile-cloud.ts"
+	],
+	"angularCompilerOptions": {
+		"strictMetadataEmit": true,
+		"genDir": ".tmp"
+	}
 }

@@ -60,7 +60,7 @@ export class Device {
     });
   }
 
-  public getProperty(name): Property {
+  public getProperty(name: string): Property {
     return this.propertyMap[name];
   }
 

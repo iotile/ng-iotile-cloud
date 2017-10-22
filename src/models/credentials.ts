@@ -28,6 +28,6 @@ export class Credentials {
   }
 
   public clearToken(): void {
-      this.token = null;
+      this.token = '';
   }
 }

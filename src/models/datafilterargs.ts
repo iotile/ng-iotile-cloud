@@ -66,7 +66,7 @@ export class DataFilterArgs {
       filterLabel += ' last ' + this.lastN + ' entries';
     }
     if (!this.startDate && !this.endDate && !this.lastN) {
-      filterLabel = null;
+      filterLabel = '';
     }
     return filterLabel;
   }

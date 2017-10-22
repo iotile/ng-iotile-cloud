@@ -1,5 +1,3 @@
-import { AsyncSubject } from 'rxjs/Rx';
-
 import { Stats } from './stats';
 import { DataPoint } from './datapoint';
 import { Mdo } from './mdo';
@@ -27,7 +25,6 @@ export class Stream {
   public stats: Stats;
   public dataLabel: string;
   public data: Array<DataPoint>;
-  public returnedStreamData: AsyncSubject<Array<DataPoint>>;
 
   constructor(data: any = {}) {
     this.slug = data.slug;
@@ -58,10 +55,6 @@ export class Stream {
     if (data.output_unit) {
       this.outputUnit = new Unit(data.output_unit);
     }
-
-    // We will use this Observable to hold the data
-    // stream from multiple http get commands
-    this.returnedStreamData = new AsyncSubject();
   }
 
   public addStats(stats: Stats): void {
@@ -84,7 +77,6 @@ export class Stream {
 
   public resetData(): void {
     this.data = [];
-    this.returnedStreamData = new AsyncSubject();
   }
 
   public getPatchPayload(): any {

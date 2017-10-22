@@ -38,7 +38,7 @@ export class SensorGraph {
       this.uiExtra = {};
     }
     if ("display_widget_templates" in data) {
-      data["display_widget_templates"].forEach(d => {
+      data["display_widget_templates"].forEach((d: any) => {
         let widget: DisplayWidget = new DisplayWidget(d);
         this.displayWidgetTemplates.push(widget);
       });

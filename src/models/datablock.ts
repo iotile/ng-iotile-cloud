@@ -9,7 +9,7 @@ export class DataBlock {
   public createdBy: Date;
   public description: string;
 
-  public constructor(data) {
+  public constructor(data: any) {
     this.id = data.id;
     this.slug = data.slug;
     this.title = data.title;
@@ -27,11 +27,12 @@ export class DataBlock {
   public getPostPayload() {
     let payload = {
       title: this.title,
-      device: this.slug
+      device: this.slug,
+      description: ''
     };
 
     if (this.description) {
-      payload['description'] = this.description;
+      payload.description = this.description;
     }
 
     return payload;
