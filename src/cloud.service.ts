@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { Observable, ReplaySubject } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/publishReplay';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/flatmap';
+import 'rxjs/add/observable/first';
 
 import {
   DataBlock,
@@ -261,9 +267,7 @@ export class CloudService {
     // return an observable
     let deviceSlug: string = device.slug;
     let url: string = '/device/' + deviceSlug + '/';
-    let payload: any = {
-      label: device.label
-    };
+    let payload: any = device.getPatchPayload();
     return this.patch(url, payload)
       .map((data: any) => {
         return new Device(data);
