@@ -1,10 +1,10 @@
 {
   "name": "ng-iotile-cloud",
-  "version": "0.12.5",
+  "version": "0.12.6",
   "description": "Build an Angular library compatible with AoT compilation and Tree shaking",
-  "main": "./bundles/iotile.umd.js",
-  "module": "./modules/iotile.es5.js",
-  "es2015": "./modules/iotile.js",
+  "main": "./bundles/ng-iotile-cloud.umd.js",
+  "module": "./modules/ng-iotile-cloud.es5.js",
+  "es2015": "./modules/ng-iotile-cloud.js",
   "scripts": {
     "build": "node build.js",
     "test": "karma start",
@@ -14,7 +14,7 @@
     "compodoc": "compodoc -p tsconfig.json",
     "compodoc-serve": "compodoc -s"
   },
-  "typings": "./iotile.d.ts",
+  "typings": "./index.d.ts",
   "author": "",
   "repository": {
     "type": "git",

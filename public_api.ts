@@ -9,4 +9,4 @@
 /**
  * Entry point for all public APIs of the package.
  */
-export * from './src/iotile';
+export * from './src/ng-iotile-cloud';

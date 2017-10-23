@@ -26,7 +26,7 @@
         "skipTemplateCodegen": true,
         "annotateForClosureCompiler": true,
         "strictMetadataEmit": true,
-        "flatModuleOutFile": "iotile.js",
-        "flatModuleId": "iotile"
+        "flatModuleOutFile": "index.js",
+        "flatModuleId": "ng-iotile-cloud"
     }
 }
