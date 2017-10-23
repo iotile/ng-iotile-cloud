@@ -9,14 +9,14 @@ const globals = {
     'rxjs/Observer': 'Rx',
     'rxjs/ReplaySubject': 'Rx',
     'rxjs/BehaviorSubject': 'Rx',
-    'rxjs/add/operator/map': 'Rx.Observable.prototype',
+    'rxjs/Subscription': 'Rx',
+    'rxjs/add/operator/map': 'Rx',
+    'rxjs/add/operator/publishReplay': 'Rx',
     'rxjs/add/operator/catch': 'Rx.Observable.prototype',
     'rxjs/add/operator/publishReplay': 'Rx.Observable.prototype',
-    'rxjs/add/operator/of': 'Rx.Observable.prototype',
     'rxjs/add/operator/forkJoin': 'Rx.Observable.prototype',
-    'rxjs/add/operator/flatmap': 'Rx.Observable.prototype',
-    'rxjs/add/observable/first': 'Rx.Observable.prototype',
-    'rxjs/add/observable/throw': 'Rx.Observable.prototype'
+    'rxjs/add/operator/mergeMap': 'Rx.Observable.prototype',
+    'rxjs/add/observable/first': 'Rx.Observable'  
 };
 
 export default {

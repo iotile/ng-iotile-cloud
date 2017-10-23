@@ -2,7 +2,7 @@
 import { Observable, ReplaySubject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/operator/forkJoin';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/flatmap';
 import 'rxjs/add/observable/first';
