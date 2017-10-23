@@ -2,10 +2,10 @@
 import { Observable, ReplaySubject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import 'rxjs/add/operator/forkJoin';
+import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/flatmap';
-import 'rxjs/add/observable/first';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/first';
 
 import { DataBlock } from './models/datablock';
 import { Org } from './models/org';
@@ -756,8 +756,8 @@ export class CloudServiceMock {
     let mockProjectId = '2c8dadd7-add0-4157-90cd-036bcc178ec9';
     projectId = mockProjectId;
 
-    return this.getProject(projectId).flatMap((p: Project) => {
-      return this.fetchDevicesAndVariablesForProject(p).flatMap(p => {
+    return this.getProject(projectId).mergeMap((p: Project) => {
+      return this.fetchDevicesAndVariablesForProject(p).mergeMap(p => {
         return this.fetchSensorGraphsForProject(p).map(project => {
           return project;
         });

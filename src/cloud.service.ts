@@ -4,10 +4,10 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable, ReplaySubject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import 'rxjs/add/operator/forkJoin';
+import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/flatmap';
-import 'rxjs/add/observable/first';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/first';
 
 import {
   DataBlock,
@@ -687,8 +687,8 @@ export class CloudService {
   }
 
   public fetchProjectWithAssociatedData(projectId: string): Observable<Project> {
-    return this.getProject(projectId).flatMap((p: Project) => {
-      return this.fetchDevicesAndVariablesForProject(p).flatMap(p => {
+    return this.getProject(projectId).mergeMap((p: Project) => {
+      return this.fetchDevicesAndVariablesForProject(p).mergeMap(p => {
         return this.fetchSensorGraphsForProject(p).map(project => {
           return project;
         });

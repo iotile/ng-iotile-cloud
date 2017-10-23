@@ -14,9 +14,9 @@ const globals = {
     'rxjs/add/operator/publishReplay': 'Rx',
     'rxjs/add/operator/catch': 'Rx.Observable.prototype',
     'rxjs/add/operator/publishReplay': 'Rx.Observable.prototype',
-    'rxjs/add/operator/forkJoin': 'Rx.Observable.prototype',
+    'rxjs/add/observable/forkJoin': 'Rx.Observable.prototype',
     'rxjs/add/operator/mergeMap': 'Rx.Observable.prototype',
-    'rxjs/add/observable/first': 'Rx.Observable'  
+    'rxjs/add/operator/first': 'Rx.Observable.prototype'
 };
 
 export default {
