@@ -15,8 +15,8 @@ const globals = {
     'rxjs/add/operator/of': 'Rx.Observable.prototype',
     'rxjs/add/operator/forkJoin': 'Rx.Observable.prototype',
     'rxjs/add/operator/flatmap': 'Rx.Observable.prototype',
-    'rxjs/add/observable/first': 'Rx.Observable',
-    'rxjs/add/observable/throw': 'Rx.Observable'
+    'rxjs/add/observable/first': 'Rx.Observable.prototype',
+    'rxjs/add/observable/throw': 'Rx.Observable.prototype'
 };
 
 export default {
