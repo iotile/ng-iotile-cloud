@@ -29,6 +29,7 @@ import {
   ProjectTemplate,
   DataFilterArgs,
   Property,
+  PropertyTemplate,
   Fleet,
   FleetDevice,
   ApiFilter
@@ -169,8 +170,29 @@ export class CloudService {
       });
   }
 
+  public getSensorGraphOrgProperties(
+    slug: string,
+    filter?: ApiFilter
+  ): Observable<any> {
+    let url: string = '/sg/' + slug + '/property/';
+    if (filter) {
+      url += filter.filterString();
+    }
+    return this.get(url)
+      .map((data: any) => {
+        let result: Array<PropertyTemplate> = [];
+        if (data) {
+          data['results'].forEach((item: any) => {
+            result.push(
+              new PropertyTemplate(item)
+            );
+          });
+        }
+        return result;
+      });
+  }
+
   public getOrgs(filter?: ApiFilter): Observable<any> {
-    // return an observable
     let url: string = '/org/';
     if (filter) {
       url += filter.filterString();
@@ -182,7 +204,8 @@ export class CloudService {
         if (orgs) {
           orgs['results'].forEach((item: any) => {
             result.push(
-              new Org(item));
+              new Org(item)
+            );
           });
         }
         return result.sort((a: any, b: any) => {
@@ -724,8 +747,11 @@ export class CloudService {
                }, (err: any) => console.error(err));
   }
 
-  public getDeviceProperties(device: Device): Observable<Device> {
+  public getDeviceProperties(device: Device, filter?: ApiFilter): Observable<Device> {
     let url = '/device/' + device.slug + '/properties/';
+    if (filter) {
+      url += filter.filterString();
+    }
     return this.get(url)
                .map((results: Array<Property>) => {
                  let properties: Array<Property> = results.map(result => new Property(result));
@@ -734,8 +760,11 @@ export class CloudService {
                });
   }
 
-  public getProjectProperties(project: Project): Observable<Project> {
+  public getProjectProperties(project: Project, filter?: ApiFilter): Observable<Project> {
     let url = '/project/' + project.id + '/properties/';
+    if (filter) {
+      url += filter.filterString();
+    }
     return this.get(url)
                .map((results: Array<Property>) => {
                  let properties: Array<Property> = results.map(result => new Property(result));
