@@ -1,6 +1,6 @@
 'use strict';
 
-import { Property } from '../../src/models/property';
+import { Property, PropertyTemplate } from '../../src/models/property';
 
 describe('PropertyTest', () => {
   const dummyProperty1 = new Property({
@@ -67,5 +67,39 @@ describe('PropertyTest', () => {
       let dummyPayload3 = dummyProperty3.getPostPayload();
       expect(dummyPayload3['bool_value']).toBe(true);
     });
+  });
+});
+
+describe('PropertyTemplateTest', () => {
+  const dummyPropertyTemplate1 = new PropertyTemplate({
+    "id": 11,
+    "org": "arch-systems",
+    "type": "str",
+    "name": "Customer",
+    "default": "foo",
+    "enums": [
+      "a",
+      "b"
+    ],
+    "extra": {
+        "order": 1,
+        "header": {
+            "order": 1
+        },
+        "ui": "text-field",
+        "input_type": "text",
+        "column_width": 6
+    },
+    "created_by": "david"
+  });
+
+  it('checks basic property template', () => {
+    expect(dummyPropertyTemplate1).toBeDefined();
+    expect(dummyPropertyTemplate1.id).toEqual(11);
+    expect(dummyPropertyTemplate1.name).toEqual('Customer');
+    expect(dummyPropertyTemplate1.type).toEqual('str');
+    expect(dummyPropertyTemplate1.default).toEqual('foo');
+    expect(dummyPropertyTemplate1.enums.length).toEqual(2);
+    expect(dummyPropertyTemplate1.enums[0]).toEqual('a');
   });
 });
