@@ -17,8 +17,9 @@ import { Device } from './models/device';
 import { DataPoint } from './models/datapoint';
 import { ProjectTemplate } from './models/projecttemplate';
 import { DataFilterArgs } from './models/datafilterargs';
-import { Property } from './models/property';
+import { Property, PropertyTemplate } from './models/property';
 import { Stream } from './models/stream';
+import { ApiFilter } from './models/apifilter';
 
 export class CloudServiceMock {
 
@@ -313,6 +314,54 @@ export class CloudServiceMock {
       'created_on': '2017-03-10T04:16:03.061729Z'
     });
     return Observable.of(sg);
+  }
+
+  public getSensorGraphOrgProperties(
+    slug: string,
+    filter?: ApiFilter
+  ): Observable<any> {
+    let templates: Array<PropertyTemplate> = [];
+    let pt1: PropertyTemplate = new PropertyTemplate({
+      "id": 11,
+      "org": "arch-systems",
+      "type": "str",
+      "name": "Customer",
+      "default": "",
+      "enums": [],
+      "extra": {
+          "order": 1,
+          "header": {
+              "order": 1
+          },
+          "ui": "text-field",
+          "input_type": "text",
+          "column_width": 6
+      },
+      "created_by": "david"
+    });
+    templates.push(pt1);
+    let pt2: PropertyTemplate = new PropertyTemplate({
+      "id": 12,
+      "org": "arch-systems",
+      "type": "str",
+      "name": "Description",
+      "default": "",
+      "enums": [],
+      "extra": {
+          "order": 5,
+          "header": {
+              "order": 5
+          },
+          "ui": "text-field",
+          "input_type": "text",
+          "column_width": 12
+      },
+      "created_by": "david"
+    });
+    templates.push(pt2);
+
+    return Observable.of(templates);
+    
   }
 
   public getVariables(project: Project): Observable<any> {
