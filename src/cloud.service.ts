@@ -423,8 +423,8 @@ export class CloudService {
       });
   }
 
-  public getStream(filter: ApiFilter): Observable<Stream>  {
-    let url: string = '/stream/';
+  public getStream(streamSlug: string, filter?: ApiFilter): Observable<Stream>  {
+    let url: string = '/stream/' + streamSlug + '/';
 
     if (filter) {
       url += filter.filterString();
