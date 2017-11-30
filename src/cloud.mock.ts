@@ -361,7 +361,7 @@ export class CloudServiceMock {
     templates.push(pt2);
 
     return Observable.of(templates);
-    
+
   }
 
   public getVariables(project: Project): Observable<any> {
@@ -854,5 +854,57 @@ export class CloudServiceMock {
       'created_by': 'vanielle'
     });
     return Observable.of(mockDataBlock);
+  }
+
+  public getStream(streamSlug: string, filter?: ApiFilter): Observable<Stream> {
+    let url: string = '/stream/' + streamSlug + '/';
+
+    if (filter) {
+      url += filter.filterString();
+    }
+
+    let stream = new Stream({
+      "id": "77e99c12-fe47-40df-a47a-b9e62a5b3ef6",
+      "project_id": "30b489b4-fb8d-4417-8370-25e54a415bfa",
+      "project": "p--0000-0001",
+      "device": "d--0000-0000-0000-0082",
+      "block": null,
+      "data_label": "",
+      "variable": "v--0000-0001--100a",
+      "var_type": "water-meter-flow",
+      "var_name": "Current Flow",
+      "var_lid": 4106,
+      "input_unit": {
+        "slug": "in--water-meter-flow--gallons",
+        "unit_full": "Gallons",
+        "unit_short": "G",
+        "m": 3785,
+        "d": 65536000,
+        "o": 0.0
+      },
+      "output_unit": {
+        "slug": "out--water-meter-flow--gallons-per-min",
+        "unit_full": "Gallons per Min",
+        "unit_short": "GPM",
+        "m": 100000,
+        "d": 378541,
+        "o": 0.0,
+        "decimal_places": 1,
+        "derived_units": {}
+      },
+      "derived_stream": null,
+      "raw_value_format": "<L",
+      "mdo_type": "S",
+      "mdo_label": "",
+      "multiplication_factor": 1,
+      "division_factor": 1,
+      "offset": null,
+      "org": "ott-farms",
+      "created_on": "2016-11-04T00:48:37.468055Z",
+      "slug": "s--0000-0001--0000-0000-0000-0082--100a",
+      "enabled": true
+    });
+
+    return Observable.of(stream);
   }
 }
