@@ -856,8 +856,8 @@ export class CloudServiceMock {
     return Observable.of(mockDataBlock);
   }
 
-  public getStream(filter: ApiFilter): Observable<Stream> {
-    let url: string = '/stream/';
+  public getStream(streamSlug: string, filter?: ApiFilter): Observable<Stream> {
+    let url: string = '/stream/' + streamSlug + '/';
 
     if (filter) {
       url += filter.filterString();
