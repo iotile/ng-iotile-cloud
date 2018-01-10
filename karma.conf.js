@@ -24,7 +24,7 @@ module.exports = function (config) {
         ],
 
         browsers: ['Chrome_travis_ci'],
-        customLaunchers: {  
+        customLaunchers: {
             Chrome_travis_ci: {
                 base: 'Chrome',
                 flags: ['--no-sandbox']
@@ -33,7 +33,7 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            { pattern: 'spec.bundle.js', watched: false }
+            { pattern: '*pec.bundle.js', watched: false }
         ],
 
         // list of files to exclude
