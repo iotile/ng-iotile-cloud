@@ -220,6 +220,12 @@ export class CloudService {
       });
   }
 
+  public getOrg(orgSlug?: string): Observable<Org> {
+    let url: string = '/org/' + orgSlug + '/';
+
+    return this.get(url).map((org: Org) => new Org(org));
+  }
+
   public postOrg(org: Org): Observable<Org>  {
     // return an observable
     let payload: any = org.getPatchPayload();

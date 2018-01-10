@@ -50,6 +50,19 @@ export class CloudServiceMock {
     return Observable.of(orgs);
   }
 
+  public getOrg(orgSlug: string): Observable<Org> {
+    let org: Org = new Org({
+      name: 'My Org',
+      slug: 'my-org',
+      avatar: {
+        thumbnail: 'https://image.com/thumbnail.jpg',
+        tiny: 'https://image.com/tiny.jpg'
+      }
+    });
+
+    return Observable.of(org);
+  }
+
   public getProjects(): Observable<any> {
     let projects: Array<Project> = [];
     let project0: Project = new Project({
