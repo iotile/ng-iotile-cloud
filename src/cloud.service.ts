@@ -32,7 +32,8 @@ import {
   PropertyTemplate,
   Fleet,
   FleetDevice,
-  ApiFilter
+  ApiFilter,
+  Member
 } from './models';
 
 /*
@@ -46,15 +47,12 @@ export interface SlugDictionary {
 
 @Injectable()
 export class CloudService {
-  private _http: Http;
   private _apiEndpoint: string;
   private _token: string;
 
   constructor(
-    http: Http,
-  ) {
-    this._http = http;
-  }
+    private _http: Http
+  ) { }
 
   private _createAuthorizationHeader(headers: Headers): void {
     headers.append('Content-Type', 'application/json');
@@ -868,5 +866,25 @@ export class CloudService {
       device: deviceSlug
     };
     return this.post(url, payload);
+  }
+
+  public getMembershipForOrg(orgSlug: string) {
+
+    return this.get('/org/' + orgSlug + '/membership/').map(data => {
+      console.log('[getMembershipForOrg]', data);
+
+      return new Member(data);
+    })
+
+  }
+
+  public getMembersOfOrg(orgSlug: string) {
+
+    return this.get('/org/' + orgSlug + '/members/').map(data => {
+      console.log('[getMembersOfOrg]', data);
+
+      return data;
+    })
+
   }
 }
