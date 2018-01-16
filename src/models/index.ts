@@ -21,3 +21,4 @@ export * from './projecttemplate';
 export * from './page';
 export * from './fleet';
 export * from './apifilter';
+export * from './member';
