@@ -20,6 +20,7 @@ import { DataFilterArgs } from './models/datafilterargs';
 import { Property, PropertyTemplate } from './models/property';
 import { Stream } from './models/stream';
 import { ApiFilter } from './models/apifilter';
+import { Member } from './models/member';
 
 export class CloudServiceMock {
 
@@ -919,5 +920,43 @@ export class CloudServiceMock {
     });
 
     return Observable.of(stream);
+  }
+
+  public getCurrentUserMembership(orgSlug: string): Observable<Member> {
+
+    let member = new Member({
+      "user": "lekosfmi",
+      "created_on": "2017-04-13T03:12:39.109875Z",
+      "is_active": true,
+      "is_org_admin": true
+    });
+
+    return Observable.of(member);
+  }
+
+  public getMembersForOrg(org: Org): Observable<Org> {
+    let members: Array<Member> = [];
+
+    let member1 = new Member({
+      "user": "lekosfmi",
+      "created_on": "2017-04-13T03:12:39.109875Z",
+      "is_active": true,
+      "is_org_admin": true
+    });
+
+    members.push(member1);
+
+    let member2 = new Member({
+      "user": "david",
+      "created_on": "2016-11-04T00:48:13.038650Z",
+      "is_active": true,
+      "is_org_admin": true
+    });
+
+    members.push(member2)
+
+    org.addMembers(members);
+
+    return Observable.of(org);
   }
 }

@@ -868,23 +868,26 @@ export class CloudService {
     return this.post(url, payload);
   }
 
-  public getMembershipForOrg(orgSlug: string) {
+  public getCurrentUserMembership(orgSlug: string): Observable<Member> {
 
     return this.get('/org/' + orgSlug + '/membership/').map(data => {
       console.log('[getMembershipForOrg]', data);
 
-      return new Member(data);
-    })
+      console.log(new Member(data));
 
+      return new Member(data);
+    });
   }
 
-  public getMembersOfOrg(orgSlug: string) {
+  public getMembersForOrg(org: Org): Observable<Org> {
+    let url = 'org/' + org.slug + '/members/';
 
-    return this.get('/org/' + orgSlug + '/members/').map(data => {
-      console.log('[getMembersOfOrg]', data);
+    return this.get(url).map((data: any) => {
+      let members: Array<Member> = [];
+      data['results'].forEach((item: any) => members.push(new Member(item)));
+      org.addMembers(members);
 
-      return data;
-    })
-
+      return org;
+    });
   }
 }
