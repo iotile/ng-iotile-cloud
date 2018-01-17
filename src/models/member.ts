@@ -1,5 +1,8 @@
-export class Member {
+export interface MemberDictionary {
+  [index: string]: Member;
+}
 
+export class Member {
   public user: string;
   public createdOn: Date;
   public isActive: boolean;
