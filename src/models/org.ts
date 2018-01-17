@@ -1,3 +1,4 @@
+import { Member, MemberDictionary } from './member';
 
 export class Org {
   public slug: string;
@@ -7,6 +8,8 @@ export class Org {
   public createdOn: Date;
   public thumbnailUrl: string;
   public tinyUrl: string;
+  public members: Array<Member> = [];
+  public memberMap: MemberDictionary = {};
 
   constructor(data: any = {}) {
     this.slug = data.slug;
@@ -32,4 +35,13 @@ export class Org {
     return payload;
   }
 
+  public addMembers(members: Array<Member>): void {
+    this.members = members;
+    this.memberMap = {};
+    this.members.forEach((m: Member) => this.memberMap[m.user] = m);
+  }
+
+  public getMember(slug: string): Member {
+    return this.memberMap[slug];
+  }
 }

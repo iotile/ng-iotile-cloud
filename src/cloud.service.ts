@@ -32,7 +32,8 @@ import {
   PropertyTemplate,
   Fleet,
   FleetDevice,
-  ApiFilter
+  ApiFilter,
+  Member
 } from './models';
 
 /*
@@ -46,15 +47,12 @@ export interface SlugDictionary {
 
 @Injectable()
 export class CloudService {
-  private _http: Http;
   private _apiEndpoint: string;
   private _token: string;
 
   constructor(
-    http: Http,
-  ) {
-    this._http = http;
-  }
+    private _http: Http
+  ) { }
 
   private _createAuthorizationHeader(headers: Headers): void {
     headers.append('Content-Type', 'application/json');
@@ -868,5 +866,24 @@ export class CloudService {
       device: deviceSlug
     };
     return this.post(url, payload);
+  }
+
+  public getCurrentUserMembership(orgSlug: string): Observable<Member> {
+    let url = '/org/' + orgSlug + '/membership/';
+    
+    return this.get(url).map(data => {
+      return new Member(data);
+    });
+  }
+
+  public getMembersForOrg(org: Org): Observable<Org> {
+    let url = '/org/' + org.slug + '/members/';
+
+    return this.get(url).map((data: any) => {
+      let members: Array<Member> = [];
+      data['results'].forEach((item: any) => members.push(new Member(item)));
+      org.addMembers(members);
+      return org;
+    });
   }
 }
