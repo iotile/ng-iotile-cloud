@@ -870,7 +870,7 @@ export class CloudService {
 
   public getCurrentUserMembership(orgSlug: string): Observable<Member> {
     let url = '/org/' + orgSlug + '/membership/';
-    
+
     return this.get(url).map(data => {
       return new Member(data);
     });
@@ -884,6 +884,14 @@ export class CloudService {
       data['results'].forEach((item: any) => members.push(new Member(item)));
       org.addMembers(members);
       return org;
+    });
+  }
+
+  public getOrgWithExtraInfo(orgSlug: string): Observable<Org> {
+    let url = '/org/' + orgSlug + '/extra/';
+
+    return this.get(url).map(data => {
+      return new Org(data);
     });
   }
 }
