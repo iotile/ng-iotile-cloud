@@ -11,6 +11,9 @@ export class Org {
   public members: Array<Member> = [];
   public memberMap: MemberDictionary = {};
 
+  public currentMember: Member;
+  public counts: { [index: string]: number };
+
   constructor(data: any = {}) {
     this.slug = data.slug;
     this.name = data.name;
@@ -22,6 +25,12 @@ export class Org {
     if (data.avatar) {
       this.thumbnailUrl = data.avatar.thumbnail;
       this.tinyUrl = data.avatar.tiny;
+    }
+    if (data.current_member) {
+      this.currentMember = new Member(data.current_member);
+    }
+    if (data.counts) {
+      this.counts = data.counts;
     }
   }
 

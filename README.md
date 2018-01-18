@@ -57,6 +57,11 @@ npm run test:w
 
 Update `package.json` with a new version number.
 
+Our version numbering follows **Major.Minor.Patch** (e.g 0.12.9)
+
+- **Minor**: Every time there is new functionality. New API, remove API, change of behavior in API
+- **Patch**: A fix to a bug. Note this can still change functionality, but if the old functionality was basically always wrong, then we can call it a patch.
+
 ```
 npm run clean
 npm publish
