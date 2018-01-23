@@ -959,4 +959,36 @@ export class CloudServiceMock {
 
     return Observable.of(org);
   }
+
+  public getOrgWithExtraInfo(orgSlug: string): Observable<Org> {
+    let org = new Org({
+      "id": "564c54b5-19df-4fe0-9655-92542a2d0932",
+      "name": "Arch - Internal",
+      "slug": "arch-internal",
+      "about": "Internal Projects for Testing",
+      "created_on": "2016-11-04T00:48:13.033551Z",
+      "created_by": "david",
+      "avatar": {
+          "thumbnail": "https://media.iotile.cloud/prod/images/3e5554ff-0e4d-4a10-b299-415e143c6931/thumbnail.jpg",
+          "tiny": "https://media.iotile.cloud/prod/images/3e5554ff-0e4d-4a10-b299-415e143c6931/tiny.jpg"
+      },
+      "counts": {
+          "fleets": 1,
+          "projects": 32,
+          "members": 12,
+          "devices": 70,
+          "networks": 0,
+          "reports": 0,
+          "datablocks": 36
+      },
+      "current_member": {
+          "user": "lekosfmi",
+          "created_on": "2017-04-13T03:12:39.109875Z",
+          "is_active": true,
+          "is_org_admin": true
+      }
+    });
+
+    return Observable.of(org);
+  }
 }
