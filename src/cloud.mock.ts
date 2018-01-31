@@ -925,7 +925,16 @@ export class CloudServiceMock {
   public getCurrentUserMembership(orgSlug: string): Observable<Member> {
 
     let member = new Member({
-      "user": "lekosfmi",
+      "user_details": {
+        "email": "vanielle@arch-iot.com",
+        "username": "lekosfmi",
+        "name": "Vanielle Lee",
+        "tagline": "",
+        "avatar": {
+          "tiny": "https://secure.gravatar.com/avatar/0828c899dcc84c7b50ac44b5a154b10c?d=identicon&s=28",
+          "thumbnail": "https://secure.gravatar.com/avatar/0828c899dcc84c7b50ac44b5a154b10c?d=identicon&s=80"
+        }
+      },
       "created_on": "2017-04-13T03:12:39.109875Z",
       "is_active": true,
       "is_org_admin": true
@@ -938,7 +947,16 @@ export class CloudServiceMock {
     let members: Array<Member> = [];
 
     let member1 = new Member({
-      "user": "lekosfmi",
+      "user_details": {
+        "email": "vanielle@arch-iot.com",
+        "username": "lekosfmi",
+        "name": "Vanielle Lee",
+        "tagline": "",
+        "avatar": {
+          "tiny": "https://secure.gravatar.com/avatar/0828c899dcc84c7b50ac44b5a154b10c?d=identicon&s=28",
+          "thumbnail": "https://secure.gravatar.com/avatar/0828c899dcc84c7b50ac44b5a154b10c?d=identicon&s=80"
+        }
+      },
       "created_on": "2017-04-13T03:12:39.109875Z",
       "is_active": true,
       "is_org_admin": true
@@ -947,7 +965,16 @@ export class CloudServiceMock {
     members.push(member1);
 
     let member2 = new Member({
-      "user": "david",
+      "user_details": {
+        "email": "david@arch-iot.com",
+        "username": "david",
+        "name": "David Karchmer",
+        "tagline": "The Web Master",
+        "avatar": {
+          "tiny": "https://secure.gravatar.com/avatar/d7655ebeb646997cf070a3531bed3550?s=28&d=identicon",
+          "thumbnail": "https://secure.gravatar.com/avatar/d7655ebeb646997cf070a3531bed3550?s=80&d=identicon"
+        }
+      },
       "created_on": "2016-11-04T00:48:13.038650Z",
       "is_active": true,
       "is_org_admin": true
@@ -981,11 +1008,20 @@ export class CloudServiceMock {
           "reports": 0,
           "datablocks": 36
       },
-      "current_member": {
-          "user": "lekosfmi",
-          "created_on": "2017-04-13T03:12:39.109875Z",
-          "is_active": true,
-          "is_org_admin": true
+      "current_member":  {
+        "user_details": {
+          "email": "vanielle@arch-iot.com",
+          "username": "lekosfmi",
+          "name": "Vanielle Lee",
+          "tagline": "",
+          "avatar": {
+            "thumbnail": "https://secure.gravatar.com/avatar/0828c899dcc84c7b50ac44b5a154b10c?d=identicon&s=80",
+            "tiny": "https://secure.gravatar.com/avatar/0828c899dcc84c7b50ac44b5a154b10c?d=identicon&s=28"
+          }
+        },
+        "created_on": "2017-04-13T03:12:39Z",
+        "is_active": true,
+        "is_org_admin": true
       }
     });
 
