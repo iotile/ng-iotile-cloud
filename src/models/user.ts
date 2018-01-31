@@ -4,7 +4,7 @@ export class User {
     public isStaff: boolean = false;
     public email: string;
     public avatarUrl: string;
-    public creationDate: string;
+    public creationDate: Date;
     public tagline: string;
 
     public constructor(data: any = {}) {
@@ -12,11 +12,16 @@ export class User {
         this.name = data.name || '';
         this.email = data.email || '';
         this.tagline = data.tagline || '';
-        this.creationDate = data.created_at || Date.now();
         this.isStaff = data.is_staff || false;
 
         if (data.avatar) {
           this.avatarUrl = data.avatar.thumbnail;
+        }
+
+        if (data.created_at) {
+          this.creationDate = new Date(data.created_at);
+        } else {
+          delete this.creationDate;
         }
     }
 
