@@ -5,15 +5,18 @@ export class User {
     public email: string;
     public avatarUrl: string;
     public creationDate: string;
+    public tagline: string;
 
     public constructor(data: any = {}) {
         this.username = data.username || '';
         this.name = data.name || '';
         this.email = data.email || '';
+        this.tagline = data.tagline || '';
         this.creationDate = data.created_at || Date.now();
         this.isStaff = data.is_staff || false;
+
         if (data.avatar) {
-            this.avatarUrl = data.avatar.thumbnail;
+          this.avatarUrl = data.avatar.thumbnail;
         }
     }
 
@@ -26,9 +29,11 @@ export class User {
         }
         return name;
     }
+
     public getUsername() {
         return '@' + this.username;
     }
+
     public getAvatar() {
         if (this.avatarUrl) {
             return this.avatarUrl;
