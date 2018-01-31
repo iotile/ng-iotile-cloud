@@ -5,15 +5,14 @@ export interface MemberDictionary {
 }
 
 export class Member {
-  public user: string;
+  public user: User;
   public createdOn: Date;
   public isActive: boolean;
   public isOrgAdmin: boolean = false;
-  public userDetails: User;
 
   constructor(data: any = {}) {
-    if ('user' in data) {
-      this.user = data['user'];
+    if ('user_details' in data) {
+      this.user = new User(data['user_details']);
     }
 
     if ('created_on' in data) {
@@ -26,10 +25,6 @@ export class Member {
 
     if ('is_org_admin' in data) {
       this.isOrgAdmin = data['is_org_admin'];
-    }
-
-    if ('user_details' in data) {
-      this.userDetails = new User(data['user_details']);
     }
   }
 }

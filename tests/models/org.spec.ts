@@ -52,16 +52,33 @@ describe('OrgTest', () => {
     });
 
     let member1 = new Member({
-      "user": "andrew",
+      "user_details": {
+        "email": "andrew@arch-iot.com",
+        "username": "andrew",
+        "name": "Andrew Scheuermann",
+        "tagline": "",
+        "avatar": {
+          "tiny": "https://secure.gravatar.com/avatar/b9d8102381d958dbd4cb154aee8c7b9e?d=identicon&s=28",
+          "thumbnail": "https://secure.gravatar.com/avatar/b9d8102381d958dbd4cb154aee8c7b9e?d=identicon&s=80"
+        }
+      },
       "created_on": "2016-11-08T04:15:14.732769Z",
       "is_active": true,
       "is_org_admin": false
     });
-
     members.push(member1);
 
     let member2 = new Member({
-      "user": "chris",
+      "user_details": {
+        "email": "chris@arch-iot.com",
+        "username": "chris",
+        "name": "",
+        "tagline": "",
+        "avatar": {
+          "tiny": "https://secure.gravatar.com/avatar/baff77137f51bcfe35f6275b14a61c38?d=identicon&s=28",
+          "thumbnail": "https://secure.gravatar.com/avatar/baff77137f51bcfe35f6275b14a61c38?d=identicon&s=80"
+        }
+      },
       "created_on": "2016-11-04T00:48:14.887050Z",
       "is_active": true,
       "is_org_admin": false
@@ -75,7 +92,7 @@ describe('OrgTest', () => {
     });
 
     it('checks org can get member', () => {
-      expect(org.getMember('andrew')).toBe(member1);
+      expect(org.getMember('andrew@arch-iot.com')).toBe(member1);
     });
   });
 
@@ -101,16 +118,26 @@ describe('OrgTest', () => {
         "projects": 32,
         "reports": 0
       },
-      "current_member": {
+      "current_member":{
         "user": "lekosfmi",
-        "created_on": "2017-04-13T03:12:39.109875Z",
+        "user_details": {
+          "email": "vanielle@arch-iot.com",
+          "username": "lekosfmi",
+          "name": "Vanielle Lee",
+          "tagline": "",
+          "avatar": {
+            "tiny": "https://secure.gravatar.com/avatar/0828c899dcc84c7b50ac44b5a154b10c?d=identicon&s=28",
+            "thumbnail": "https://secure.gravatar.com/avatar/0828c899dcc84c7b50ac44b5a154b10c?d=identicon&s=80"
+          }
+        },
+        "created_on": "2017-04-13T03:12:39Z",
         "is_active": true,
         "is_org_admin": true
       }
     });
 
     it('checks org membership', () => {
-      expect(org.currentMember.user).toBe('lekosfmi');
+      expect(org.currentMember.user.username).toBe('lekosfmi');
       expect(org.currentMember.isActive).toBe(true);
       expect(org.currentMember.isOrgAdmin).toBe(true);
       expect(org.currentMember.createdOn.getFullYear()).toBe(2017);
