@@ -1,17 +1,18 @@
+import { User } from './user';
+
 export interface MemberDictionary {
   [index: string]: Member;
 }
 
 export class Member {
-  public user: string;
+  public user: User;
   public createdOn: Date;
   public isActive: boolean;
   public isOrgAdmin: boolean = false;
 
   constructor(data: any = {}) {
-
-    if ('user' in data) {
-      this.user = data['user'];
+    if ('user_details' in data) {
+      this.user = new User(data['user_details']);
     }
 
     if ('created_on' in data) {
