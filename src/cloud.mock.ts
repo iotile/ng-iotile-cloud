@@ -21,6 +21,7 @@ import { Property, PropertyTemplate } from './models/property';
 import { Stream } from './models/stream';
 import { ApiFilter } from './models/apifilter';
 import { Member } from './models/member';
+import { PendingInvite } from './models/pending-invite';
 
 export class CloudServiceMock {
 
@@ -1024,6 +1025,39 @@ export class CloudServiceMock {
         "is_org_admin": true
       }
     });
+
+    return Observable.of(org);
+  }
+
+  public getOrgPendingInvites(org: Org): Observable<Org> {
+    let o0: Org = new Org({
+      name: 'My Org',
+      slug: 'my-org',
+      avatar: {
+        thumbnail: 'https://image.com/thumbnail.jpg',
+        tiny: 'https://image.com/tiny.jpg'
+      }
+    });
+
+    let pendingInvites: Array<PendingInvite> = [];
+    let pendingInvite1: PendingInvite = new PendingInvite({
+      "email": "david@gmail.com",
+      "sent_on": "2018-01-31T02:45:59Z",
+      "sent_by": "lekosfmi"
+    });
+
+    pendingInvites.push(pendingInvite1);
+
+    let pendingInvite2: PendingInvite = new PendingInvite({
+      "email": "tallis@gmail.com",
+      "sent_on": "2018-01-31T02:45:59Z",
+      "sent_by": "andrew"
+    });
+
+
+    pendingInvites.push(pendingInvite2);
+
+    org.addPendingInvites(pendingInvites);
 
     return Observable.of(org);
   }
