@@ -1,6 +1,7 @@
 'use strict';
 import { Org } from '../../src/models/org';
 import { Member } from '../../src/models/member';
+import { PendingInvite } from '../../src/models/pending-invite';
 
 describe('OrgTest', () => {
 
@@ -146,6 +147,38 @@ describe('OrgTest', () => {
     it('checks org counts', () => {
       expect(org.counts.datablocks).toBe(36);
       expect(org.counts.networks).toBe(0);
+    });
+  });
+
+  describe('Org Members', () => {
+    let org: Org = new Org({
+      name: 'My New Org'
+    });
+
+    let pendingInvites: Array<PendingInvite> = [];
+    let pendingInvite1: PendingInvite = new PendingInvite({
+      "email": "david@gmail.com",
+      "sent_on": "2018-01-31T02:45:59Z",
+      "sent_by": "lekosfmi"
+    });
+
+    let pendingInvite2: PendingInvite = new PendingInvite({
+      "email": "tallis@gmail.com",
+      "sent_on": "2018-01-31T02:45:59Z",
+      "sent_by": "andrew"
+    });
+
+    pendingInvites.push(pendingInvite1);
+    pendingInvites.push(pendingInvite2);
+
+    org.addPendingInvites(pendingInvites);
+
+    it('checks org has pending invites', () => {
+      expect(org.pendingInvites.length).toBe(2);
+    });
+
+    it('checks org can get member', () => {
+      expect(org.getPendingInvite('david@gmail.com')).toBe(pendingInvite1);
     });
   });
 });

@@ -1,4 +1,6 @@
 import { Member, MemberDictionary } from './member';
+import { PendingInvite, PendingInviteDictionary } from './pending-invite';
+
 
 export class Org {
   public slug: string;
@@ -10,6 +12,8 @@ export class Org {
   public tinyUrl: string;
   public members: Array<Member> = [];
   public memberMap: MemberDictionary = {};
+  public pendingInvites: Array<PendingInvite> = [];
+  public pendingInviteMap: PendingInviteDictionary = {};
 
   public currentMember: Member;
   public counts: { [index: string]: number };
@@ -56,5 +60,15 @@ export class Org {
 
   public getMember(slug: string): Member {
     return this.memberMap[slug];
+  }
+
+  public addPendingInvites(pendingInvites: Array<PendingInvite>): void {
+    this.pendingInvites = pendingInvites;
+    this.pendingInviteMap = {};
+    this.pendingInvites.forEach((pv: PendingInvite) => this.pendingInviteMap[pv.email] = pv);
+  }
+
+  public getPendingInvite(email: string): PendingInvite {
+    return this.pendingInviteMap[email];
   }
 }
