@@ -34,7 +34,8 @@ import {
   FleetDevice,
   ApiFilter,
   Member,
-  PendingInvite
+  PendingInvite,
+  OrgInvitePostPayload
 } from './models';
 
 /*
@@ -907,14 +908,10 @@ export class CloudService {
     });
   }
 
-  public postOrgInvite(org: Org, inviteEmail: string): Observable<Org>  {
-    // return an observable
-    let payload: any = org.getPostInvitePayload(inviteEmail);
+  public postOrgInvite(org: Org, inviteEmail: string): Observable<OrgInvitePostPayload>  {
+    let payload: OrgInvitePostPayload = org.getPostInvitePayload(inviteEmail);
     let url: string = '/org/' + org.slug + '/invite/'
 
-    return this.post('/org/', payload)
-      .map((data: any) => {
-        return new Org(data);
-      });
+    return this.post(url, payload).map((data: OrgInvitePostPayload) => data);
   }
 }

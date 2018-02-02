@@ -8,7 +8,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/first';
 
 import { DataBlock } from './models/datablock';
-import { Org } from './models/org';
+import { Org, OrgInvitePostPayload } from './models/org';
 import { Project } from './models/project';
 import { VarType } from './models/vartype';
 import { SensorGraph } from './models/sensorgraph';
@@ -1060,5 +1060,12 @@ export class CloudServiceMock {
     org.addPendingInvites(pendingInvites);
 
     return Observable.of(org);
+  }
+
+  public postOrgInvite(org: Org, inviteEmail: string = 'tim@arch-iot.com'): Observable<OrgInvitePostPayload>  {
+    // return an observable
+    let payload: OrgInvitePostPayload = org.getPostInvitePayload(inviteEmail);
+
+    return Observable.of(payload);
   }
 }
