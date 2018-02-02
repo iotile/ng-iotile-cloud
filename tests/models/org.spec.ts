@@ -1,5 +1,5 @@
 'use strict';
-import { Org } from '../../src/models/org';
+import { Org, OrgInvitePostPayload } from '../../src/models/org';
 import { Member } from '../../src/models/member';
 import { PendingInvite } from '../../src/models/pending-invite';
 
@@ -180,5 +180,19 @@ describe('OrgTest', () => {
     it('checks org can get member', () => {
       expect(org.getPendingInvite('david@gmail.com')).toBe(pendingInvite1);
     });
+  });
+
+  it('checks post invite payload', () => {
+    let org: Org = new Org({
+      name: 'My New Org'
+    });
+
+    let mockInviteEmail = 'vanielle@arch-iot.com';
+
+    let payloadMock: OrgInvitePostPayload = {
+      email: mockInviteEmail
+    };
+
+    expect(org.getPostInvitePayload(mockInviteEmail)).toEqual(payloadMock);
   });
 });

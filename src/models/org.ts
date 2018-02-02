@@ -1,6 +1,9 @@
 import { Member, MemberDictionary } from './member';
 import { PendingInvite, PendingInviteDictionary } from './pending-invite';
 
+export interface OrgInvitePostPayload {
+  email: string;
+}
 
 export class Org {
   public slug: string;
@@ -52,9 +55,9 @@ export class Org {
     return payload;
   }
 
-  public getPostInvitePayload(email: string): any {
-    let payload = {
-      email: email
+  public getPostInvitePayload(email: string): OrgInvitePostPayload {
+    let payload: OrgInvitePostPayload = {
+      email
     };
 
     return payload;
