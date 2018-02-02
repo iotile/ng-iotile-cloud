@@ -52,6 +52,14 @@ export class Org {
     return payload;
   }
 
+  public getPostInvitePayload(email: string): any {
+    let payload = {
+      email: email
+    };
+
+    return payload;
+  }
+
   public addMembers(members: Array<Member>): void {
     this.members = members;
     this.memberMap = {};

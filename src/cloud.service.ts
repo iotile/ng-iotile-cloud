@@ -906,4 +906,15 @@ export class CloudService {
       return org;
     });
   }
+
+  public postOrgInvite(org: Org, inviteEmail: string): Observable<Org>  {
+    // return an observable
+    let payload: any = org.getPostInvitePayload(inviteEmail);
+    let url: string = '/org/' + org.slug + '/invite/'
+
+    return this.post('/org/', payload)
+      .map((data: any) => {
+        return new Org(data);
+      });
+  }
 }
