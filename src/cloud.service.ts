@@ -33,7 +33,8 @@ import {
   Fleet,
   FleetDevice,
   ApiFilter,
-  Member
+  Member,
+  PendingInvite
 } from './models';
 
 /*
@@ -892,6 +893,17 @@ export class CloudService {
 
     return this.get(url).map(data => {
       return new Org(data);
+    });
+  }
+
+  public getOrgPendingInvites(org: Org): Observable<Org> {
+    let url = '/org/' + org.slug + '/pending/';
+
+    return this.get(url).map((data: any) => {
+      let pendingInvites: Array<PendingInvite> = [];
+      data['results'].forEach((item: any) => pendingInvites.push(new PendingInvite(item)));
+      org.addPendingInvites(pendingInvites);
+      return org;
     });
   }
 }
