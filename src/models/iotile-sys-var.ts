@@ -1,5 +1,8 @@
 export class IOTileSysVar {
-  public eventStream: string = '5020';
+  public event: string = '5020';
+  public pressure: string = '5021';
+  public humidity: string = '5022';
+  public temperature: string = '5023';
 
   public battery: string = '5800';
 
@@ -12,5 +15,5 @@ export class IOTileSysVar {
 
   public tripStarted: string = '5E00';
   public tripEnded: string = '5E01';
-  public tripPauseResumse: string = '5E02';
+  public tripRecording: string = '5E02';
 }
