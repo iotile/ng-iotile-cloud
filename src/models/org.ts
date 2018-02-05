@@ -1,9 +1,6 @@
 import { Member, MemberDictionary } from './member';
-import { PendingInvite, PendingInviteDictionary } from './pending-invite';
+import { Invitation, InvitationPendingDictionary } from './invitation';
 
-export interface OrgInvitePostPayload {
-  email: string;
-}
 
 export class Org {
   public slug: string;
@@ -15,8 +12,8 @@ export class Org {
   public tinyUrl: string;
   public members: Array<Member> = [];
   public memberMap: MemberDictionary = {};
-  public pendingInvites: Array<PendingInvite> = [];
-  public pendingInviteMap: PendingInviteDictionary = {};
+  public pendingInvites: Array<Invitation> = [];
+  public pendingInviteMap: InvitationPendingDictionary = {};
 
   public currentMember: Member;
   public counts: { [index: string]: number };
@@ -49,16 +46,10 @@ export class Org {
     let payload: any = {
       name: this.name
     };
+
     if (this.about) {
       payload.about = this.about;
     }
-    return payload;
-  }
-
-  public getPostInvitePayload(email: string): OrgInvitePostPayload {
-    let payload: OrgInvitePostPayload = {
-      email
-    };
 
     return payload;
   }
@@ -73,13 +64,13 @@ export class Org {
     return this.memberMap[slug];
   }
 
-  public addPendingInvites(pendingInvites: Array<PendingInvite>): void {
+  public addPendingInvites(pendingInvites: Array<Invitation>): void {
     this.pendingInvites = pendingInvites;
     this.pendingInviteMap = {};
-    this.pendingInvites.forEach((pv: PendingInvite) => this.pendingInviteMap[pv.email] = pv);
+    this.pendingInvites.forEach((pv: Invitation) => this.pendingInviteMap[pv.email] = pv);
   }
 
-  public getPendingInvite(email: string): PendingInvite {
+  public getPendingInvite(email: string): Invitation {
     return this.pendingInviteMap[email];
   }
 }

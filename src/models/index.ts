@@ -22,5 +22,5 @@ export * from './page';
 export * from './fleet';
 export * from './apifilter';
 export * from './member';
-export * from './pending-invite';
+export * from './invitation';
 export * from './iotile-sys-var';

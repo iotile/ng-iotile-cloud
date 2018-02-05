@@ -34,8 +34,8 @@ import {
   FleetDevice,
   ApiFilter,
   Member,
-  PendingInvite,
-  OrgInvitePostPayload
+  Invitation,
+  InvitationPendingDictionary
 } from './models';
 
 /*
@@ -901,17 +901,20 @@ export class CloudService {
     let url = '/org/' + org.slug + '/pending/';
 
     return this.get(url).map((data: any) => {
-      let pendingInvites: Array<PendingInvite> = [];
-      data['results'].forEach((item: any) => pendingInvites.push(new PendingInvite(item)));
+      let pendingInvites: Array<Invitation> = [];
+      data['results'].forEach((item: any) => pendingInvites.push(new Invitation(item)));
       org.addPendingInvites(pendingInvites);
       return org;
     });
   }
 
-  public postOrgInvite(org: Org, inviteEmail: string): Observable<OrgInvitePostPayload>  {
-    let payload: OrgInvitePostPayload = org.getPostInvitePayload(inviteEmail);
-    let url: string = '/org/' + org.slug + '/invite/'
+  public postOrgInvite(orgSlug: string, invitation: Invitation): Observable<string>  {
+    let payload: Invitation = invitation.postPayload();
+    let url: string = '/org/' + orgSlug + '/invite/';
 
-    return this.post(url, payload).map((data: OrgInvitePostPayload) => data);
+    return this.post(url, payload).map((data: Invitation) => {
+      let invitation = new Invitation(data);
+      return invitation.email;
+    });
   }
 }

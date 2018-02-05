@@ -1,7 +1,7 @@
 'use strict';
-import { Org, OrgInvitePostPayload } from '../../src/models/org';
+import { Org } from '../../src/models/org';
 import { Member } from '../../src/models/member';
-import { PendingInvite } from '../../src/models/pending-invite';
+import { Invitation, InvitationPendingDictionary } from '../../src/models/invitation';
 
 describe('OrgTest', () => {
 
@@ -155,14 +155,14 @@ describe('OrgTest', () => {
       name: 'My New Org'
     });
 
-    let pendingInvites: Array<PendingInvite> = [];
-    let pendingInvite1: PendingInvite = new PendingInvite({
+    let pendingInvites: Array<Invitation> = [];
+    let pendingInvite1: Invitation = new Invitation({
       "email": "david@gmail.com",
       "sent_on": "2018-01-31T02:45:59Z",
       "sent_by": "lekosfmi"
     });
 
-    let pendingInvite2: PendingInvite = new PendingInvite({
+    let pendingInvite2: Invitation = new Invitation({
       "email": "tallis@gmail.com",
       "sent_on": "2018-01-31T02:45:59Z",
       "sent_by": "andrew"
@@ -183,16 +183,10 @@ describe('OrgTest', () => {
   });
 
   it('checks post invite payload', () => {
-    let org: Org = new Org({
-      name: 'My New Org'
+    let invite: Invitation = new Invitation({
+      email: 'user@arch-iot.com'
     });
 
-    let mockInviteEmail = 'vanielle@arch-iot.com';
-
-    let payloadMock: OrgInvitePostPayload = {
-      email: mockInviteEmail
-    };
-
-    expect(org.getPostInvitePayload(mockInviteEmail)).toEqual(payloadMock);
+    expect(invite.postPayload().email).toEqual('user@arch-iot.com');
   });
 });

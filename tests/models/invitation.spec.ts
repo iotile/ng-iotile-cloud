@@ -1,11 +1,11 @@
 'use strict';
 
-import { PendingInvite } from '../../src/models/pending-invite';
+import { Invitation } from '../../src/models/invitation';
 
 describe('PendingInvite', () => {
 
   it('check basic model', () => {
-    let pendingInvite: PendingInvite = new PendingInvite({
+    let pendingInvite: Invitation = new Invitation({
       "email": "vanielle@arch-iot.com",
       "sent_on": "2018-01-31T02:45:59Z",
       "sent_by": "david@arch-iot.com"

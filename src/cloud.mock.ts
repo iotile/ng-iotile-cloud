@@ -8,7 +8,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/first';
 
 import { DataBlock } from './models/datablock';
-import { Org, OrgInvitePostPayload } from './models/org';
+import { Org } from './models/org';
 import { Project } from './models/project';
 import { VarType } from './models/vartype';
 import { SensorGraph } from './models/sensorgraph';
@@ -21,7 +21,7 @@ import { Property, PropertyTemplate } from './models/property';
 import { Stream } from './models/stream';
 import { ApiFilter } from './models/apifilter';
 import { Member } from './models/member';
-import { PendingInvite } from './models/pending-invite';
+import { Invitation } from './models/invitation';
 
 export class CloudServiceMock {
 
@@ -1039,8 +1039,8 @@ export class CloudServiceMock {
       }
     });
 
-    let pendingInvites: Array<PendingInvite> = [];
-    let pendingInvite1: PendingInvite = new PendingInvite({
+    let pendingInvites: Array<Invitation> = [];
+    let pendingInvite1: Invitation = new Invitation({
       "email": "david@gmail.com",
       "sent_on": "2018-01-31T02:45:59Z",
       "sent_by": "lekosfmi"
@@ -1048,7 +1048,7 @@ export class CloudServiceMock {
 
     pendingInvites.push(pendingInvite1);
 
-    let pendingInvite2: PendingInvite = new PendingInvite({
+    let pendingInvite2: Invitation = new Invitation({
       "email": "tallis@gmail.com",
       "sent_on": "2018-01-31T02:45:59Z",
       "sent_by": "andrew"
@@ -1062,9 +1062,9 @@ export class CloudServiceMock {
     return Observable.of(org);
   }
 
-  public postOrgInvite(org: Org, inviteEmail: string = 'tim@arch-iot.com'): Observable<OrgInvitePostPayload>  {
+  public postOrgInvite(org: Org, invitation: Invitation): Observable<Invitation>  {
     // return an observable
-    let payload: OrgInvitePostPayload = org.getPostInvitePayload(inviteEmail);
+    let payload: Invitation = invitation.postPayload();
 
     return Observable.of(payload);
   }
