@@ -1,5 +1,6 @@
 import { Member, MemberDictionary } from './member';
 import { Invitation, InvitationPendingDictionary } from './invitation';
+import { OrgTemplate } from './org-template';
 
 
 export class Org {
@@ -10,6 +11,7 @@ export class Org {
   public createdOn: Date;
   public thumbnailUrl: string;
   public tinyUrl: string;
+  public orgTemplate: OrgTemplate;
   public members: Array<Member> = [];
   public memberMap: MemberDictionary = {};
   public pendingInvites: Array<Invitation> = [];
@@ -39,6 +41,10 @@ export class Org {
 
     if (data.counts) {
       this.counts = data.counts;
+    }
+
+    if (data.ot) {
+      this.orgTemplate = data.ot;
     }
   }
 

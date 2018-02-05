@@ -1,7 +1,11 @@
 'use strict';
-import { Org } from '../../src/models/org';
-import { Member } from '../../src/models/member';
-import { Invitation, InvitationPendingDictionary } from '../../src/models/invitation';
+import {
+  Org,
+  OrgTemplate,
+  Member,
+  Invitation,
+  InvitationPendingDictionary
+} from '../../src/models';
 
 describe('OrgTest', () => {
 
@@ -182,11 +186,26 @@ describe('OrgTest', () => {
     });
   });
 
-  it('checks post invite payload', () => {
-    let invite: Invitation = new Invitation({
-      email: 'user@arch-iot.com'
-    });
+  describe('Org Template', () => {
 
-    expect(invite.postPayload().email).toEqual('user@arch-iot.com');
+    it('checks basic model ', () => {
+      let org: Org = new Org({
+        name: 'My New Org',
+        ot: {
+          "id": 1,
+          "name": "Default Template",
+          "slug": "default-template-v1-0-0",
+          "version": "v1.0.0",
+          "extra_data": {
+            "web": {
+              "orgTemplateSlug": "default"
+            }
+          },
+          "created_on": "2018-01-31T01:18:30Z"
+        }
+      });
+
+      expect(org.orgTemplate.name).toBe('Default Template');
+    })
   });
 });

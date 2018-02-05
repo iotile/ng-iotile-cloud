@@ -16,4 +16,11 @@ describe('PendingInvite', () => {
     expect(pendingInvite.sentBy).toBe('david@arch-iot.com');
   });
 
+  it('checks post invite payload', () => {
+    let invite: Invitation = new Invitation({
+      email: 'user@arch-iot.com'
+    });
+
+    expect(invite.postPayload().email).toEqual('user@arch-iot.com');
+  });
 });
