@@ -1,9 +1,8 @@
-export interface PendingInviteDictionary {
-  [index: string]: PendingInvite;
+export interface InvitationPendingDictionary {
+  [index: string]: Invitation;
 }
 
-export class PendingInvite {
-
+export class Invitation {
   public email: string;
   public sentOn: Date;
   public sentBy: string;
@@ -20,5 +19,13 @@ export class PendingInvite {
     if ('sent_by' in data) {
       this.sentBy = data.sent_by;
     }
+  }
+
+  public postPayload(): any {
+    let payload = {
+      email: this.email
+    };
+
+    return payload;
   }
 }

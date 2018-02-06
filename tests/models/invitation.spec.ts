@@ -1,11 +1,11 @@
 'use strict';
 
-import { PendingInvite } from '../../src/models/pending-invite';
+import { Invitation } from '../../src/models/invitation';
 
 describe('PendingInvite', () => {
 
   it('check basic model', () => {
-    let pendingInvite: PendingInvite = new PendingInvite({
+    let pendingInvite: Invitation = new Invitation({
       "email": "vanielle@arch-iot.com",
       "sent_on": "2018-01-31T02:45:59Z",
       "sent_by": "david@arch-iot.com"
@@ -16,4 +16,11 @@ describe('PendingInvite', () => {
     expect(pendingInvite.sentBy).toBe('david@arch-iot.com');
   });
 
+  it('checks post invite payload', () => {
+    let invite: Invitation = new Invitation({
+      email: 'user@arch-iot.com'
+    });
+
+    expect(invite.postPayload().email).toEqual('user@arch-iot.com');
+  });
 });

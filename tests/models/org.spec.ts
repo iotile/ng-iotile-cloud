@@ -1,7 +1,11 @@
 'use strict';
-import { Org } from '../../src/models/org';
-import { Member } from '../../src/models/member';
-import { PendingInvite } from '../../src/models/pending-invite';
+import {
+  Org,
+  OrgTemplate,
+  Member,
+  Invitation,
+  InvitationPendingDictionary
+} from '../../src/models';
 
 describe('OrgTest', () => {
 
@@ -155,14 +159,14 @@ describe('OrgTest', () => {
       name: 'My New Org'
     });
 
-    let pendingInvites: Array<PendingInvite> = [];
-    let pendingInvite1: PendingInvite = new PendingInvite({
+    let pendingInvites: Array<Invitation> = [];
+    let pendingInvite1: Invitation = new Invitation({
       "email": "david@gmail.com",
       "sent_on": "2018-01-31T02:45:59Z",
       "sent_by": "lekosfmi"
     });
 
-    let pendingInvite2: PendingInvite = new PendingInvite({
+    let pendingInvite2: Invitation = new Invitation({
       "email": "tallis@gmail.com",
       "sent_on": "2018-01-31T02:45:59Z",
       "sent_by": "andrew"
@@ -180,5 +184,28 @@ describe('OrgTest', () => {
     it('checks org can get member', () => {
       expect(org.getPendingInvite('david@gmail.com')).toBe(pendingInvite1);
     });
+  });
+
+  describe('Org Template', () => {
+
+    it('checks basic model ', () => {
+      let org: Org = new Org({
+        name: 'My New Org',
+        ot: {
+          "id": 1,
+          "name": "Default Template",
+          "slug": "default-template-v1-0-0",
+          "version": "v1.0.0",
+          "extra_data": {
+            "web": {
+              "orgTemplateSlug": "default"
+            }
+          },
+          "created_on": "2018-01-31T01:18:30Z"
+        }
+      });
+
+      expect(org.orgTemplate.name).toBe('Default Template');
+    })
   });
 });
