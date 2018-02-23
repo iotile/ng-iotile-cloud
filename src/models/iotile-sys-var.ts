@@ -10,5 +10,5 @@ export class IOTileSysVar {
 
   public tripStarted: string = '5e00';
   public tripEnded: string = '5e01';
-  public tripRecording: string = '5E02';
+  public tripRecording: string = '5e02';
 }
