@@ -5,6 +5,7 @@ export class IOTileSysVar {
   public gatewayScanEnd: string = '5a01';
   public gatewayScanFailure: string = '5a03';
   public endOfTripSummary: string = '5a07';
+  public middleOfTripSummary: string = '5a08';
 
   public reboot: string = '5c00';
 
