@@ -9,7 +9,7 @@ export class IOTileSysVar {
 
   public reboot: string = '5c00';
 
-  public tripStarted: string = '5e00';
-  public tripEnded: string = '5e01';
-  public tripRecording: string = '5e02';
+  public tripStarted: string = '0e00';
+  public tripEnded: string = '0e01';
+  public tripRecording: string = '0e02';
 }
