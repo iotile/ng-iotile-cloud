@@ -1,10 +1,10 @@
-interface NoteUserInfo {
+export interface NoteUserInfo {
   username: string;
   slug: string;
   tinyAvatar: string;
 }
 
-interface NoteAttachment {
+export interface NoteAttachment {
   title: string;
   url: string;
   fileType: string;
@@ -19,7 +19,7 @@ export class Note {
   public userInfo: NoteUserInfo;
   public attachment: NoteAttachment;
 
-  constructor(data) {
+  constructor(data: any = {}) {
     this.target = data.target;
     this.timestamp = data.timestamp || new Date().toISOString();
     this.note = data.note;
