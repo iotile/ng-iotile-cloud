@@ -20,8 +20,6 @@ export class User {
 
         if (data.created_at) {
           this.creationDate = new Date(data.created_at);
-        } else {
-          delete this.creationDate;
         }
     }
 
