@@ -25,3 +25,4 @@ export * from './member';
 export * from './invitation';
 export * from './iotile-sys-var';
 export * from './org-template';
+export * from './note';
