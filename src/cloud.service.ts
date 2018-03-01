@@ -573,8 +573,7 @@ export class CloudService {
       err => {
         console.error(err);
         returnedData.error(err);
-      }
-    );
+    });
     return returnedData;
   }
 
@@ -598,6 +597,11 @@ export class CloudService {
         let pageCount = Math.ceil(count / args.pageSize);
         console.debug('No. of pages (to be forkJoin-ed): ' + args.pageSize + '/' + count + '=' + pageCount);
         let observables: Array<any> = [];
+
+        if (pageCount == 0) {
+          returnedData.next(0);
+          return;
+        }
 
         let dataPages: Array<EventPage> = [];
         for (let i = 1; i <= pageCount; i++) {
@@ -623,8 +627,7 @@ export class CloudService {
       err => {
         console.error(err);
         returnedData.error(err);
-      }
-    );
+      });
     return returnedData;
   }
 
