@@ -627,9 +627,7 @@ export class CloudService {
       err => {
         console.error(err);
         returnedData.error(err);
-      }, () => {
-        console.log('*** Ng Iotile Cloud This is done!!!!', 'getAllStreamEvent' )
-      }) ;
+      });
     return returnedData;
   }
 
