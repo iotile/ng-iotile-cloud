@@ -37,7 +37,7 @@ export class Note {
       };
     }
 
-    if ('attachment' in data) {
+    if ('attachment' in data && data.attachment != null) {
       this.attachment = {
         title: data.attachment.title,
         url: data.attachment.url,

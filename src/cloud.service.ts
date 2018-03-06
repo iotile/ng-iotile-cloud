@@ -923,7 +923,9 @@ export class CloudService {
   }
 
   public getNotes(slug: string): Observable<Array<Note>> {
-    return this.get(`/note/?target=${slug}`).map((res: any) => {
+    let url = `/note/?target=${slug}`;
+
+    return this.get(url).map((res: any) => {
       let notes: Array<Note> = [];
       res.results.forEach((item: any) => {
         notes.push(new Note(item));
@@ -934,8 +936,9 @@ export class CloudService {
 
   public postNote(note: Note): Observable<Note> {
     let payload = note.postPayload();
+    let url = '/note/';
 
-    return this.post('/note/', payload).map((n: any) => {
+    return this.post(url, payload).map((n: any) => {
       console.info('#postNote ', n);
       return new Note(n);
     });
