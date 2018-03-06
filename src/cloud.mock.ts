@@ -22,6 +22,7 @@ import { Stream } from './models/stream';
 import { ApiFilter } from './models/apifilter';
 import { Member } from './models/member';
 import { Invitation } from './models/invitation';
+import { Note } from './models/note';
 
 export class CloudServiceMock {
 
@@ -1067,5 +1068,45 @@ export class CloudServiceMock {
     let payload: Invitation = invitation.postPayload();
 
     return Observable.of(payload);
+  }
+
+  public postOrg(orgName: string): string {
+    return orgName;
+  }
+
+  public getNotes(slug: string): Observable<Array<Note>> {
+    let mockNotes: Array<Note> = [];
+
+    let mockNote1 = new Note({
+      "id": 1,
+      "target": "d--0000-0000-0000-0059",
+      "type": 'ui',
+      "timestamp": "2017-10-16T18:43:38.354000Z",
+      "note": "The cargo has arrived in Seoul, South Korea successfully"
+    });
+
+    mockNotes.push(mockNote1)
+
+    let mockNote2 = new Note({
+      "id": 2,
+      "target": "d--0000-0000-0000-0059",
+      "type": 'ui',
+      "timestamp": "2017-10-16T18:43:38.571000Z",
+      "note": "The device with ID of d--0000-0000-0000-0059 rebooted"
+    });
+
+    mockNotes.push(mockNote2)
+
+    let mockNote3 = new Note({
+      "id": 3,
+      "target": "d--0000-0000-0000-0059",
+      "type": 'ui',
+      "timestamp": "2017-10-16T18:43:38.571000Z",
+      "note": "The device was resetted by @david"
+    });
+
+    mockNotes.push(mockNote3)
+
+    return Observable.of(mockNotes);
   }
 }

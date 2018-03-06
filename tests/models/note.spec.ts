@@ -52,4 +52,26 @@ describe('NoteTest', () => {
     expect(payload.type).toBe('ui');
     expect(payload.timestamp).toBe('2018-02-28T05:46:12Z');
   });
+
+  it('checks note\'s without attachment', () => {
+    let note1: Note = new Note({
+        "id": 100,
+        "target": "d--0000-0000-0000-0534",
+        "timestamp": "2018-02-28T05:46:12Z",
+        "note": "My Note",
+        "type": "ui",
+        "attachment": null
+    });
+
+    let note2: Note = new Note({
+        "id": 100,
+        "target": "d--0000-0000-0000-0534",
+        "timestamp": "2018-02-28T05:46:12Z",
+        "note": "My Note",
+        "type": "ui"
+    });
+
+    expect(note1.attachment).toBeFalsy();
+    expect(note2.attachment).toBeFalsy();
+  });
 });

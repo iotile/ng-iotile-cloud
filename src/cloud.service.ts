@@ -35,7 +35,8 @@ import {
   ApiFilter,
   Member,
   Invitation,
-  InvitationPendingDictionary
+  InvitationPendingDictionary,
+  Note
 } from './models';
 
 /*
@@ -918,6 +919,28 @@ export class CloudService {
     return this.post(url, payload).map((data: Invitation) => {
       let invitation = new Invitation(data);
       return invitation.email;
+    });
+  }
+
+  public getNotes(slug: string): Observable<Array<Note>> {
+    let url = `/note/?target=${slug}`;
+
+    return this.get(url).map((res: any) => {
+      let notes: Array<Note> = [];
+      res.results.forEach((item: any) => {
+        notes.push(new Note(item));
+      });
+      return notes;
+    });
+  }
+
+  public postNote(note: Note): Observable<Note> {
+    let payload = note.postPayload();
+    let url = '/note/';
+
+    return this.post(url, payload).map((n: any) => {
+      console.info('#postNote ', n);
+      return new Note(n);
     });
   }
 }
