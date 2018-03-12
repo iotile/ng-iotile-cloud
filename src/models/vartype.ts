@@ -1,7 +1,22 @@
 import { Unit } from './unit';
+import { Mdo } from './mdo';
 
 export interface VarTypeDictionary {
     [ slug: string ]: VarType;
+}
+
+class SchemaKey {
+  type: string;
+  units: string;
+  decimal: number;
+  label: string;
+  outputUnits: {
+    [units: string]: Mdo
+  };
+};
+
+class Schema {
+  schemaKeys: Array<SchemaKey>;
 }
 
 export class VarType {
@@ -10,6 +25,7 @@ export class VarType {
   public unitFullName: string;
   public availableInputUnits: Array<Unit>;
   public availableOutputUnits: Array<Unit>;
+  public schema: Schema;
 
   constructor(data: any = {}) {
     this.name = data.name;
@@ -34,6 +50,14 @@ export class VarType {
         let unit: Unit = new Unit(u);
         this.availableOutputUnits.push(unit);
       });
+    }
+
+    if ('schema' in data) {
+      let schema = data['schema'];
+      this.schema = new Schema();
+      this.schema.schemaKeys = Object.keys(schema.keys).map(i => schema.keys[i])
+
+      console.log('What is THIS SCHEMA', this.schema);
     }
   }
 
