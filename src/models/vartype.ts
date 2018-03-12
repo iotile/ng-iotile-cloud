@@ -10,9 +10,14 @@ class SchemaKey {
   units: string;
   decimal: number;
   label: string;
-  outputUnits: {
-    [units: string]: Mdo
-  };
+  outputUnits: any;
+
+  constructor(data: any = {}) {
+    this.type = data['type'];
+    this.units = data['units'];
+    this.decimal = data['decimal'];
+    this.outputUnits = data['output_units'];
+  }
 };
 
 class Schema {
@@ -55,9 +60,9 @@ export class VarType {
     if ('schema' in data) {
       let schema = data['schema'];
       this.schema = new Schema();
-      this.schema.schemaKeys = Object.keys(schema.keys).map(i => schema.keys[i])
 
-      console.log('What is THIS SCHEMA', this.schema);
+      // Turn object of objects into an array of objects
+      this.schema.schemaKeys = Object.keys(schema.keys).map((i) => new SchemaKey(schema.keys[i]))
     }
   }
 

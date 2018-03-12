@@ -185,10 +185,23 @@ describe('VarTypeTest', () => {
   });
 
   it('check basic varType with schema', () => {
+    expect(dummyVarTypeWithSchema.schema.schemaKeys.length).toBe(6);
+  });
 
-    console.log('**** Schema', dummyVarTypeWithSchema.schema);
-    // expect(dummyVarTypeWithSchema.schema.id).toEqual(1);
+  it('check basic varType schema with units', () => {
+    let secondSchemaWithOutputUnits = dummyVarTypeWithSchema.schema.schemaKeys[1];
+    expect(secondSchemaWithOutputUnits.units).toBe('m/s');
+  });
 
-    expect(dummyVarTypeWithSchema.schema.keys['duration'].type).toEqual('float');
+  it('check basic varType schema with outputUnits', () => {
+    let secondSchemaWithOutputUnits = dummyVarTypeWithSchema.schema.schemaKeys[1];
+    expect(secondSchemaWithOutputUnits.outputUnits).toBeDefined();
+    expect(secondSchemaWithOutputUnits.outputUnits['in/s']['mdo'][0]).toEqual(3937);
+    expect(secondSchemaWithOutputUnits.outputUnits['in/s']['mdo'][1]).toEqual(100);
+  });
+
+  it('check basic varType schema without outputUnits', () => {
+    let secondSchemaWithOutputUnits = dummyVarTypeWithSchema.schema.schemaKeys[0];
+    expect(secondSchemaWithOutputUnits.outputUnits).not.toBeDefined();
   });
 });
