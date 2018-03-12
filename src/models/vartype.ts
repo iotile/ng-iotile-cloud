@@ -5,7 +5,7 @@ export interface VarTypeDictionary {
     [ slug: string ]: VarType;
 }
 
-class SchemaKey {
+export class SchemaKey {
   type: string;
   units: string;
   decimal: number;
@@ -16,11 +16,12 @@ class SchemaKey {
     this.type = data['type'];
     this.units = data['units'];
     this.decimal = data['decimal'];
+    this.label = data['label'];
     this.outputUnits = data['output_units'];
   }
-};
+}
 
-class Schema {
+export class Schema {
   schemaKeys: Array<SchemaKey>;
 }
 
@@ -62,7 +63,7 @@ export class VarType {
       this.schema = new Schema();
 
       // Turn object of objects into an array of objects
-      this.schema.schemaKeys = Object.keys(schema.keys).map((i) => new SchemaKey(schema.keys[i]))
+      this.schema.schemaKeys = Object.keys(schema.keys).map(i => new SchemaKey(schema.keys[i]));
     }
   }
 
