@@ -1,5 +1,4 @@
 import { Unit } from './unit';
-import { Mdo } from './mdo';
 
 export interface VarTypeDictionary {
     [ slug: string ]: VarType;
