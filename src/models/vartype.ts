@@ -4,12 +4,25 @@ export interface VarTypeDictionary {
     [ slug: string ]: VarType;
 }
 
+export interface SchemaKey {
+  type: string;
+  units: string;
+  decimal: number;
+  label: string;
+  output_units: any;
+}
+
+export interface SchemaKeyDictionary {
+  [index: string]: SchemaKey;
+}
+
 export class VarType {
   public name: string;
   public slug: string;
   public unitFullName: string;
   public availableInputUnits: Array<Unit>;
   public availableOutputUnits: Array<Unit>;
+  public schema: SchemaKeyDictionary;
 
   constructor(data: any = {}) {
     this.name = data.name;
@@ -35,6 +48,11 @@ export class VarType {
         this.availableOutputUnits.push(unit);
       });
     }
+
+    if ('schema' in data) {
+      let schema = data['schema'];
+      this.schema = schema.keys;
+    }
   }
 
   public getInputUnitForSlug(slug: string): Unit | undefined {
@@ -59,5 +77,17 @@ export class VarType {
     });
 
     return resultingUnit;
+  }
+
+  public getASchemaObj(schemaKey: string): SchemaKey | null {
+    return schemaKey in this.schema ? this.schema[schemaKey] : null;
+  }
+
+  public getOutputUnitsForSchema(schemaKey: string): any {
+    let schemaObj = this.getASchemaObj(schemaKey);
+
+    if (schemaObj && 'output_units' in schemaObj) {
+      return schemaObj['output_units'];
+    }
   }
 }
