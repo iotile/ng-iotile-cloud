@@ -4,24 +4,16 @@ export interface VarTypeDictionary {
     [ slug: string ]: VarType;
 }
 
-export class SchemaKey {
+export interface SchemaKey {
   type: string;
   units: string;
   decimal: number;
   label: string;
-  outputUnits: any;
-
-  constructor(data: any = {}) {
-    this.type = data['type'];
-    this.units = data['units'];
-    this.decimal = data['decimal'];
-    this.label = data['label'];
-    this.outputUnits = data['output_units'];
-  }
+  output_units: any;
 }
 
-export class Schema {
-  schemaKeys: Array<SchemaKey>;
+export interface SchemaKeyDictionary {
+  [index: string]: SchemaKey;
 }
 
 export class VarType {
@@ -30,7 +22,7 @@ export class VarType {
   public unitFullName: string;
   public availableInputUnits: Array<Unit>;
   public availableOutputUnits: Array<Unit>;
-  public schema: Schema;
+  public schema: SchemaKeyDictionary;
 
   constructor(data: any = {}) {
     this.name = data.name;
@@ -59,10 +51,7 @@ export class VarType {
 
     if ('schema' in data) {
       let schema = data['schema'];
-      this.schema = new Schema();
-
-      // Turn object of objects into an array of objects
-      this.schema.schemaKeys = Object.keys(schema.keys).map(i => new SchemaKey(schema.keys[i]));
+      this.schema = schema.keys;
     }
   }
 
@@ -88,5 +77,17 @@ export class VarType {
     });
 
     return resultingUnit;
+  }
+
+  public getASchemaObj(schemaKey: string): SchemaKey | null {
+    return schemaKey in this.schema ? this.schema[schemaKey] : null;
+  }
+
+  public getOutputUnitsForSchema(schemaKey: string): any {
+    let schemaObj = this.getASchemaObj(schemaKey);
+
+    if (schemaObj && 'output_units' in schemaObj) {
+      return schemaObj['output_units'];
+    }
   }
 }

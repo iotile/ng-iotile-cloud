@@ -185,23 +185,34 @@ describe('VarTypeTest', () => {
   });
 
   it('check basic varType with schema', () => {
-    expect(dummyVarTypeWithSchema.schema.schemaKeys.length).toBe(6);
+    console.log(' whati suasdfasdf ', dummyVarTypeWithSchema)
+    expect(dummyVarTypeWithSchema.schema['duration']).toBeDefined();
+    expect(dummyVarTypeWithSchema.schema['duration']['type']).toBe('float');
+    expect(dummyVarTypeWithSchema.schema['duration']['label']).toBe('Duration');
+    expect(dummyVarTypeWithSchema.schema['duration'].output_units).not.toBeDefined();
   });
 
   it('check basic varType schema with units', () => {
-    let secondSchemaWithOutputUnits = dummyVarTypeWithSchema.schema.schemaKeys[1];
-    expect(secondSchemaWithOutputUnits.units).toBe('m/s');
+    expect(dummyVarTypeWithSchema.schema['delta_v_x'].units).toBe('m/s');
   });
 
   it('check basic varType schema with outputUnits', () => {
-    let secondSchemaWithOutputUnits = dummyVarTypeWithSchema.schema.schemaKeys[1];
-    expect(secondSchemaWithOutputUnits.outputUnits).toBeDefined();
-    expect(secondSchemaWithOutputUnits.outputUnits['in/s']['mdo'][0]).toEqual(3937);
-    expect(secondSchemaWithOutputUnits.outputUnits['in/s']['mdo'][1]).toEqual(100);
+    let outputUnits = dummyVarTypeWithSchema.schema['delta_v_x']['output_units'];
+    console.log('**** schema ', dummyVarTypeWithSchema.schema['delta_v_x']);
+
+    expect(outputUnits).toBeDefined();
+    expect(outputUnits['in/s']['mdo'][0]).toEqual(3937);
+    expect(outputUnits['in/s']['mdo'][1]).toEqual(100);
   });
 
-  it('check basic varType schema without outputUnits', () => {
-    let secondSchemaWithOutputUnits = dummyVarTypeWithSchema.schema.schemaKeys[0];
-    expect(secondSchemaWithOutputUnits.outputUnits).not.toBeDefined();
+  it('check basic varType schema with outputUnits', () => {
+    let schemaObj = dummyVarTypeWithSchema.getASchemaObj('delta_v_y');
+    expect(schemaObj).toBeDefined();
+
+    let outputUnits = dummyVarTypeWithSchema.getOutputUnitsForSchema('delta_v_y');
+
+    expect(outputUnits).toBeDefined();
+    expect(outputUnits['in/s']['mdo'][0]).toEqual(3937);
+    expect(outputUnits['in/s']['mdo'][1]).toEqual(100);
   });
 });
