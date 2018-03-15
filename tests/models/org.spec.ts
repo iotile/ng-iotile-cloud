@@ -144,7 +144,6 @@ describe('OrgTest', () => {
     it('checks org membership', () => {
       expect(org.currentMember.user.username).toBe('lekosfmi');
       expect(org.currentMember.isActive).toBe(true);
-      expect(org.currentMember.isOrgAdmin).toBe(true);
       expect(org.currentMember.createdOn.getFullYear()).toBe(2017);
     });
 
