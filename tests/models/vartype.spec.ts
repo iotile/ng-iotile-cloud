@@ -185,7 +185,6 @@ describe('VarTypeTest', () => {
   });
 
   it('check basic varType with schema', () => {
-    console.log(' whati suasdfasdf ', dummyVarTypeWithSchema)
     expect(dummyVarTypeWithSchema.schema['duration']).toBeDefined();
     expect(dummyVarTypeWithSchema.schema['duration']['type']).toBe('float');
     expect(dummyVarTypeWithSchema.schema['duration']['label']).toBe('Duration');
@@ -198,7 +197,6 @@ describe('VarTypeTest', () => {
 
   it('check basic varType schema with outputUnits', () => {
     let outputUnits = dummyVarTypeWithSchema.schema['delta_v_x']['output_units'];
-    console.log('**** schema ', dummyVarTypeWithSchema.schema['delta_v_x']);
 
     expect(outputUnits).toBeDefined();
     expect(outputUnits['in/s']['mdo'][0]).toEqual(3937);
