@@ -1,4 +1,5 @@
 import { User } from './user';
+import { Permissions } from './permissions';
 
 export interface MemberDictionary {
   [index: string]: Member;
@@ -8,9 +9,7 @@ export class Member {
   public user: User;
   public createdOn: Date;
   public isActive: boolean;
-  public permissions: {
-    [permissionKey: string]: boolean;
-  };
+  public permissions: Permissions;
 
   public role: string;
   public roleName: string;
@@ -33,19 +32,11 @@ export class Member {
     }
 
     if ('permissions' in data) {
-      this.permissions = data['permissions'];
+      this.permissions = new Permissions(data['permissions']);
     }
 
     if ('role_name' in data) {
       this.roleName = data['role_name'];
     }
-  }
-
-  public getPermission(permissionKey: string): boolean | undefined {
-    if (permissionKey in this.permissions) {
-      return this.permissions[permissionKey];
-    }
-
-    return;
   }
 }

@@ -88,13 +88,6 @@ describe('MemberTest', () => {
       "role_name": "a1 - Admin"
     });
 
-    expect(member.permissions).toBeDefined();
-
-    expect(member.getPermission('can_access_webapp')).toBe(true);
-    expect(member.getPermission('can_delete_org')).toBe(false);
-    expect(member.getPermission('can_do_soemthing')).not.toBeDefined();
-
-    expect(member.role).toBe('a1');
-    expect(member.roleName).toBe('a1 - Admin');
+    expect(member.permissions.canAccessWebapp).toBe(true);
   });
 });
