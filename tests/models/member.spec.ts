@@ -17,32 +17,11 @@ describe('MemberTest', () => {
         }
       },
       "created_on": "2016-11-08T04:15:14.732769Z",
-      "is_active": true,
-      "is_org_admin": false
+      "is_active": true
     });
 
     expect(member.isActive).toBe(true);
-    expect(member.isOrgAdmin).toBe(false);
     expect(member.createdOn.getFullYear()).toBe(2016);
-  });
-
-  it('checks model without', () => {
-    let member: Member = new Member({
-      "user_details": {
-        "email": "andrew@arch-iot.com",
-        "username": "andrew",
-        "name": "Andrew Scheuermann",
-        "tagline": "",
-        "avatar": {
-          "tiny": "https://secure.gravatar.com/avatar/b9d8102381d958dbd4cb154aee8c7b9e?d=identicon&s=28",
-          "thumbnail": "https://secure.gravatar.com/avatar/b9d8102381d958dbd4cb154aee8c7b9e?d=identicon&s=80"
-        }
-      },
-      "created_on": "2016-11-08T04:15:14.732769Z",
-      "is_active": true,
-    });
-
-    expect(member.isOrgAdmin).toBe(false);
   });
 
   it('checks model user', () => {

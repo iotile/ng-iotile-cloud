@@ -8,7 +8,6 @@ export class Member {
   public user: User;
   public createdOn: Date;
   public isActive: boolean;
-  public isOrgAdmin: boolean = false;
   public permissions: {
     [permissionKey: string]: boolean;
   };
@@ -27,10 +26,6 @@ export class Member {
 
     if ('is_active' in data) {
       this.isActive = data['is_active'];
-    }
-
-    if ('is_org_admin' in data) {
-      this.isOrgAdmin = data['is_org_admin'];
     }
 
     if ('role' in data) {
