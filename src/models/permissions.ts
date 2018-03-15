@@ -32,9 +32,6 @@ export class Permissions {
   // Can read stream data and events
   public canReadStreamData: boolean;
 
-  // Can upload streamer reports
-  public canUploadStreamerReport: boolean;
-
   // Can manually post stream data and events via JSON POST API
   public canCreateStreamData: boolean;
 
@@ -59,7 +56,6 @@ export class Permissions {
     this.canReadNotes = data['can_read_notes'];
     this.canReadDeviceLocations = data['can_read_device_locations'];
     this.canReadStreamData = data['can_read_stream_data'];
-    this.canUploadStreamerReport = data['can_upload_streamer_report'];
     this.canCreateStreamData = data['can_create_stream_data'];
     this.canCreateDatablock = data['can_create_datablock'];
     this.canAccessDatablock = data['can_access_datablock'];
