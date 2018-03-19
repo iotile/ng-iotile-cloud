@@ -26,3 +26,4 @@ export * from './invitation';
 export * from './iotile-sys-var';
 export * from './org-template';
 export * from './note';
+export * from './permissions';
