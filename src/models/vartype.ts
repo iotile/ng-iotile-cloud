@@ -51,7 +51,9 @@ export class VarType {
 
     if ('schema' in data) {
       let schema = data['schema'];
-      this.schema = schema.keys;
+      if (schema && 'keys' in schema) {
+        this.schema = schema.keys;
+      }
     }
   }
 
@@ -80,7 +82,7 @@ export class VarType {
   }
 
   public getASchemaObj(schemaKey: string): SchemaKey | null {
-    return schemaKey in this.schema ? this.schema[schemaKey] : null;
+    return this.schema && schemaKey in this.schema ? this.schema[schemaKey] : null;
   }
 
   public getOutputUnitsForSchema(schemaKey: string): any {
