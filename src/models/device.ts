@@ -13,6 +13,8 @@ export class Device {
   public externalId: string;
   public label: string;
   public active: boolean;
+  public state: string;
+  public busy: boolean = false;
   public lat: number;
   public lng: number;
   public template: string;
@@ -28,6 +30,7 @@ export class Device {
     this.slug = data.slug;
     this.gid = data.gid;
     this.active = data.active;
+    this.state = data.state;
     this.externalId = data.external_id;
     this.label = data.label || data.slug;
     this.lat = parseFloat(data.lat || 0);
@@ -35,6 +38,9 @@ export class Device {
     this.template = data.template || '';
     this.sensorGraphSlug = data.sg;
     this.project = data.project;
+    if ('busy' in data) {
+      this.busy = data.busy
+    }
   }
 
   public getPatchPayload(): any {
@@ -48,6 +54,11 @@ export class Device {
       payload.lon = this.lng;
     }
     payload.active = this.active;
+
+    if (this.state) {
+      payload.state = this.state;
+    }
+    
     return payload;
   }
 

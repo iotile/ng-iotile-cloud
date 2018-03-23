@@ -13,6 +13,7 @@ describe('DeviceTest', () => {
     "gid": "0000-0000-0000-0081",
     "label": "The Device",
     "active": true,
+    "state": "N0",
     "project": "b83c6bd6-0f3f-4890-a390-d9d29d142966",
     "org": "my-org",
     "template": "1d1p2bt101-v0-1-0",
