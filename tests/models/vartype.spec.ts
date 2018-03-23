@@ -44,7 +44,8 @@ const dummyVarType: VarType = new VarType({
         "o": 0.0
       }
     ],
-    "storage_units_full": "Liters"
+    "storage_units_full": "Liters",
+    "schema": null
 });
 
 const dummyVarTypeWithSchema: VarType = new VarType({
@@ -132,6 +133,8 @@ describe('VarTypeTest', () => {
     expect(varType.name).toEqual('Liquid Volume');
     expect(varType.slug).toEqual('liquid-volume');
     expect(varType.unitFullName).toEqual('Liters');
+    expect(varType.schema).toBeUndefined();
+    expect(varType.getASchemaObj('max_g')).toBeNull();
   });
 
   it('check available input in varType', () => {
