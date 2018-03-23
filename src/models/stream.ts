@@ -48,7 +48,6 @@ export class Stream {
     if (data.data_label) {
       this.dataLabel = data.data_label;
     }
-    this.data;
     if (data.input_unit) {
       this.inputUnit = new Unit(data.input_unit);
     }
