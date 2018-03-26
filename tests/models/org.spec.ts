@@ -28,7 +28,7 @@ describe('OrgTest', () => {
     expect(org.thumbnailUrl).toEqual('https://image.com/thumbnail.jpg');
     expect(org.createdOn.getFullYear()).toEqual(2016);
     expect(org.createdBy).toEqual('david');
-    expect(org.about).toBeUndefined();
+    expect(org.about).toEqual('');
   });
 
   it('check org.getPatchPayload', () => {
