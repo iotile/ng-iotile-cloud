@@ -6,7 +6,7 @@ import { OrgTemplate } from './org-template';
 export class Org {
   public slug: string;
   public name: string;
-  public about: string;
+  public about: string = '';
   public createdBy: string;
   public createdOn: Date;
   public thumbnailUrl: string;

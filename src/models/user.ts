@@ -1,4 +1,5 @@
 export class User {
+    public slug: string = '';
     public username: string;
     public name: string;
     public isStaff: boolean = false;
@@ -13,6 +14,10 @@ export class User {
         this.email = data.email || '';
         this.tagline = data.tagline || '';
         this.isStaff = data.is_staff || false;
+
+        if ('slug' in data) {
+            this.slug = data.slug;
+        }
 
         if (data.avatar) {
           this.avatarUrl = data.avatar.thumbnail;
