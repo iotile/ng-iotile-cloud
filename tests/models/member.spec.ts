@@ -9,6 +9,7 @@ describe('MemberTest', () => {
       "user_details": {
         "email": "andrew@arch-iot.com",
         "username": "andrew",
+        "slug": "andrew",
         "name": "Andrew Scheuermann",
         "tagline": "",
         "avatar": {

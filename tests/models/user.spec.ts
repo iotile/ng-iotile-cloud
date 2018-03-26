@@ -7,6 +7,7 @@ describe('UserTest', () => {
   it('check user fields', () => {
     let user: User = new User({
       username: 'test1',
+      slug: 'test1',
       email: 'test1@example.com',
       name: 'Test One',
       is_staff: false,
@@ -15,6 +16,7 @@ describe('UserTest', () => {
     });
     expect(user.getFullName()).toEqual('Test One');
     expect(user.getUsername()).toEqual('@test1');
+    expect(user.slug).toEqual('test1');
     expect(user.getAvatar()).toEqual('');
     expect(user.isStaff).toBeFalsy();
     expect(user.creationDate.getFullYear()).toBe(2018);
