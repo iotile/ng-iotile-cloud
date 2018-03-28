@@ -12,7 +12,8 @@ describe('DataBlock', () => {
       "sg": "saver-v1-1-0",
       "block": 1,
       "created_on": "2017-08-29T01:04:06.572379Z",
-      "created_by": "vanielle"
+      "created_by": "vanielle",
+      "pid": "pid:84e3869d-1fdb-4203-9b69-18b417e2b0e0"
     });
 
     expect(archive.slug).toBe('b--0001-0000-0000-0087');
@@ -20,6 +21,7 @@ describe('DataBlock', () => {
     expect(archive.title).toBe('from singapore to hong kong');
     expect(archive.org).toBe('kt-savers');
     expect(archive.block).toBe(1);
+    expect(archive.pid).toBe('pid:84e3869d-1fdb-4203-9b69-18b417e2b0e0');
   });
 
   describe('getPostPayload()', () => {
@@ -32,7 +34,8 @@ describe('DataBlock', () => {
         "sg": "saver-v1-1-0",
         "block": 1,
         "created_on": "2017-08-29T01:04:06.572379Z",
-        "created_by": "vanielle"
+        "created_by": "vanielle",
+        "pid": ""
       });
 
       let payload = archive.getPostPayload();

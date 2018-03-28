@@ -13,7 +13,8 @@ describe('DeviceTest', () => {
     "gid": "0000-0000-0000-0081",
     "label": "The Device",
     "active": true,
-    "state": "N0",
+    "state": "N1",
+    "busy": true,
     "project": "b83c6bd6-0f3f-4890-a390-d9d29d142966",
     "org": "my-org",
     "template": "1d1p2bt101-v0-1-0",
@@ -63,6 +64,13 @@ describe('DeviceTest', () => {
     expect(dev.slug).toEqual('d--0000-0000-0000-0081');
     expect(dev.sensorGraphSlug).toEqual('single-soil-moisture-v1-1-0');
     expect(dev.label).toEqual('The Device');
+  });
+
+  it('check device state', () => {
+    let dev: Device = dummyDevice1;
+    expect(dev.busy).toBeTruthy();
+    expect(dev.state).toEqual('N1');
+    expect(dev.getStateDisplay()).toEqual('Active');
   });
 
   it('check payload generation', () => {

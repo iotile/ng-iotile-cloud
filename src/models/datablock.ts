@@ -7,7 +7,8 @@ export class DataBlock {
   public sensorGraphSlug: string;
   public createdOn: Date;
   public createdBy: Date;
-  public description: string;
+  public description: string = '';
+  public pid: string = '';
 
   public constructor(data: any) {
     this.id = data.id;
@@ -21,6 +22,10 @@ export class DataBlock {
 
     if ('description' in data) {
       this.description = data.description;
+    }
+
+    if ('pid' in data) {
+      this.pid = data.pid;
     }
   }
 

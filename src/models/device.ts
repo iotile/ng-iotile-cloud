@@ -78,4 +78,14 @@ export class Device {
     return (this.dataBlock != null);
   }
 
+  public getStateDisplay(): string {
+    let factory: any = {
+      'N0': 'Available',
+      'N1': 'Active',
+      'B0': 'Resetting',
+      'B1': 'Archiving'
+    }
+    return factory[this.state];
+  }
+
 }
