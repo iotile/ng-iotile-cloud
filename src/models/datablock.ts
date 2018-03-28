@@ -7,7 +7,7 @@ export class DataBlock {
   public sensorGraphSlug: string;
   public createdOn: Date;
   public createdBy: Date;
-  public description: string;
+  public description: string = '';
 
   public constructor(data: any) {
     this.id = data.id;

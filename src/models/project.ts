@@ -25,6 +25,7 @@ export class Project {
     public variableMap: VariableDictionary;
     public properties: Array<Property>;
     public propertyMap: PropertyDictionary;
+    public counts: { [index: string]: number };
 
     constructor(data: any = {}) {
       this.id = data.id;
@@ -36,6 +37,10 @@ export class Project {
       this.createdOn = new Date(data.created_on);
       if ('project_template' in data) {
         this.projectTemplate = data.project_template;
+      }
+
+      if (data.counts) {
+        this.counts = data.counts;
       }
 
       this.deviceMap = {};

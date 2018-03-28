@@ -53,15 +53,56 @@ export class CloudServiceMock {
     return Observable.of(orgs);
   }
 
-  public getOrg(orgSlug: string): Observable<Org> {
-    let org: Org = new Org({
-      name: 'My Org',
-      slug: 'my-org',
-      avatar: {
-        thumbnail: 'https://image.com/thumbnail.jpg',
-        tiny: 'https://image.com/tiny.jpg'
-      }
-    });
+  public getOrg(orgSlug: string, withExtraInfo?: boolean): Observable<Org> {
+    let org: Org 
+    
+    if (withExtraInfo) {
+      org = new Org({
+        "id": "564c54b5-19df-4fe0-9655-92542a2d0932",
+        "name": "Arch - Internal",
+        "slug": "arch-internal",
+        "about": "Internal Projects for Testing",
+        "created_on": "2016-11-04T00:48:13.033551Z",
+        "created_by": "david",
+        "avatar": {
+            "thumbnail": "https://media.iotile.cloud/prod/images/3e5554ff-0e4d-4a10-b299-415e143c6931/thumbnail.jpg",
+            "tiny": "https://media.iotile.cloud/prod/images/3e5554ff-0e4d-4a10-b299-415e143c6931/tiny.jpg"
+        },
+        "counts": {
+            "fleets": 1,
+            "projects": 32,
+            "members": 12,
+            "devices": 70,
+            "networks": 0,
+            "reports": 0,
+            "datablocks": 36
+        },
+        "current_member":  {
+          "user_details": {
+            "email": "vanielle@arch-iot.com",
+            "username": "lekosfmi",
+            "name": "Vanielle Lee",
+            "tagline": "",
+            "avatar": {
+              "thumbnail": "https://secure.gravatar.com/avatar/0828c899dcc84c7b50ac44b5a154b10c?d=identicon&s=80",
+              "tiny": "https://secure.gravatar.com/avatar/0828c899dcc84c7b50ac44b5a154b10c?d=identicon&s=28"
+            }
+          },
+          "created_on": "2017-04-13T03:12:39Z",
+          "is_active": true,
+          "is_org_admin": true
+        }
+      });
+    } else {
+      org = new Org({
+        name: 'My Org',
+        slug: 'my-org',
+        avatar: {
+          thumbnail: 'https://image.com/thumbnail.jpg',
+          tiny: 'https://image.com/tiny.jpg'
+        }
+      });
+    }
 
     return Observable.of(org);
   }
@@ -793,26 +834,43 @@ export class CloudServiceMock {
     return returnedData;
   }
 
-  public getProject(projectId: string): Observable<Project> {
+  public getProject(projectId: string, withExtraInfo?: boolean): Observable<Project> {
     let mockProjectId = '2c8dadd7-add0-4157-90cd-036bcc178ec9';
     projectId = mockProjectId;
 
-    let project = new Project({
-      'id': '106d8ab9-3e5c-4834-8d90-d130a020058d',
-      'name': 'Water Usage',
-      'slug': 'p--0000-0009',
-      'gid': '0000-0009',
-      'org': 'arch-farms',
-      'about': 'South Fields',
-      'project_template': 'water-meter-permanent-v1-0-0',
-      'page': {
-        'slug': 'water-meter',
-        'id': 2,
-        'label': 'Water Meter'
-      },
-      'created_on': '2017-03-25T00:47:43.630348Z',
-      'created_by': 'david'
-    });
+    let project: Project;
+    
+    if (withExtraInfo) {
+      project = new Project({
+        'id': '106d8ab9-3e5c-4834-8d90-d130a020058d',
+        'name': 'Water Usage',
+        'slug': 'p--0000-0009',
+        'gid': '0000-0009',
+        'org': 'arch-farms',
+        'about': 'South Fields',
+        'project_template': 'water-meter-permanent-v1-0-0',
+        "counts": {
+          "active_devices": 1,
+          "inactive_devices": 1,
+          "variables": 4,
+          "streams": 6
+        },
+        'created_on': '2017-03-25T00:47:43.630348Z',
+        'created_by': 'david'
+      });
+    } else {
+      project = new Project({
+        'id': '106d8ab9-3e5c-4834-8d90-d130a020058d',
+        'name': 'Water Usage',
+        'slug': 'p--0000-0009',
+        'gid': '0000-0009',
+        'org': 'arch-farms',
+        'about': 'South Fields',
+        'project_template': 'water-meter-permanent-v1-0-0',
+        'created_on': '2017-03-25T00:47:43.630348Z',
+        'created_by': 'david'
+      });
+    }
 
     return Observable.of(project);
   }
@@ -985,47 +1043,6 @@ export class CloudServiceMock {
     members.push(member2)
 
     org.addMembers(members);
-
-    return Observable.of(org);
-  }
-
-  public getOrgWithExtraInfo(orgSlug: string): Observable<Org> {
-    let org = new Org({
-      "id": "564c54b5-19df-4fe0-9655-92542a2d0932",
-      "name": "Arch - Internal",
-      "slug": "arch-internal",
-      "about": "Internal Projects for Testing",
-      "created_on": "2016-11-04T00:48:13.033551Z",
-      "created_by": "david",
-      "avatar": {
-          "thumbnail": "https://media.iotile.cloud/prod/images/3e5554ff-0e4d-4a10-b299-415e143c6931/thumbnail.jpg",
-          "tiny": "https://media.iotile.cloud/prod/images/3e5554ff-0e4d-4a10-b299-415e143c6931/tiny.jpg"
-      },
-      "counts": {
-          "fleets": 1,
-          "projects": 32,
-          "members": 12,
-          "devices": 70,
-          "networks": 0,
-          "reports": 0,
-          "datablocks": 36
-      },
-      "current_member":  {
-        "user_details": {
-          "email": "vanielle@arch-iot.com",
-          "username": "lekosfmi",
-          "name": "Vanielle Lee",
-          "tagline": "",
-          "avatar": {
-            "thumbnail": "https://secure.gravatar.com/avatar/0828c899dcc84c7b50ac44b5a154b10c?d=identicon&s=80",
-            "tiny": "https://secure.gravatar.com/avatar/0828c899dcc84c7b50ac44b5a154b10c?d=identicon&s=28"
-          }
-        },
-        "created_on": "2017-04-13T03:12:39Z",
-        "is_active": true,
-        "is_org_admin": true
-      }
-    });
 
     return Observable.of(org);
   }

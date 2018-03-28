@@ -32,13 +32,20 @@ describe('ProjectTest', () => {
     expect(proj.createdBy).toEqual('david');
   });
 
-  it('check default page template', () => {
+  it('check project counts', () => {
     let proj: Project = new Project({
       "id": "84e3869d-1fdb-4203-9b69-18b417e2b0e0",
-      "pages": [],
-      "page_templates": []
+      "counts": {
+        "active_devices": 1,
+        "inactive_devices": 2,
+        "variables": 4,
+        "streams": 6
+      }
     });
-    expect(proj.id).toEqual('84e3869d-1fdb-4203-9b69-18b417e2b0e0');
+    expect(proj.counts['active_devices']).toEqual(1);
+    expect(proj.counts['inactive_devices']).toEqual(2);
+    expect(proj.counts.variables).toEqual(4);
+    expect(proj.counts.streams).toEqual(6);
   });
 
   it('check project devices', () => {

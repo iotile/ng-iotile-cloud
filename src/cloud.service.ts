@@ -221,8 +221,11 @@ export class CloudService {
       });
   }
 
-  public getOrg(orgSlug?: string): Observable<Org> {
+  public getOrg(orgSlug: string, withExtraInfo?: boolean): Observable<Org> {
     let url: string = '/org/' + orgSlug + '/';
+    if (withExtraInfo) {
+      url += 'extra/';
+    }
 
     return this.get(url).map((org: Org) => new Org(org));
   }
@@ -715,8 +718,11 @@ export class CloudService {
     return returnedData;
   }
 
-  public getProject(projectId: string): Observable<any> {
+  public getProject(projectId: string, withExtraInfo?: boolean): Observable<any> {
     let url = '/project/' + projectId + '/';
+    if (withExtraInfo) {
+      url += 'extra/';
+    }
     return this.get(url)
                .map((p: Project) => new Project(p),
                      (err: any) => console.error(err));
@@ -890,14 +896,6 @@ export class CloudService {
       data['results'].forEach((item: any) => members.push(new Member(item)));
       org.addMembers(members);
       return org;
-    });
-  }
-
-  public getOrgWithExtraInfo(orgSlug: string): Observable<Org> {
-    let url = '/org/' + orgSlug + '/extra/';
-
-    return this.get(url).map(data => {
-      return new Org(data);
     });
   }
 
