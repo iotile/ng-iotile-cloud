@@ -59,6 +59,26 @@ describe('DataBlock', () => {
 
       let payload = archive.getPostPayload();
       expect(payload.description).toBe('Shipment from South Jose to South Korea via cargo.');
+      expect('on_complete' in payload).toBeFalsy();
+    });
+
+    it('checks method with onComplete', () => {
+      let archive: DataBlock = new DataBlock({
+        "id": 1,
+        "slug": "d--0000-0000-0000-0087",
+        "title": "from san jose to south korea",
+        "org": "kt-savers",
+        "sg": "saver-v1-1-0",
+        "block": 1
+      });
+      archive.onComplete = {
+        "device": {
+          "state": "N0"
+        }
+      }
+
+      let payload = archive.getPostPayload();
+      expect(payload.on_complete['device']['state']).toBe('N0');
     });
   });
 });
