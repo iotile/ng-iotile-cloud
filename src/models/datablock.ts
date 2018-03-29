@@ -9,6 +9,7 @@ export class DataBlock {
   public createdBy: Date;
   public description: string = '';
   public pid: string = '';
+  public onComplete: any;
 
   public constructor(data: any) {
     this.id = data.id;
@@ -33,12 +34,20 @@ export class DataBlock {
     let payload = {
       title: this.title,
       device: this.slug,
-      description: ''
+      description: '',
+      on_complete: {}
     };
 
     if (this.description) {
       payload.description = this.description;
     }
+
+    if (this.onComplete) {
+      payload['on_complete'] = this.onComplete;
+    } else {
+      delete payload['on_complete'];
+    }
+    console.log('dataBlock Post', payload);
 
     return payload;
   }
