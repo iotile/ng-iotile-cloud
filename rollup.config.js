@@ -1,4 +1,3 @@
-// import resolve from 'rollup-plugin-node-resolve';
 import localResolve from 'rollup-plugin-local-resolve';
 
 // Add here external dependencies that actually you use.
