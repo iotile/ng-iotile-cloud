@@ -39,7 +39,7 @@ export class Device {
     this.sensorGraphSlug = data.sg;
     this.project = data.project;
     if ('busy' in data) {
-      this.busy = data.busy
+      this.busy = data.busy;
     }
   }
 
@@ -58,7 +58,7 @@ export class Device {
     if (this.state) {
       payload.state = this.state;
     }
-    
+
     return payload;
   }
 
@@ -84,7 +84,7 @@ export class Device {
       'N1': 'Active',
       'B0': 'Resetting',
       'B1': 'Archiving'
-    }
+    };
     return factory[this.state];
   }
 

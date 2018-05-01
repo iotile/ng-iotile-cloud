@@ -1,4 +1,5 @@
-import resolve from 'rollup-plugin-node-resolve';
+// import resolve from 'rollup-plugin-node-resolve';
+import localResolve from 'rollup-plugin-local-resolve';
 
 // Add here external dependencies that actually you use.
 const globals = {
@@ -25,7 +26,7 @@ export default {
     format: 'umd',
     exports: 'named',
     moduleName: 'ng.iotileCloud',
-    plugins: [resolve()],
+    plugins: [localResolve()],
     external: Object.keys(globals),
     globals: globals,
     onwarn: () => { return }
