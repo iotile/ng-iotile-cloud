@@ -55,31 +55,34 @@ export class CloudService {
   ) { }
 
   private _createAuthorizationHeader(): HttpHeaders {
-    let headers = new HttpHeaders();
-     headers = headers.append('Content-Type', 'application/json');
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
+
     if (this._token) {
-      headers = headers.append('Authorization', 'JWT ' + this._token);
+      return headers.set('Authorization', 'JWT ' + this._token);
+    } else {
+      return headers;
     }
-    return headers;
   }
 
   private _getRequestOptions(): any {
-    let headers = this._createAuthorizationHeader();
+    const headers = this._createAuthorizationHeader();
     return { headers };
   }
 
+  //TODO: use get<T>
   public get(url: string): Observable<any> {
-    let options = this._getRequestOptions();
+    const options = this._getRequestOptions();
     return this._http.get(this._apiEndpoint + url, options);
   }
 
   public patch(url: string, payload: any): Observable<any>  {
-    let options = this._getRequestOptions();
+    const options = this._getRequestOptions();
     return this._http.patch(this._apiEndpoint + url, payload, options);
   }
 
   public post(url: string, payload: any): Observable<any>  {
-    let options = this._getRequestOptions();
+    const options = this._getRequestOptions();
     return this._http.post(this._apiEndpoint + url, payload, options);
   }
 
@@ -97,9 +100,6 @@ export class CloudService {
 
   public authenticate(credentials: Credentials): Observable<any> {
     console.debug('[CloudService] Authenticating @' + credentials.username);
-    // let headers: Headers = new Headers();
-    // this._createAuthorizationHeader(headers);
-    // let options: RequestOptions = new RequestOptions({ headers: headers });
     let options = this._getRequestOptions();
     
     let payload: {} = credentials.getPayload();
@@ -635,6 +635,7 @@ export class CloudService {
 
   public uploadStreamData(payload: {}): Observable<any> {
     let options = this._getRequestOptions();
+    // TODO: this._http.post or this.post ?
     return this._http.post(this._apiEndpoint + '/data/', payload, options)
       .map((res: any) => res);
   }
