@@ -1,6 +1,6 @@
 import { async, inject, TestBed } from '@angular/core/testing';
-import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
+// import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from '@angular/http';
+// import { MockBackend } from '@angular/http/testing';
 
 import { CloudService } from '../src/cloud.service';
 

@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, ReplaySubject } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/publishReplay';
+import { map, publishReplay, mergeMap, first } from 'rxjs/operators';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/first';
 
 import {
   DataBlock,
@@ -37,7 +34,7 @@ import {
   Invitation,
   InvitationPendingDictionary,
   Note
-} from './models';
+} from './models/index';
 
 /*
   Generated class for the CloudService provider.
@@ -54,45 +51,39 @@ export class CloudService {
   private _token: string;
 
   constructor(
-    private _http: Http
+    private _http: HttpClient
   ) { }
 
-  private _createAuthorizationHeader(headers: Headers): void {
-    headers.append('Content-Type', 'application/json');
+  private _createAuthorizationHeader(): HttpHeaders {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
+
     if (this._token) {
-      headers.append('Authorization', 'JWT ' + this._token);
+      return headers.set('Authorization', 'JWT ' + this._token);
+    } else {
+      return headers;
     }
   }
 
-  private _getRequestOptions(): RequestOptions {
-    let headers: Headers = new Headers();
-    this._createAuthorizationHeader(headers);
-    return new RequestOptions({ headers: headers });
+  private _getRequestOptions(): any {
+    const headers = this._createAuthorizationHeader();
+    return { headers };
   }
 
+  //TODO: use get<T>
   public get(url: string): Observable<any> {
-    let options: RequestOptions = this._getRequestOptions();
-
-    return this._http.get(this._apiEndpoint + url, options)
-      .map((responseData: any) => {
-        return responseData.json();
-      });
+    const options = this._getRequestOptions();
+    return this._http.get(this._apiEndpoint + url, options);
   }
 
   public patch(url: string, payload: any): Observable<any>  {
-    let options: RequestOptions = this._getRequestOptions();
-    return this._http.patch(this._apiEndpoint + url, payload, options)
-      .map((responseData: any) => {
-        return responseData.json();
-      });
+    const options = this._getRequestOptions();
+    return this._http.patch(this._apiEndpoint + url, payload, options);
   }
 
   public post(url: string, payload: any): Observable<any>  {
-    let options: RequestOptions = this._getRequestOptions();
-    return this._http.post(this._apiEndpoint + url, payload, options)
-      .map((responseData: any) => {
-        return responseData.json();
-      });
+    const options = this._getRequestOptions();
+    return this._http.post(this._apiEndpoint + url, payload, options);
   }
 
   public setApiEndPoint (url: string): void {
@@ -108,22 +99,23 @@ export class CloudService {
   }
 
   public authenticate(credentials: Credentials): Observable<any> {
-
     console.debug('[CloudService] Authenticating @' + credentials.username);
-    let headers: Headers = new Headers();
-    this._createAuthorizationHeader(headers);
-    let options: RequestOptions = new RequestOptions({ headers: headers });
+    let options = this._getRequestOptions();
+    
     let payload: {} = credentials.getPayload();
 
     return this._http.post(this._apiEndpoint + '/auth/api-jwt-auth/', payload, options)
-      .map((response: Response) => {
-        // login successful if there's a jwt token in the response
-        let data: any = response.json();
-        if (data && data.token) {
-            this._token = data.token;
-            return this._token;
+      .map( // Log the result or error
+        response => {
+          let data: any = response;
+
+          // login successful if there's a jwt token in the response
+          if (data && data.token) {
+              this._token = data.token;
+              return this._token;
+          }
         }
-      });
+      );
   }
 
   public getUserInfo(): Observable<any> {
@@ -642,9 +634,10 @@ export class CloudService {
   }
 
   public uploadStreamData(payload: {}): Observable<any> {
-    let options: RequestOptions = this._getRequestOptions();
+    let options = this._getRequestOptions();
+    // TODO: this._http.post or this.post ?
     return this._http.post(this._apiEndpoint + '/data/', payload, options)
-      .map((res: any) => res.json());
+      .map((res: any) => res);
   }
 
   public fetchDevicesAndVariablesForProject(project: Project): ReplaySubject<any> {

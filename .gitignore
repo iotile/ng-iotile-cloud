@@ -245,3 +245,4 @@ _Pvt_Extensions
 src/**.*.js
 src/**.*.d.ts
 .idea/
+.DS_Store
