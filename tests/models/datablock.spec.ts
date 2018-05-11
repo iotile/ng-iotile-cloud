@@ -78,7 +78,7 @@ describe('DataBlock', () => {
       }
 
       let payload = archive.getPostPayload();
-      expect(payload.on_complete['device']['state']).toBe('N0');
+      expect(payload['on_complete']['device']['state']).toBe('N0');
     });
   });
 });

@@ -31,11 +31,10 @@ export class DataBlock {
   }
 
   public getPostPayload() {
-    let payload = {
+    let payload: any = {
       title: this.title,
       device: this.slug,
-      description: '',
-      on_complete: {}
+      description: ''
     };
 
     if (this.description) {
@@ -44,10 +43,7 @@ export class DataBlock {
 
     if (this.onComplete) {
       payload['on_complete'] = this.onComplete;
-    } else {
-      delete payload['on_complete'];
     }
-    console.log('dataBlock Post', payload);
 
     return payload;
   }

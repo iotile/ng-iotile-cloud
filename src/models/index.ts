@@ -27,3 +27,5 @@ export * from './iotile-sys-var';
 export * from './org-template';
 export * from './note';
 export * from './permissions';
+export * from './index-file';
+export * from './generated-report';
