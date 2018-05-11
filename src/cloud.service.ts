@@ -937,7 +937,6 @@ export class CloudService {
   }
 
   public getGeneratedReport(apiFilter?: ApiFilter): Observable<GeneratedReport[]> {
-
     let url: string = '/report/generated/';
     if (apiFilter) {
       url += apiFilter.filterString();
@@ -946,11 +945,10 @@ export class CloudService {
     return this.get(url).map((data: any) => {
       let generatedReports: GeneratedReport[] = [];
       data['results'].forEach((item: any) => {
-        console.log('**** getGeneratedReport', item);
         generatedReports.push(new GeneratedReport(item))
       });
 
-      console.log('getGeneratedReport()', generatedReports);
+      console.info('[cloud.service] getGeneratedReport()', generatedReports);
       return generatedReports;
     });
   }
