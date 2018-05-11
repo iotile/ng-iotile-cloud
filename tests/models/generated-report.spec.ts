@@ -1,11 +1,11 @@
 'use strict';
 
-import { Report } from '../../src/models';
+import { GeneratedReport } from '../../src/models';
 
-describe('Report', () => {
+describe('GeneratedGeneratedReport', () => {
 
   it('check basic model', () => {
-    let report: Report = new Report({
+    let report: GeneratedReport = new GeneratedReport({
       "id": "98112efa-b09b-412e-8937-ef7223033288",
       "label": "stream_overview: b--0008-0000-0000-053a",
       "source_ref": "b--0008-0000-0000-053a",
@@ -50,7 +50,7 @@ describe('Report', () => {
   });
 
   it('checks report\'s without user info', () => {
-    let report: Report = new Report({
+    let report: GeneratedReport = new GeneratedReport({
       "id": "98112efa-b09b-412e-8937-ef7223033288",
       "label": "stream_overview: b--0008-0000-0000-053a",
       "source_ref": "b--0008-0000-0000-053a",

@@ -6,7 +6,7 @@ export interface ReportUserInfo {
   avatarUrl: string;
 }
 
-export class Report {
+export class GeneratedReport {
   public id: string;
   public label: string;
   public sourceRef: string;

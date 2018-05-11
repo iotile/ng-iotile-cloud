@@ -33,7 +33,8 @@ import {
   Member,
   Invitation,
   InvitationPendingDictionary,
-  Note
+  Note,
+  GeneratedReport
 } from './models/index';
 
 /*
@@ -101,7 +102,7 @@ export class CloudService {
   public authenticate(credentials: Credentials): Observable<any> {
     console.debug('[CloudService] Authenticating @' + credentials.username);
     let options = this._getRequestOptions();
-    
+
     let payload: {} = credentials.getPayload();
 
     return this._http.post(this._apiEndpoint + '/auth/api-jwt-auth/', payload, options)
@@ -932,6 +933,21 @@ export class CloudService {
     return this.post(url, payload).map((n: any) => {
       console.info('#postNote ', n);
       return new Note(n);
+    });
+  }
+
+  public getGeneratedReport(apiFilter?: ApiFilter): Observable<GeneratedReport> {
+
+    let url: string = '/report/generated/';
+    if (apiFilter) {
+      url += apiFilter.filterString();
+    }
+
+    return this.get(url).map((data) => {
+      if (data['results']) {
+        data['results'].map((item: any) => item.push(new GeneratedReport(item)));
+        return data['results'];
+      }
     });
   }
 }
