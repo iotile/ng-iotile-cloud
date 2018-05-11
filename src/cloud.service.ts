@@ -936,18 +936,22 @@ export class CloudService {
     });
   }
 
-  public getGeneratedReport(apiFilter?: ApiFilter): Observable<GeneratedReport> {
+  public getGeneratedReport(apiFilter?: ApiFilter): Observable<GeneratedReport[]> {
 
     let url: string = '/report/generated/';
     if (apiFilter) {
       url += apiFilter.filterString();
     }
 
-    return this.get(url).map((data) => {
-      if (data['results']) {
-        data['results'].map((item: any) => item.push(new GeneratedReport(item)));
-        return data['results'];
-      }
+    return this.get(url).map((data: any) => {
+      let generatedReports: GeneratedReport[] = [];
+      data['results'].forEach((item: any) => {
+        console.log('**** getGeneratedReport', item);
+        generatedReports.push(new GeneratedReport(item))
+      });
+
+      console.log('getGeneratedReport()', generatedReports);
+      return generatedReports;
     });
   }
 }

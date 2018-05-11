@@ -7,11 +7,11 @@ export class IndexFile {
   public createdBy: number;
 
   constructor(data: any = {}) {
-    this.id = data['id'];
-    this.title = data['title'];
-    this.url = data['url'];
-    this.fileType = data['file_type'];
-    this.createdOn = new Date(data['created_on']);
-    this.createdBy = data['created_by'];
+    this.id = data['id'] || '';
+    this.title = data['title'] || '';
+    this.url = data['url'] || '';
+    this.fileType = data['file_type'] || '';
+    this.createdOn = new Date(data['created_on']) || '';
+    this.createdBy = data['created_by'] || '';
   }
 }
