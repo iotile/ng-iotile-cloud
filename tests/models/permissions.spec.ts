@@ -24,7 +24,9 @@ describe('PermissionsTest', () => {
       "can_read_device_locations": true,
       "can_create_stream_data": true,
       "can_upload_streamer_report": true,
-      "can_manage_ota": true
+      "can_manage_ota": true,
+      "can_access_reports": true,
+      "can_create_reports": false
     });
 
     expect(permissions.canManageUsers).toBe(true);
@@ -32,5 +34,7 @@ describe('PermissionsTest', () => {
     expect(permissions.canCreateDatablock).toBe(true);
     expect(permissions.canAccessWebapp).toBe(true);
     expect(permissions.canDeleteOrg).toBe(false);
+    expect(permissions.canAcessReports).toBe(true);
+    expect(permissions.canCreateReports).toBe(false);
   });
 });
