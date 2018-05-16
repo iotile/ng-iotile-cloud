@@ -34,7 +34,7 @@ describe('PermissionsTest', () => {
     expect(permissions.canCreateDatablock).toBe(true);
     expect(permissions.canAccessWebapp).toBe(true);
     expect(permissions.canDeleteOrg).toBe(false);
-    expect(permissions.canAcessReports).toBe(true);
+    expect(permissions.canAccessReports).toBe(true);
     expect(permissions.canCreateReports).toBe(false);
   });
 });

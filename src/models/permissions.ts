@@ -45,7 +45,7 @@ export class Permissions {
   public canAccessWebapp: boolean;
 
   // Can access generated report
-  public canAcessReports: boolean;
+  public canAccessReports: boolean;
 
   // Can create generated report
   public canCreateReports: boolean;
@@ -66,7 +66,7 @@ export class Permissions {
     this.canCreateDatablock = data['can_create_datablock'];
     this.canAccessDatablock = data['can_access_datablock'];
     this.canAccessWebapp = data['can_access_webapp'];
-    this.canAcessReports = data['can_access_reports'];
+    this.canAccessReports = data['can_access_reports'];
     this.canCreateReports = data['can_create_reports'];
   }
 }
