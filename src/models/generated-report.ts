@@ -61,7 +61,7 @@ export class GeneratedReport {
     };
 
     if (!payload.label || !payload.org || !payload.status || !payload.source_ref) {
-      throw Error(`Payload cannot be returned because of missing fields in ${payload}.`)
+      throw new Error(`Payload cannot be returned because of missing fields: ${JSON.stringify(payload, null, 2)}.`);
     }
 
     return payload;

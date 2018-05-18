@@ -1,6 +1,6 @@
 'use strict';
 
-import { GeneratedReport } from '../../src/models';
+import { GeneratedReport, ReportPostPayoad } from '../../src/models';
 
 describe('GeneratedGeneratedReport', () => {
 
@@ -63,5 +63,42 @@ describe('GeneratedGeneratedReport', () => {
     });
 
     expect(report.userInfo).toBeFalsy();
+  });
+
+  it('checks basic getPostPayload', () => {
+    let report: GeneratedReport = new GeneratedReport({
+      "id": "98112efa-b09b-412e-8937-ef7223033288",
+      "label": "stream_overview: b--0008-0000-0000-053a",
+      "source_ref": "b--0008-0000-0000-053a",
+      "url": null,
+      "created_on": "2018-05-05T16:32:31Z",
+      "created_by": "davidkarchmer",
+      "org": "karchmer",
+      "index_file": null,
+      "status": "G1"
+    });
+
+    let payload: ReportPostPayoad = report.getPostPayload();
+
+    expect(payload.label).toEqual('stream_overview: b--0008-0000-0000-053a');
+    expect(payload.org).toEqual('karchmer');
+    expect(payload.status).toEqual('G1');
+    expect(payload.source_ref).toEqual('b--0008-0000-0000-053a');
+  });
+
+  it('checks error getPostPayload', () => {
+    let report: GeneratedReport = new GeneratedReport({
+      "id": "98112efa-b09b-412e-8937-ef7223033288",
+      "label": "",
+      "source_ref": "b--0008-0000-0000-053a",
+      "url": null,
+      "created_on": "2018-05-05T16:32:31Z",
+      "created_by": "davidkarchmer",
+      "org": "karchmer",
+      "index_file": null,
+      "status": "G1"
+    });
+
+    expect(function() {report.getPostPayload()}).toThrowError()
   });
 });
