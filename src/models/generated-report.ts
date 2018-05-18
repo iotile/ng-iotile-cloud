@@ -6,6 +6,13 @@ export interface ReportUserInfo {
   avatarUrl: string;
 }
 
+export interface ReportPostPayoad {
+  label: string;
+  org: string;
+  status: string;
+  source_ref: string;
+}
+
 export class GeneratedReport {
   public id: string;
   public label: string;
@@ -43,5 +50,20 @@ export class GeneratedReport {
     } else {
       delete this.userInfo;
     }
+  }
+
+  public getPostPayload(): ReportPostPayoad {
+    let payload: ReportPostPayoad = {
+      label: this.label,
+      org: this.org,
+      status: this.status,
+      source_ref: this.sourceRef
+    };
+
+    if (!payload.label || !payload.org || !payload.status || !payload.source_ref) {
+      throw Error(`Payload cannot be returned because of missing fields in ${payload}.`)
+    }
+
+    return payload;
   }
 }
