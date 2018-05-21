@@ -954,11 +954,8 @@ export class CloudService {
     });
   }
 
-  public postGeneratedReport(apiFilter: ApiFilter, generatedReport: GeneratedReport): Observable<GeneratedReport> {
-    let url: string = '/report/generated/';
-    if (apiFilter) {
-      url += apiFilter.filterString();
-    }
+  public postGeneratedReport(generatedReport: GeneratedReport): Observable<GeneratedReport> {
+    let url: string = '/report/generated/schedule/';
 
     let payload: ReportPostPayoad = generatedReport.getPostPayload();
 

@@ -62,41 +62,57 @@ describe('GeneratedGeneratedReport', () => {
       "status": "G1"
     });
 
-    expect(report.userInfo).toBeFalsy();
+    expect(report.indexFile).toBeFalsy();
   });
 
   it('checks basic getPostPayload', () => {
     let report: GeneratedReport = new GeneratedReport({
-      "id": "98112efa-b09b-412e-8937-ef7223033288",
-      "label": "stream_overview: b--0008-0000-0000-053a",
       "source_ref": "b--0008-0000-0000-053a",
-      "url": null,
-      "created_on": "2018-05-05T16:32:31Z",
-      "created_by": "davidkarchmer",
-      "org": "karchmer",
-      "index_file": null,
-      "status": "G1"
+      "template": "shipment_overview"
     });
 
     let payload: ReportPostPayoad = report.getPostPayload();
 
-    expect(payload.label).toEqual('stream_overview: b--0008-0000-0000-053a');
-    expect(payload.org).toEqual('karchmer');
-    expect(payload.status).toEqual('G1');
-    expect(payload.source_ref).toEqual('b--0008-0000-0000-053a');
+    expect('args' in payload).toBeFalsy();
+    expect(payload.slug).toEqual('b--0008-0000-0000-053a');
+    expect(payload.template).toEqual('shipment_overview');
+  });
+
+  it('checks basic getPostPayload with args', () => {
+    let report: GeneratedReport = new GeneratedReport({
+      "source_ref": "b--0008-0000-0000-053a",
+      "template": "shipment_overview",
+      "args": {'field': 'value'}
+    });
+
+    let payload: ReportPostPayoad = report.getPostPayload();
+
+    expect(payload.args).toEqual({'field': 'value'});
+    expect(payload.slug).toEqual('b--0008-0000-0000-053a');
+    expect(payload.template).toEqual('shipment_overview');
+  });
+
+  it('checks GeneratedReport returned by post', () => {
+    let report: GeneratedReport = new GeneratedReport({
+      args: null,
+      group_slug: "d--0000-0000-0000-053a",
+      report: null,
+      template: "shipment_overview",
+      token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NCwidXNlcm5hbWUiOiJsZWtvc2ZtaSIsImV4cCI6MTUyNzUzNDYyMiwiZW1haWwiOiJ2YW5pZWxsZUBhcmNoLWlvdC5jb20iLCJvcmlnX2lhdCI6MTUyNjkyOTgyMn0.hDJwB4JnQR1LIAJEQWrs01Ar9wfOwLxRPkpbQg5-lm8",
+      user: "vanielle@arch-iot.com"
+    });
+
+    expect(report.groupSlug).toEqual('d--0000-0000-0000-053a');
+    expect(report.template).toEqual('shipment_overview');
+    expect(report.token).toEqual('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NCwidXNlcm5hbWUiOiJsZWtvc2ZtaSIsImV4cCI6MTUyNzUzNDYyMiwiZW1haWwiOiJ2YW5pZWxsZUBhcmNoLWlvdC5jb20iLCJvcmlnX2lhdCI6MTUyNjkyOTgyMn0.hDJwB4JnQR1LIAJEQWrs01Ar9wfOwLxRPkpbQg5-lm8');
+    expect(report.userInfo.email).toEqual('vanielle@arch-iot.com');
+    expect(report.args).toBeFalsy();
   });
 
   it('checks error getPostPayload', () => {
     let report: GeneratedReport = new GeneratedReport({
-      "id": "98112efa-b09b-412e-8937-ef7223033288",
-      "label": "",
       "source_ref": "b--0008-0000-0000-053a",
-      "url": null,
-      "created_on": "2018-05-05T16:32:31Z",
-      "created_by": "davidkarchmer",
-      "org": "karchmer",
-      "index_file": null,
-      "status": "G1"
+      "template": null
     });
 
     expect(function() {report.getPostPayload()}).toThrowError()

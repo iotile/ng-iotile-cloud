@@ -1158,37 +1158,13 @@ export class CloudServiceMock {
     return Observable.of(generatedReports);
   }
 
-  public postGeneratedReport(apiFilter: ApiFilter, generatedReport: GeneratedReport): Observable<GeneratedReport> {
-    let generatedReportJSON = {
-      "id": "98112efa-b09b-412e-8937-ef7223033288",
-      "label": "stream_overview: b--0008-0000-0000-053a",
-      "source_ref": "b--0008-0000-0000-053a",
-      "user_info": {
-        "username": "@david.karchmer",
-        "slug": "davidkarchmer",
-        "tiny_avatar": "https://secure.gravatar.com/avatar/8263c80c650435c2f578803d6853c4b1?d=identicon&s=28"
-      },
-      "url": null,
-      "created_on": "2018-05-05T16:32:31Z",
-      "created_by": "davidkarchmer",
-      "org": "karchmer",
-      "index_file": {
-        "id": "98112efa-b09b-412e-8937-ef7223033288",
-        "title": "stream_overview: b--0008-0000-0000-053a",
-        "url": "https://iotile-cloud-reports.s3.amazonaws.com/prod/shared/karchmer/98112efa-b09b-412e-8937-ef7223033288/out.html?AWSAccessKeyId=ASIAJ3BO4OTWONQYIQ3A&Signature=Eg7Y0YSHOV4o7l3acbRRXnE9rAY%3D&x-amz-security-token=FQoDYXdzEPj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDFK2xY3NW1tjdqlSViK3A%2Bg%2BUIvM3Ha1lX2fQVkoqvBHr6eE%2BMhBPKqCR%2FLjonaWE4hiu4iADUPxiyasck%2BVGl2Owu1QoFbAKtYKFVOt%2FXfMcRSAEWzAZSP1S06NUz%2FIu6EBdOCRJUwHGC6L5uYDqi3B84nt%2BIN8I%2B4QTLrS7QghfQH%2FhTuHBxZGgy5BhyAnL7UxGMfh5bKolgl6cmeOchayQFmkDWkFuEmN7CgocLARz0CbDS%2BtCGhAPPS35J%2B30Ubv15wXrLG7OdTfA0TP2g40uPx9VYTml0PDKKIjyeTbbWXsaq0mpH8VkrKstLf93HeSTvlW4Cu9AvHbcFvQ0uLvWTLpitwUww0TmITQ7oUy8yCglJLbLv3f9ReibxkvrJ%2F1RXc3pky6h9eoiwqRKroH913jD4QEoXQgmAIAw%2Bw2hWG4hqbr9DagdMZCzJeIEqtdin1RjfTXl3N%2BcMgh9uJU5NsZWsZ6463RXJI%2Bv7TSbJ3LEaBdL8CQe3yxWZJjDAMm%2BcEEAG0p3KNto3mIaIOhrVMgCClqAQmt1XiF1aqEwgeHzAl1VvTkXIR%2FrRf5RlMqb5TOAc%2BlHojyAGyuv8X6KxFer2so6JDT1wU%3D&Expires=1526000319",
-        "file_type": "html",
-        "created_on": "2018-05-05T16:32:33Z",
-        "created_by": 31
-      },
-      "status": "G1"
-    };
-
+  public postGeneratedReport(generatedReport: GeneratedReport): Observable<GeneratedReport> {
     let payload = generatedReport.getPostPayload();
 
     if (!payload) {
       return Observable.onErrorResumeNext();
     }
 
-    return Observable.of(new GeneratedReport(generatedReportJSON));
+    return Observable.of(generatedReport);
   }
 }

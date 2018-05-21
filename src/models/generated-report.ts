@@ -1,16 +1,10 @@
 import { IndexFile } from './index-file';
-
-export interface ReportUserInfo {
-  username: string;
-  slug: string;
-  avatarUrl: string;
-}
+import { User } from './user';
 
 export interface ReportPostPayoad {
-  label: string;
-  org: string;
-  status: string;
-  source_ref: string;
+  slug: string;
+  template: string;
+  args?: Object;
 }
 
 export class GeneratedReport {
@@ -23,17 +17,27 @@ export class GeneratedReport {
   public org: string;
   public status: string;
   public indexFile: IndexFile;
-  public userInfo: ReportUserInfo;
+  public userInfo: User = new User();
+
+  public template: string;
+  public args: Object;
+  public groupSlug: string;
+  public token: string;
 
   constructor(data: any = {}) {
     this.id = data['id'] || '';
     this.label = data['label'] || '';
     this.sourceRef = data['source_ref'] || '';
     this.url = data['url'] || '';
-    this.createdOn = new Date(data['created_on']) || '';
+    this.createdOn = new Date(data['created_on']) || new Date();
     this.createdBy = data['created_by'] || '';
     this.org = data['org'] || '';
     this.status = data['status'] || '';
+
+    this.template = data['template'] || '';
+    this.groupSlug = data['group_slug'] || '';
+    this.token = data['token'] || '';
+    this.userInfo.email = data['user'] || '';
 
     if ('index_file' in data && data['index_file'] != null) {
       this.indexFile = new IndexFile(data['index_file']);
@@ -42,25 +46,30 @@ export class GeneratedReport {
     }
 
     if ('user_info' in data && data['user_info'] != null) {
-      this.userInfo = {
-        username: data['user_info']['username'],
-        slug: data['user_info']['slug'],
-        avatarUrl: data['user_info']['tiny_avatar']
-      };
-    } else {
-      delete this.userInfo;
+      this.userInfo.username = data['user_info']['username'];
+      this.userInfo.slug = data['user_info']['slug'];
+      this.userInfo.avatarUrl = data['user_info']['tiny_avatar'];
     }
+
+    if ('args' in data && data['args'] != null) {
+      this.args = data['args'];
+    } else {
+      delete this.args;
+    }
+
   }
 
   public getPostPayload(): ReportPostPayoad {
     let payload: ReportPostPayoad = {
-      label: this.label,
-      org: this.org,
-      status: this.status,
-      source_ref: this.sourceRef
+      slug: this.sourceRef,
+      template: this.template
     };
 
-    if (!payload.label || !payload.org || !payload.status || !payload.source_ref) {
+    if (this.args) {
+      payload.args = this.args;
+    }
+
+    if (!payload.slug || !payload.template) {
       throw new Error(`Payload cannot be returned because of missing fields: ${JSON.stringify(payload, null, 2)}.`);
     }
 
