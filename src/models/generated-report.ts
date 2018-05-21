@@ -11,7 +11,6 @@ export class GeneratedReport {
   public id: string;
   public label: string;
   public sourceRef: string;
-  public url: string;
   public createdOn: Date;
   public createdBy: string;
   public org: string;
@@ -28,7 +27,6 @@ export class GeneratedReport {
     this.id = data['id'] || '';
     this.label = data['label'] || '';
     this.sourceRef = data['source_ref'] || '';
-    this.url = data['url'] || '';
     this.createdOn = new Date(data['created_on']) || new Date();
     this.createdBy = data['created_by'] || '';
     this.org = data['org'] || '';
@@ -59,7 +57,7 @@ export class GeneratedReport {
 
   }
 
-  public getPostPayload(): ReportPostPayoad {
+  public getSchedulPostPayload(): ReportPostPayoad {
     let payload: ReportPostPayoad = {
       slug: this.sourceRef,
       template: this.template

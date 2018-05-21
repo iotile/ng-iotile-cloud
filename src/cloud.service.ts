@@ -954,10 +954,10 @@ export class CloudService {
     });
   }
 
-  public postGeneratedReport(generatedReport: GeneratedReport): Observable<GeneratedReport> {
+  public postScheduleGeneratedReport(generatedReport: GeneratedReport): Observable<GeneratedReport> {
     let url: string = '/report/generated/schedule/';
 
-    let payload: ReportPostPayoad = generatedReport.getPostPayload();
+    let payload: ReportPostPayoad = generatedReport.getSchedulPostPayload();
 
     return this.post(url, payload).map((data: any) => {
       let generatedReport: GeneratedReport = new GeneratedReport(data);

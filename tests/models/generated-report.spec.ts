@@ -36,7 +36,6 @@ describe('GeneratedGeneratedReport', () => {
     expect(report.createdBy).toBe('davidkarchmer');
     expect(report.org).toBe('karchmer');
     expect(report.status).toBe('G1');
-    expect(report.url).toBe('');
 
     expect(report.userInfo.username).toBe('@david.karchmer');
     expect(report.userInfo.slug).toBe('davidkarchmer');
@@ -71,7 +70,7 @@ describe('GeneratedGeneratedReport', () => {
       "template": "shipment_overview"
     });
 
-    let payload: ReportPostPayoad = report.getPostPayload();
+    let payload: ReportPostPayoad = report.getSchedulPostPayload();
 
     expect('args' in payload).toBeFalsy();
     expect(payload.slug).toEqual('b--0008-0000-0000-053a');
@@ -85,7 +84,7 @@ describe('GeneratedGeneratedReport', () => {
       "args": {'field': 'value'}
     });
 
-    let payload: ReportPostPayoad = report.getPostPayload();
+    let payload: ReportPostPayoad = report.getSchedulPostPayload();
 
     expect(payload.args).toEqual({'field': 'value'});
     expect(payload.slug).toEqual('b--0008-0000-0000-053a');
@@ -115,6 +114,6 @@ describe('GeneratedGeneratedReport', () => {
       "template": null
     });
 
-    expect(function() {report.getPostPayload()}).toThrowError()
+    expect(function() {report.getSchedulPostPayload()}).toThrowError()
   });
 });
