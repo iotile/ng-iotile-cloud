@@ -34,7 +34,8 @@ import {
   Invitation,
   InvitationPendingDictionary,
   Note,
-  GeneratedReport
+  GeneratedReport,
+  ReportPostPayoad
 } from './models/index';
 
 /*
@@ -950,6 +951,18 @@ export class CloudService {
 
       console.info('[cloud.service] getGeneratedReport()', generatedReports);
       return generatedReports;
+    });
+  }
+
+  public postScheduleGeneratedReport(generatedReport: GeneratedReport): Observable<GeneratedReport> {
+    let url: string = '/report/generated/schedule/';
+
+    let payload: ReportPostPayoad = generatedReport.getSchedulPostPayload();
+
+    return this.post(url, payload).map((data: any) => {
+      let generatedReport: GeneratedReport = new GeneratedReport(data);
+      console.info('[cloud.service] postGeneratedReport()', generatedReport);
+      return generatedReport;
     });
   }
 }

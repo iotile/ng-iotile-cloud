@@ -1,6 +1,6 @@
 'use strict';
 
-import { GeneratedReport } from '../../src/models';
+import { GeneratedReport, ReportPostPayoad } from '../../src/models';
 
 describe('GeneratedGeneratedReport', () => {
 
@@ -36,7 +36,6 @@ describe('GeneratedGeneratedReport', () => {
     expect(report.createdBy).toBe('davidkarchmer');
     expect(report.org).toBe('karchmer');
     expect(report.status).toBe('G1');
-    expect(report.url).toBe('');
 
     expect(report.userInfo.username).toBe('@david.karchmer');
     expect(report.userInfo.slug).toBe('davidkarchmer');
@@ -62,6 +61,59 @@ describe('GeneratedGeneratedReport', () => {
       "status": "G1"
     });
 
-    expect(report.userInfo).toBeFalsy();
+    expect(report.indexFile).toBeFalsy();
+  });
+
+  it('checks basic getPostPayload', () => {
+    let report: GeneratedReport = new GeneratedReport({
+      "source_ref": "b--0008-0000-0000-053a",
+      "template": "shipment_overview"
+    });
+
+    let payload: ReportPostPayoad = report.getSchedulPostPayload();
+
+    expect('args' in payload).toBeFalsy();
+    expect(payload.slug).toEqual('b--0008-0000-0000-053a');
+    expect(payload.template).toEqual('shipment_overview');
+  });
+
+  it('checks basic getPostPayload with args', () => {
+    let report: GeneratedReport = new GeneratedReport({
+      "source_ref": "b--0008-0000-0000-053a",
+      "template": "shipment_overview",
+      "args": {'field': 'value'}
+    });
+
+    let payload: ReportPostPayoad = report.getSchedulPostPayload();
+
+    expect(payload.args).toEqual({'field': 'value'});
+    expect(payload.slug).toEqual('b--0008-0000-0000-053a');
+    expect(payload.template).toEqual('shipment_overview');
+  });
+
+  it('checks GeneratedReport returned by post', () => {
+    let report: GeneratedReport = new GeneratedReport({
+      args: null,
+      group_slug: "d--0000-0000-0000-053a",
+      report: null,
+      template: "shipment_overview",
+      token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NCwidXNlcm5hbWUiOiJsZWtvc2ZtaSIsImV4cCI6MTUyNzUzNDYyMiwiZW1haWwiOiJ2YW5pZWxsZUBhcmNoLWlvdC5jb20iLCJvcmlnX2lhdCI6MTUyNjkyOTgyMn0.hDJwB4JnQR1LIAJEQWrs01Ar9wfOwLxRPkpbQg5-lm8",
+      user: "vanielle@arch-iot.com"
+    });
+
+    expect(report.groupSlug).toEqual('d--0000-0000-0000-053a');
+    expect(report.template).toEqual('shipment_overview');
+    expect(report.token).toEqual('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NCwidXNlcm5hbWUiOiJsZWtvc2ZtaSIsImV4cCI6MTUyNzUzNDYyMiwiZW1haWwiOiJ2YW5pZWxsZUBhcmNoLWlvdC5jb20iLCJvcmlnX2lhdCI6MTUyNjkyOTgyMn0.hDJwB4JnQR1LIAJEQWrs01Ar9wfOwLxRPkpbQg5-lm8');
+    expect(report.userInfo.email).toEqual('vanielle@arch-iot.com');
+    expect(report.args).toBeFalsy();
+  });
+
+  it('checks error getPostPayload', () => {
+    let report: GeneratedReport = new GeneratedReport({
+      "source_ref": "b--0008-0000-0000-053a",
+      "template": null
+    });
+
+    expect(function() {report.getSchedulPostPayload()}).toThrowError()
   });
 });

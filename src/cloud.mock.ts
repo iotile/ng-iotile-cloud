@@ -1157,4 +1157,14 @@ export class CloudServiceMock {
 
     return Observable.of(generatedReports);
   }
+
+  public postGeneratedReport(generatedReport: GeneratedReport): Observable<GeneratedReport> {
+    let payload = generatedReport.getSchedulPostPayload();
+
+    if (!payload) {
+      return Observable.onErrorResumeNext();
+    }
+
+    return Observable.of(generatedReport);
+  }
 }
