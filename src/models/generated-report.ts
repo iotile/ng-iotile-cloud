@@ -73,4 +73,14 @@ export class GeneratedReport {
 
     return payload;
   }
+
+  public getStatusDisplay(): string {
+    let factory: any = {
+      'G0': 'Generating...',
+      'G1':  'Generated',
+      'GE': 'Error'
+    };
+
+    return factory[this.status];
+  }
 }
