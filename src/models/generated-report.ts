@@ -76,8 +76,8 @@ export class GeneratedReport {
 
   public getStatusDisplay(): string {
     let factory: any = {
-      'G0': 'Generating...',
-      'G1':  'Generated',
+      'G0': 'In Progress...',
+      'G1':  'Completed',
       'GE': 'Error'
     };
 

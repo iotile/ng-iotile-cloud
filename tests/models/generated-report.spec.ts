@@ -116,4 +116,36 @@ describe('GeneratedGeneratedReport', () => {
 
     expect(function() {report.getSchedulPostPayload()}).toThrowError()
   });
+
+  describe('getStatusDisplay()', () => {
+    it('checks basic', () => {
+      let report1: GeneratedReport = new GeneratedReport({
+        "source_ref": "b--0008-0000-0000-053a",
+        "template": null,
+        "status": "G0"
+      });
+
+      let report2: GeneratedReport = new GeneratedReport({
+        "source_ref": "b--0008-0000-0000-053a",
+        "template": null,
+        "status": "G1"
+      });
+
+      let report3: GeneratedReport = new GeneratedReport({
+        "source_ref": "b--0008-0000-0000-053a",
+        "template": null,
+        "status": "GE"
+      });
+
+      let report4: GeneratedReport = new GeneratedReport({
+        "source_ref": "b--0008-0000-0000-053a",
+        "template": null
+      });
+
+      expect(report1.getStatusDisplay()).toEqual('In Progress...');
+      expect(report2.getStatusDisplay()).toEqual('Completed');
+      expect(report3.getStatusDisplay()).toEqual('Error');
+      expect(report4.getStatusDisplay()).toBeFalsy();
+    });
+  });
 });
