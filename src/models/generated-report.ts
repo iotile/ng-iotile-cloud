@@ -73,4 +73,14 @@ export class GeneratedReport {
 
     return payload;
   }
+
+  public getStatusDisplay(): string {
+    let factory: any = {
+      'G0': 'In Progress...',
+      'G1':  'Completed',
+      'GE': 'Error'
+    };
+
+    return factory[this.status];
+  }
 }
