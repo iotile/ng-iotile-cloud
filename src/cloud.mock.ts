@@ -5,12 +5,7 @@ import {
   of,
   onErrorResumeNext
 } from 'rxjs';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/publishReplay';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/first';
+import { map, publishReplay, mergeMap, first, refCount } from 'rxjs/operators';
 
 import { DataBlock } from './models/datablock';
 import { Org } from './models/org';
@@ -885,13 +880,12 @@ export class CloudServiceMock {
     let mockProjectId = '2c8dadd7-add0-4157-90cd-036bcc178ec9';
     projectId = mockProjectId;
 
-    return this.getProject(projectId).mergeMap((p: Project) => {
-      return this.fetchDevicesAndVariablesForProject(p).mergeMap(p => {
-        return this.fetchSensorGraphsForProject(p).map(project => {
-          return project;
-        });
-      });
-    });
+    return this.getProject(projectId).pipe(
+      mergeMap((p: Project) => this.fetchDevicesAndVariablesForProject(p).pipe(
+          mergeMap(p => this.fetchSensorGraphsForProject(p).pipe(map(project => project)))
+        )
+      )
+    );
   }
 
   getDataBlocks(orgSlug: string): Observable<Array<DataBlock>> {
