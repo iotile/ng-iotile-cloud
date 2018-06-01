@@ -1,5 +1,10 @@
 
-import { Observable, ReplaySubject } from 'rxjs/Rx';
+import {
+  Observable,
+  ReplaySubject,
+  of,
+  onErrorResumeNext
+} from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/observable/forkJoin';
@@ -51,7 +56,7 @@ export class CloudServiceMock {
       }
     });
     orgs.push(o1);
-    return Observable.of(orgs);
+    return of(orgs);
   }
 
   public getOrg(orgSlug: string, withExtraInfo?: boolean): Observable<Org> {
@@ -105,7 +110,7 @@ export class CloudServiceMock {
       });
     }
 
-    return Observable.of(org);
+    return of(org);
   }
 
   public getProjects(): Observable<any> {
@@ -132,7 +137,7 @@ export class CloudServiceMock {
       org: 'his-org'
     });
     projects.push(project1);
-    return Observable.of(projects);
+    return of(projects);
   }
 
   public getVariableType(varSlug: string): Observable<VarType> {
@@ -178,7 +183,7 @@ export class CloudServiceMock {
       'storage_units_full': 'Liters',
       'storage_units_short': 'l'
     });
-    return Observable.of(varType);
+    return of(varType);
   }
 
   public getProjectTemplate(slug: string): Observable<ProjectTemplate> {
@@ -195,7 +200,7 @@ export class CloudServiceMock {
       },
       'created_on': '2017-08-29T21:05:56.438500Z'
     });
-    return Observable.of(pt);
+    return of(pt);
   }
 
   public getSensorGraph(slug: string): Observable<SensorGraph> {
@@ -371,7 +376,7 @@ export class CloudServiceMock {
       'patch_version': 0,
       'created_on': '2017-03-10T04:16:03.061729Z'
     });
-    return Observable.of(sg);
+    return of(sg);
   }
 
   public getSensorGraphOrgProperties(
@@ -418,7 +423,7 @@ export class CloudServiceMock {
     });
     templates.push(pt2);
 
-    return Observable.of(templates);
+    return of(templates);
 
   }
 
@@ -473,7 +478,7 @@ export class CloudServiceMock {
       'slug': 'v--0000-0001--5001'
     });
     vars.push(var1);
-    return Observable.of(vars);
+    return of(vars);
   }
 
   public getDevices(project: Project): Observable<any> {
@@ -494,7 +499,7 @@ export class CloudServiceMock {
       'created_on': '2016-12-05T21:20:53.500516Z'
     });
     devs.push(device1);
-    return Observable.of(devs);
+    return of(devs);
   }
 
   public getData(args: DataFilterArgs): Observable<Array<DataPoint>> {
@@ -544,7 +549,7 @@ export class CloudServiceMock {
       'dirty_ts': false
     });
     result.push(point3);
-    return Observable.of(result);
+    return of(result);
   }
 
   public getAllStreamData(stream: Stream, args: DataFilterArgs): ReplaySubject<any>  {
@@ -582,7 +587,7 @@ export class CloudServiceMock {
     properties.push(property2);
 
     device.addProperties(properties);
-    return Observable.of(device);
+    return of(device);
   }
 
   public fetchDevicesAndVariablesForProject(project: any): ReplaySubject<any> {
@@ -873,7 +878,7 @@ export class CloudServiceMock {
       });
     }
 
-    return Observable.of(project);
+    return of(project);
   }
 
   fetchProjectWithAssociatedData(projectId: string): Observable<Project> {
@@ -914,7 +919,7 @@ export class CloudServiceMock {
     });
     result.push(mockArchive2);
 
-    return Observable.of(result);
+    return of(result);
   }
 
   getDataBlock(dataBlockSlug: string): Observable<DataBlock> {
@@ -928,7 +933,7 @@ export class CloudServiceMock {
       'created_on': '2017-08-29T01:04:06.572379Z',
       'created_by': 'vanielle'
     });
-    return Observable.of(mockDataBlock);
+    return of(mockDataBlock);
   }
 
   public getStream(streamSlug: string, filter?: ApiFilter): Observable<Stream> {
@@ -980,7 +985,7 @@ export class CloudServiceMock {
       "enabled": true
     });
 
-    return Observable.of(stream);
+    return of(stream);
   }
 
   public getCurrentUserMembership(orgSlug: string): Observable<Member> {
@@ -1001,7 +1006,7 @@ export class CloudServiceMock {
       "is_org_admin": true
     });
 
-    return Observable.of(member);
+    return of(member);
   }
 
   public getMembersForOrg(org: Org): Observable<Org> {
@@ -1045,7 +1050,7 @@ export class CloudServiceMock {
 
     org.addMembers(members);
 
-    return Observable.of(org);
+    return of(org);
   }
 
   public getOrgPendingInvites(org: Org): Observable<Org> {
@@ -1078,14 +1083,14 @@ export class CloudServiceMock {
 
     org.addPendingInvites(pendingInvites);
 
-    return Observable.of(org);
+    return of(org);
   }
 
   public postOrgInvite(org: Org, invitation: Invitation): Observable<Invitation>  {
     // return an observable
     let payload: Invitation = invitation.postPayload();
 
-    return Observable.of(payload);
+    return of(payload);
   }
 
   public postOrg(orgName: string): string {
@@ -1125,7 +1130,7 @@ export class CloudServiceMock {
 
     mockNotes.push(mockNote3)
 
-    return Observable.of(mockNotes);
+    return of(mockNotes);
   }
 
   public getGeneratedReport(apiFilter?: ApiFilter): Observable<GeneratedReport[]> {
@@ -1155,16 +1160,16 @@ export class CloudServiceMock {
 
     let generatedReports: GeneratedReport[] = [new GeneratedReport(generatedReportJSON)];
 
-    return Observable.of(generatedReports);
+    return of(generatedReports);
   }
 
   public postGeneratedReport(generatedReport: GeneratedReport): Observable<GeneratedReport> {
     let payload = generatedReport.getSchedulPostPayload();
 
     if (!payload) {
-      return Observable.onErrorResumeNext();
+      return onErrorResumeNext();
     }
 
-    return Observable.of(generatedReport);
+    return of(generatedReport);
   }
 }

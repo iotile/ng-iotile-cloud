@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
-import { Observable, ReplaySubject } from 'rxjs/Rx';
-import { map, publishReplay, mergeMap, first } from 'rxjs/operators';
+import { Observable, ReplaySubject, forkJoin } from 'rxjs';
+import { map, publishReplay, mergeMap, first, refCount } from 'rxjs/operators';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/of';
 
@@ -106,63 +106,62 @@ export class CloudService {
 
     let payload: {} = credentials.getPayload();
 
-    return this._http.post(this._apiEndpoint + '/auth/api-jwt-auth/', payload, options)
-      .map( // Log the result or error
-        response => {
-          let data: any = response;
-
-          // login successful if there's a jwt token in the response
-          if (data && data.token) {
-              this._token = data.token;
-              return this._token;
-          }
+    return this._http.post(this._apiEndpoint + '/auth/api-jwt-auth/', payload, options).pipe(
+      map(response => {
+        let data: any = response;
+        // login successful if there's a jwt token in the response
+        if (data && data.token) {
+          this._token = data.token;
+          return this._token;
         }
-      );
+      })
+    );
   }
 
   public getUserInfo(): Observable<any> {
 
-    return this.get('/account/')
-      .publishReplay(1).refCount()
-      .map((results: any) => {
+    return this.get('/account/').pipe(
+      publishReplay(1),
+      refCount(),
+      map((results: any) => {
         let user: User | undefined;
         if (results) {
           let rawData: {} = results['results'][0];
           user = new User(rawData);
         }
         return user;
-      });
+      })
+    );
   }
 
   public getProjectTemplate(slug: string): Observable<ProjectTemplate> {
     // return an observable
-    return this.get('/pt/' + slug + '/')
-      .map((data: any) => {
-        return new ProjectTemplate(data);
-      });
+    return this.get('/pt/' + slug + '/').pipe(
+      map((data: any) => new ProjectTemplate(data))
+    );
   }
 
   public getSensorGraphs(): Observable<any> {
     // return an observable
-    return this.get('/sg/')
-      .publishReplay(1).refCount()
-      .map((sgs: any) => {
+    return this.get('/sg/').pipe(
+      publishReplay(1),
+      refCount(),
+      map((sgs: any) => {
         let result: Array<SensorGraph> = [];
         if (sgs) {
           sgs['results'].forEach((item: any) => {
-            result.push(
-              new SensorGraph(item));
+            result.push(new SensorGraph(item));
           });
         }
-      });
+      })
+    );
   }
 
   public getSensorGraph(slug: string): Observable<SensorGraph> {
     // return an observable
-    return this.get('/sg/' + slug + '/')
-      .map((data: any) => {
-        return new SensorGraph(data);
-      });
+    return this.get('/sg/' + slug + '/').pipe(
+      map((data: any) => new SensorGraph(data))
+    );
   }
 
   public getSensorGraphOrgProperties(
@@ -173,18 +172,17 @@ export class CloudService {
     if (filter) {
       url += filter.filterString();
     }
-    return this.get(url)
-      .map((data: any) => {
+    return this.get(url).pipe(
+      map((data: any) => {
         let result: Array<PropertyTemplate> = [];
         if (data) {
           data['results'].forEach((item: any) => {
-            result.push(
-              new PropertyTemplate(item)
-            );
+            result.push(new PropertyTemplate(item));
           });
         }
         return result;
-      });
+      })
+    );
   }
 
   public getOrgs(filter?: ApiFilter): Observable<any> {
@@ -192,15 +190,14 @@ export class CloudService {
     if (filter) {
       url += filter.filterString();
     }
-    return this.get(url)
-      .publishReplay(1).refCount()
-      .map((orgs: any) => {
+    return this.get(url).pipe(
+      publishReplay(1),
+      refCount(),
+      map((orgs: any) => {
         let result: Array<Org> = [];
         if (orgs) {
           orgs['results'].forEach((item: any) => {
-            result.push(
-              new Org(item)
-            );
+            result.push(new Org(item));
           });
         }
         return result.sort((a: any, b: any) => {
@@ -212,7 +209,8 @@ export class CloudService {
             return 0;
           }
         });
-      });
+      })
+    );
   }
 
   public getOrg(orgSlug: string, withExtraInfo?: boolean): Observable<Org> {
@@ -221,16 +219,13 @@ export class CloudService {
       url += 'extra/';
     }
 
-    return this.get(url).map((org: Org) => new Org(org));
+    return this.get(url).pipe(map((org: Org) => new Org(org)));
   }
 
   public postOrg(org: Org): Observable<Org>  {
     // return an observable
     let payload: any = org.getPatchPayload();
-    return this.post('/org/', payload)
-      .map((data: any) => {
-        return new Org(data);
-      });
+    return this.post('/org/', payload).pipe(map((data: any) => new Org(data)));
   }
 
   public getProjects(filter?: ApiFilter): Observable<any>  {
@@ -239,16 +234,17 @@ export class CloudService {
     if (filter) {
       url += filter.filterString();
     }
-    return this.get(url)
-      .publishReplay(1).refCount()
-      .map((projects: any) => {
+    return this.get(url).pipe(
+      publishReplay(1),
+      refCount(),
+      map((projects: any) => {
         let result: Array<Project> = [];
         if (projects) {
           projects['results'].forEach((item: any) => {
-            result.push(
-              new Project(item));
+            result.push(new Project(item));
           });
         }
+
         return result.sort((a: Project, b: Project) => {
           if (a.orgSlug < b.orgSlug) {
             return -1;
@@ -258,7 +254,8 @@ export class CloudService {
             return 0;
           }
         });
-      });
+      })
+    );
   }
 
   public patchProject(project: Project): Observable<Project>  {
@@ -269,20 +266,15 @@ export class CloudService {
     let payload: any = {
       name: project.name
     };
-    return this.patch(url, payload)
-      .map((data: any) => {
-        return new Project(data);
-      });
+
+    return this.patch(url, payload).pipe(map((data: any) => new Project(data)));
   }
 
   public getDevice(deviceSlug: string): Observable<Device>  {
 
     // return an observable
     let url: string = '/device/' + deviceSlug + '/';
-    return this.get(url)
-      .map((data: any) => {
-        return new Device(data);
-      });
+    return this.get(url).pipe(map((data: any) => new Device(data)));
   }
 
   public patchDevice(device: Device): Observable<Device>  {
@@ -291,75 +283,66 @@ export class CloudService {
     let deviceSlug: string = device.slug;
     let url: string = '/device/' + deviceSlug + '/';
     let payload: any = device.getPatchPayload();
-    return this.patch(url, payload)
-      .map((data: any) => {
-        return new Device(data);
-      });
+
+    return this.patch(url, payload).pipe(map((data: any) => new Device(data)));
   }
 
   public getVariable(varSlug: string): Observable<Variable>  {
 
     // return an observable
     let url: string = '/variable/' + varSlug + '/';
-    return this.get(url)
-      .map((data: any) => {
-        return new Variable(data);
-      });
+
+    return this.get(url).pipe(map((data: any) => new Variable(data)));
   }
 
   public getVariableTypeByVariable(varSlug: string): Observable<VarType>  {
 
     // return an observable
     let url: string = '/variable/' + varSlug + '/type/';
-    return this.get(url)
-      .map((data: any) => {
-        return new VarType(data);
-      });
+
+    return this.get(url).pipe(map((data: any) => new VarType(data)));
   }
 
   public getVariableType(varTypeSlug: string): Observable<VarType>  {
 
     // return an observable
     let url: string = '/vartype/' + varTypeSlug + '/';
-    return this.get(url)
-      .map((data: any) => {
-        return new VarType(data);
-      });
+    return this.get(url).pipe(map((data: any) => new VarType(data)));
   }
 
   public getAllVarTypes(): Observable<any>  {
 
     // return an observable
     let url: string = '/vartype/';
-    return this.get(url)
-      .map((data: any) => {
+    return this.get(url).pipe(
+      map((data: any) => {
         let result: Array<VarType> = [];
         if (data) {
           data['results'].forEach((item: any) => {
-            result.push(
-              new VarType(item));
+            result.push(new VarType(item));
           });
         }
         return result;
-      });
+      })
+    );
   }
 
   public getVariables(project: Project): Observable<any>  {
 
     // return an observable
     let url: string = '/variable/?project=' + project.id;
-    return this.get(url)
-      .map((data: any) => {
+    return this.get(url).pipe(
+      map((data: any) => {
         let result: Array<Variable> = [];
         if (data) {
           data['results'].forEach((item: any) => {
-            result.push(
-              new Variable(item));
+            result.push(new Variable(item));
           });
         }
         project.addVariables(result);
         return result;
-      });
+      })
+    );
   }
 
   public patchVariable(variable: Variable): Observable<Variable>  {
@@ -368,10 +351,8 @@ export class CloudService {
     let variableSlug: string = variable.slug;
     let url: string = '/variable/' + variableSlug + '/';
     let payload: any = variable.getPatchPayload();
-    return this.patch(url, payload)
-      .map((data: any) => {
-        return new Variable(data);
-      });
+
+    return this.patch(url, payload).pipe(map((data: any) => new Variable(data)));
   }
 
   public getDevices(project: Project, filter?: ApiFilter): Observable<any>  {
@@ -382,14 +363,11 @@ export class CloudService {
     filter.addFilter('project', project.id);
     let url: string = '/device/' + filter.filterString();
     // return an observable
-    return this.get(url)
-      .map((data: any) => {
+    return this.get(url).pipe(
+      map((data: any) => {
         let result: Array<Device> = [];
         if (data) {
-          data['results'].forEach((item: any) => {
-            result.push(
-              new Device(item));
-          });
+          data['results'].forEach((item: any) => result.push(new Device(item)));
         }
         let sortedResults: Array<Device> = result.sort((a: Device, b: Device) => {
           let nameA: string = a.label.toUpperCase() || a.slug;
@@ -404,7 +382,8 @@ export class CloudService {
         });
         project.addDevices(sortedResults);
         return sortedResults;
-      });
+      })
+    );
   }
 
   public getStreamsForDevice(deviceSlug: string, projectId: string): Observable<any>  {
@@ -414,17 +393,15 @@ export class CloudService {
     if (projectId) {
       url += '&project=' + projectId;
     }
-    return this.get(url)
-      .map((data: any) => {
+    return this.get(url).pipe(
+      map((data: any) => {
         let result: Array<Stream> = [];
         if (data) {
-          data['results'].forEach((item: any) => {
-            result.push(
-              new Stream(item));
-          });
+          data['results'].forEach((item: any) => result.push(new Stream(item)));
         }
         return result;
-      });
+      })
+    );
   }
 
   public getStream(streamSlug: string, filter?: ApiFilter): Observable<Stream>  {
@@ -434,10 +411,8 @@ export class CloudService {
       url += filter.filterString();
     }
 
-    return this.get(url)
-      .map((data: any) => {
-        return new Stream(data);
-      });
+    return this.get(url).pipe(map((data: any) => new Stream(data)));
+
   }
 
   public patchStream(stream: Stream): Observable<Stream>  {
@@ -446,10 +421,8 @@ export class CloudService {
     let streamSlug: string = stream.slug;
     let url: string = '/stream/' + streamSlug + '/';
     let payload: any = stream.getPatchPayload();
-    return this.patch(url, payload)
-      .map((data: any) => {
-        return new Stream(data);
-      });
+
+    return this.patch(url, payload).pipe(map((data: any) => new Stream(data)));
   }
 
   public getStreamStats(streamSlug: string, args: DataFilterArgs): Observable<any>  {
@@ -458,32 +431,30 @@ export class CloudService {
     let url: string = '/stream/' + streamSlug + '/stats/';
     url += args.buildFilterString();
 
-    return this.get(url)
-      .map((data: any) => {
-        return new Stats(data);
-      });
+    return this.get(url).pipe(map((data: any) => new Stats(data)));
   }
 
   public getPointCount(url: string): Observable<number>  {
 
     url += '&page_size=2';
     console.debug('[CloudService] GET: ' + url);
-    return this.get(url)
-      .map((data: any) => {
+    return this.get(url).pipe(
+      map((data: any) => {
         let result: number = 0;
         if (data) {
           result = data['count'];
         }
         return result;
-      });
+      })
+    );
   }
 
   public getData(args: DataFilterArgs): Observable<Array<DataPoint>> {
 
     let url: string = '/data/';
     url += args.buildFilterString();
-    return this.get(url)
-      .map((data: any) => {
+    return this.get(url).pipe(
+      map((data: any) => {
         let result: Array<DataPoint> = [];
         if (data) {
           data['results'].forEach((item: any) => {
@@ -491,35 +462,38 @@ export class CloudService {
           });
         }
         return result;
-      });
+      })
+    );
   }
 
   public getSingleDataPage(dataPage: DataPage): Observable<DataPage>  {
 
     let url = dataPage.pageUrl();
-    return this.get(url)
-      .map((data: any) => {
+    return this.get(url).pipe(
+      map((data: any) => {
         if (data) {
           data['results'].forEach((item: any) => {
             dataPage.data.push(new DataPoint(item));
           });
         }
         return dataPage;
-      });
+      })
+    );
   }
 
   public getSingleEventPage(dataPage: EventPage): Observable<EventPage>  {
 
     let url = dataPage.pageUrl();
-    return this.get(url)
-      .map((data: any) => {
+    return this.get(url).pipe(
+      map((data: any) => {
         if (data) {
           data['results'].forEach((item: any) => {
             dataPage.data.push(new EventPoint(item));
           });
         }
         return dataPage;
-      });
+      })
+    );
   }
 
   public getAllStreamData(stream: Stream, args: DataFilterArgs): ReplaySubject<any>  {
@@ -552,7 +526,7 @@ export class CloudService {
           dataPages[i] = new DataPage(dataUrl, i, pageCount, stream);
           observables.push(this.getSingleDataPage(dataPages[i]));
         }
-        let firstObservable = Observable.forkJoin(observables);
+        let firstObservable = forkJoin(observables);
         firstObservable.subscribe(
           allData => {
             let totalCount = 0;
@@ -606,7 +580,7 @@ export class CloudService {
           dataPages[i] = new EventPage(dataUrl, i, pageCount);
           observables.push(this.getSingleEventPage(dataPages[i]));
         }
-        let firstObservable = Observable.forkJoin(observables);
+        let firstObservable = forkJoin(observables);
         firstObservable.subscribe(
           allData => {
             let totalCount = 0;
@@ -638,14 +612,15 @@ export class CloudService {
   public uploadStreamData(payload: {}): Observable<any> {
     let options = this._getRequestOptions();
     // TODO: this._http.post or this.post ?
-    return this._http.post(this._apiEndpoint + '/data/', payload, options)
-      .map((res: any) => res);
+    return this._http.post(this._apiEndpoint + '/data/', payload, options).pipe(
+      map((res: any) => res)
+    );
   }
 
   public fetchDevicesAndVariablesForProject(project: Project): ReplaySubject<any> {
     let returnedData = new ReplaySubject(1);
 
-    let firstObservable = Observable.forkJoin(
+    let firstObservable = forkJoin(
       this.getVariables(project),
       this.getDevices(project)
     );
@@ -686,7 +661,7 @@ export class CloudService {
     });
 
     // 3.- Now do the actuall HTTP GETs
-    let firstObservable = Observable.forkJoin(observables);
+    let firstObservable = forkJoin(observables);
     firstObservable.subscribe(data => {
       let sgMap: SensorGraphDictionary = {};
       data.forEach((sg: any) => {
@@ -718,19 +693,16 @@ export class CloudService {
     if (withExtraInfo) {
       url += 'extra/';
     }
-    return this.get(url)
-               .map((p: Project) => new Project(p),
-                     (err: any) => console.error(err));
+    return this.get(url).pipe(map((p: Project) => new Project(p)));
   }
 
   public fetchProjectWithAssociatedData(projectId: string): Observable<Project> {
-    return this.getProject(projectId).mergeMap((p: Project) => {
-      return this.fetchDevicesAndVariablesForProject(p).mergeMap(p => {
-        return this.fetchSensorGraphsForProject(p).map(project => {
-          return project;
-        });
-      });
-    });
+    return this.getProject(projectId).pipe(
+      mergeMap((p: Project) => this.fetchDevicesAndVariablesForProject(p).pipe(
+          mergeMap(p => this.fetchSensorGraphsForProject(p).pipe(map(project => project)))
+        )
+      )
+    );
   }
 
   public getDataBlocks(filter?: ApiFilter): Observable<Array<DataBlock>> {
@@ -739,26 +711,26 @@ export class CloudService {
       url += filter.filterString();
     }
 
-    return this.get(url).map((data: any) => {
-      if (data.count > 0) {
-        return data['results'].map((result: any) => new DataBlock(result));
-      }
-    }, (err: any) => console.error(err));
+    return this.get(url).pipe(
+      map((data: any) => {
+        if (data.count > 0) {
+          return data['results'].map((result: any) => new DataBlock(result));
+        }
+      })
+    );
   }
 
   public getDataBlock(dataBlockSlug: string): Observable<DataBlock> {
     let url = '/datablock/' + dataBlockSlug + '/';
-    return this.get(url).map((data: any) => {
-      return new DataBlock(data);
-    }, (err: any) => console.error(err));
+    return this.get(url).pipe(map((data: any) => new DataBlock(data)));
   }
 
   public postDataBlock(dataBlock: DataBlock): Observable<DataBlock> {
     let payload = dataBlock.getPostPayload();
-    return this.post('/datablock/', payload)
-               .map((data: any) => {
-                 return new DataBlock(data);
-               }, (err: any) => console.error(err));
+
+    return this.post('/datablock/', payload).pipe(
+      map((data: any) => new DataBlock(data))
+    );
   }
 
   public getDeviceProperties(device: Device, filter?: ApiFilter): Observable<Device> {
@@ -766,12 +738,13 @@ export class CloudService {
     if (filter) {
       url += filter.filterString();
     }
-    return this.get(url)
-               .map((results: Array<Property>) => {
-                 let properties: Array<Property> = results.map(result => new Property(result));
-                 device.addProperties(properties);
-                 return device;
-               });
+    return this.get(url).pipe(
+      map((results: Array<Property>) => {
+        let properties: Array<Property> = results.map(result => new Property(result));
+        device.addProperties(properties);
+        return device;
+      })
+    )
   }
 
   public getProjectProperties(project: Project, filter?: ApiFilter): Observable<Project> {
@@ -779,12 +752,14 @@ export class CloudService {
     if (filter) {
       url += filter.filterString();
     }
-    return this.get(url)
-               .map((results: Array<Property>) => {
-                 let properties: Array<Property> = results.map(result => new Property(result));
-                 project.addProperties(properties);
-                 return project;
-               });
+
+    return this.get(url).pipe(
+      map((results: Array<Property>) => {
+        let properties: Array<Property> = results.map(result => new Property(result));
+        project.addProperties(properties);
+        return project;
+      })
+    );
   }
 
   public postDeviceProperty(
@@ -793,10 +768,8 @@ export class CloudService {
   ): Observable<Property> {
     let url = '/device/' + deviceSlug + '/new_property/';
     let payload = property.getPostPayload();
-    return this.post(url, payload)
-               .map((data: any) => {
-                 return new Property(data);
-               }, (err: any) => console.error(err));
+
+    return this.post(url, payload).pipe(map((data: any) => new Property(data)));
   }
 
   public postProjectProperty(
@@ -805,10 +778,8 @@ export class CloudService {
   ): Observable<Property> {
     let url = '/project/' + projectId + '/new_property/';
     let payload = property.getPostPayload();
-    return this.post(url, payload)
-               .map((data: any) => {
-                 return new Property(data);
-               }, (err: any) => console.error(err));
+
+    return this.post(url, payload).pipe(map((data: any) => new Property(data)));
   }
 
   public getFleets(filter?: ApiFilter): Observable<Array<Fleet>>  {
@@ -817,26 +788,21 @@ export class CloudService {
     if (filter) {
       url += filter.filterString();
     }
-    return this.get(url)
-      .map((data: any) => {
+    return this.get(url).pipe(
+      map((data: any) => {
         let result: Array<Fleet> = [];
         if (data && 'results' in data) {
-          data['results'].forEach((item: any) => {
-            result.push(
-              new Fleet(item));
-          });
+          data['results'].forEach((item: any) => result.push(new Fleet(item)));
         }
         return result;
-      });
+      })
+    );
   }
 
   public getFleet(fleetSlug: string): Observable<Fleet>  {
 
     let url: string = '/fleet/' + fleetSlug + '/';
-    return this.get(url)
-      .map((data: any) => {
-        return new Fleet(data);
-      });
+    return this.get(url).pipe(map((data: any) => new Fleet(data)));
   }
 
   public getFleetDevices(fleet: Fleet, filter?: ApiFilter): Observable<Fleet> {
@@ -846,15 +812,16 @@ export class CloudService {
     if (filter) {
       url += filter.filterString();
     }
-    return this.get(url)
-      .map((data: any) => {
+    return this.get(url).pipe(
+      map((data: any) => {
         if (data && 'results' in data) {
           data['results'].forEach((item: any) => {
             fleet.addDevice(new FleetDevice(item));
           });
         }
         return fleet;
-      });
+      })
+    );
   }
 
   public registerDeviceFleet(fleetSlug: string, deviceSlug: string): Observable<any> {
@@ -878,63 +845,59 @@ export class CloudService {
   public getCurrentUserMembership(orgSlug: string): Observable<Member> {
     let url = '/org/' + orgSlug + '/membership/';
 
-    return this.get(url).map(data => {
-      return new Member(data);
-    });
+    return this.get(url).pipe(map((data: any) => new Member(data)));
   }
 
   public getMembersForOrg(org: Org): Observable<Org> {
     let url = '/org/' + org.slug + '/members/';
 
-    return this.get(url).map((data: any) => {
-      let members: Array<Member> = [];
-      data['results'].forEach((item: any) => members.push(new Member(item)));
-      org.addMembers(members);
-      return org;
-    });
+    return this.get(url).pipe(
+      map((data: any) => {
+        let members: Array<Member> = [];
+        data['results'].forEach((item: any) => members.push(new Member(item)));
+        org.addMembers(members);
+        return org;
+      })
+    );
   }
 
   public getOrgPendingInvites(org: Org): Observable<Org> {
     let url = '/org/' + org.slug + '/pending/';
 
-    return this.get(url).map((data: any) => {
-      let pendingInvites: Array<Invitation> = [];
-      data['results'].forEach((item: any) => pendingInvites.push(new Invitation(item)));
-      org.addPendingInvites(pendingInvites);
-      return org;
-    });
+    return this.get(url).pipe(
+      map((data: any) => {
+        let pendingInvites: Array<Invitation> = [];
+        data['results'].forEach((item: any) => pendingInvites.push(new Invitation(item)));
+        org.addPendingInvites(pendingInvites);
+        return org;
+      })
+    );
   }
 
   public postOrgInvite(orgSlug: string, invitation: Invitation): Observable<string>  {
     let payload: Invitation = invitation.postPayload();
     let url: string = '/org/' + orgSlug + '/invite/';
 
-    return this.post(url, payload).map((data: Invitation) => {
-      let invitation = new Invitation(data);
-      return invitation.email;
-    });
+    return this.post(url, payload).pipe(map((data: Invitation) => new Invitation(data).email));
   }
 
   public getNotes(slug: string): Observable<Array<Note>> {
     let url = `/note/?target=${slug}`;
 
-    return this.get(url).map((res: any) => {
-      let notes: Array<Note> = [];
-      res.results.forEach((item: any) => {
-        notes.push(new Note(item));
-      });
-      return notes;
-    });
+    return this.get(url).pipe(
+      map((res: any) => {
+        let notes: Array<Note> = [];
+        res.results.forEach((item: any) => notes.push(new Note(item)));
+        return notes;
+      })
+    );
   }
 
   public postNote(note: Note): Observable<Note> {
     let payload = note.postPayload();
     let url = '/note/';
 
-    return this.post(url, payload).map((n: any) => {
-      console.info('#postNote ', n);
-      return new Note(n);
-    });
+    return this.post(url, payload).pipe(map((n: any) => new Note(n)));
   }
 
   public getGeneratedReport(apiFilter?: ApiFilter): Observable<GeneratedReport[]> {
@@ -943,15 +906,17 @@ export class CloudService {
       url += apiFilter.filterString();
     }
 
-    return this.get(url).map((data: any) => {
-      let generatedReports: GeneratedReport[] = [];
-      data['results'].forEach((item: any) => {
-        generatedReports.push(new GeneratedReport(item))
-      });
+    return this.get(url).pipe(
+      map((data: any) => {
+        let generatedReports: GeneratedReport[] = [];
+        data['results'].forEach((item: any) => {
+          generatedReports.push(new GeneratedReport(item))
+        });
 
-      console.info('[cloud.service] getGeneratedReport()', generatedReports);
-      return generatedReports;
-    });
+        console.info('[cloud.service] getGeneratedReport()', generatedReports);
+        return generatedReports;
+      })
+    );
   }
 
   public postScheduleGeneratedReport(generatedReport: GeneratedReport): Observable<GeneratedReport> {
@@ -959,10 +924,8 @@ export class CloudService {
 
     let payload: ReportPostPayoad = generatedReport.getSchedulPostPayload();
 
-    return this.post(url, payload).map((data: any) => {
-      let generatedReport: GeneratedReport = new GeneratedReport(data);
-      console.info('[cloud.service] postGeneratedReport()', generatedReport);
-      return generatedReport;
-    });
+    return this.post(url, payload).pipe(
+      map((data: any) => new GeneratedReport(data))
+    );
   }
 }

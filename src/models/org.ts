@@ -9,16 +9,16 @@ export class Org {
   public about: string = '';
   public createdBy: string;
   public createdOn: Date;
-  public thumbnailUrl: string;
-  public tinyUrl: string;
-  public orgTemplate: OrgTemplate;
+  public thumbnailUrl: string = '';
+  public tinyUrl: string = '';
+  public orgTemplate: OrgTemplate = new OrgTemplate();
   public members: Array<Member> = [];
   public memberMap: MemberDictionary = {};
   public pendingInvites: Array<Invitation> = [];
   public pendingInviteMap: InvitationPendingDictionary = {};
 
-  public currentMember: Member;
-  public counts: { [index: string]: number };
+  public currentMember: Member = new Member();
+  public counts: { [index: string]: number } = {};
 
   constructor(data: any = {}) {
     this.slug = data.slug;
