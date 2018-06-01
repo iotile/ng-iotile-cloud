@@ -13,7 +13,7 @@ export class DataPage extends Page {
 }
 
 export class DataPoint {
-    public stream: string = '';
+    public stream: string;
     public timestamp: Date;
     public rawValue: number;
     public value: number;
