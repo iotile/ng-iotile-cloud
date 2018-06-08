@@ -27,6 +27,14 @@ describe('ApiFilter', () => {
     expect(filter.filterString()).toEqual('?abc=5');
   });
 
+  it('check ApiFilter remove filter does not exist', () => {
+    let filter: ApiFilter = new ApiFilter();
+    filter.addFilter('foo', 'bar');
+    filter.addFilter('abc', '5');
+    filter.removeFilter('def');
+    expect(filter.filterString()).toEqual('?foo=bar&abc=5');
+  });
+
   it('check ApiFilter add unique filter', () => {
     let filter: ApiFilter = new ApiFilter();
     filter.addFilter('foo', 'bar');
