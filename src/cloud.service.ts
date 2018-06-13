@@ -222,6 +222,29 @@ export class CloudService {
     return this.get(url).pipe(map((org: Org) => new Org(org)));
   }
 
+  public getOrgDevices(orgSlug: string, apiFilter?: ApiFilter): Observable<any>  {
+    let url: string = '/org/' + orgSlug + '/devices/';
+    if (apiFilter) {
+      url += apiFilter.filterString();
+    }
+    return this.get(url);
+  }
+
+  public getOrgArchives(orgSlug: string, apiFilter?: ApiFilter): Observable<any>  {
+    let url: string = '/org/' + orgSlug + '/archives/';
+    if (apiFilter) {
+      url += apiFilter.filterString();
+    }
+    return this.get(url);
+  }
+
+  public getOrgPropertyTemplates(orgSlug: string): Observable<any>  {
+    let f: ApiFilter = new ApiFilter();
+    f.addFilter('org', orgSlug);
+    let url: string = '/propertytemplate/' + f.filterString();
+    return this.get(url);
+  }
+
   public postOrg(org: Org): Observable<Org>  {
     // return an observable
     let payload: any = org.getPatchPayload();
