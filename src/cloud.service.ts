@@ -643,9 +643,12 @@ export class CloudService {
   public fetchDevicesAndVariablesForProject(project: Project): ReplaySubject<any> {
     let returnedData = new ReplaySubject(1);
 
+    let apiFilterForDevice: ApiFilter = new ApiFilter();
+    apiFilterForDevice.addFilter('page_size', '2000');
+
     let firstObservable = forkJoin(
       this.getVariables(project),
-      this.getDevices(project)
+      this.getDevices(project, apiFilterForDevice)
     );
 
     firstObservable.subscribe(data => {
