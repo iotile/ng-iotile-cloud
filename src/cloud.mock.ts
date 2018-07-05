@@ -7,23 +7,9 @@ import {
 } from 'rxjs';
 import { map, publishReplay, mergeMap, first, refCount } from 'rxjs/operators';
 
-import { DataBlock } from './models/datablock';
-import { Org } from './models/org';
-import { Project } from './models/project';
-import { VarType } from './models/vartype';
-import { SensorGraph } from './models/sensorgraph';
-import { Variable } from './models/variable';
-import { Device } from './models/device';
-import { DataPoint } from './models/datapoint';
-import { ProjectTemplate } from './models/projecttemplate';
-import { DataFilterArgs } from './models/datafilterargs';
-import { Property, PropertyTemplate } from './models/property';
-import { Stream } from './models/stream';
-import { ApiFilter } from './models/apifilter';
-import { Member } from './models/member';
-import { Invitation } from './models/invitation';
-import { Note } from './models/note';
-import { GeneratedReport } from './models/generated-report';
+import { DataBlock, Org, Project, VarType, SensorGraph, Variable, Device, DataPoint, 
+  ProjectTemplate, DataFilterArgs, Property, PropertyTemplate, Stream, ApiFilter, 
+  Member, Invitation, Note, GeneratedReport } from 'iotile-cloud';
 
 export class CloudServiceMock {
 

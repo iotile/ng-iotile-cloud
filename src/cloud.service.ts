@@ -36,7 +36,7 @@ import {
   Note,
   GeneratedReport,
   ReportPostPayoad
-} from './models/index';
+} from 'iotile-cloud';
 
 /*
   Generated class for the CloudService provider.
