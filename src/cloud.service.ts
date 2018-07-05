@@ -642,15 +642,10 @@ export class CloudService {
 
   public fetchDevicesAndVariablesForProject(project: Project, apiFilterForDevice?: ApiFilter): ReplaySubject<any> {
     let returnedData = new ReplaySubject(1);
-    let argsFilterForDevice;
-
-    if (apiFilterForDevice) {
-      argsFilterForDevice = apiFilterForDevice;
-    }
 
     let firstObservable = forkJoin(
       this.getVariables(project),
-      this.getDevices(project, argsFilterForDevice)
+      this.getDevices(project, apiFilterForDevice)
     );
 
     firstObservable.subscribe(data => {
@@ -726,17 +721,9 @@ export class CloudService {
 
   public fetchProjectWithAssociatedData(projectId: string, apiFilter?: ApiFilter): Observable<Project> {
     return this.getProject(projectId).pipe(
-      mergeMap((p: Project) => {
-        let argsFilter;
-
-        if (apiFilter) {
-          argsFilter = apiFilter;
-        }
-
-        return this.fetchDevicesAndVariablesForProject(p, argsFilter).pipe(
-          mergeMap(p => this.fetchSensorGraphsForProject(p).pipe(map(project => project)))
-        )
-      })
+      mergeMap((p: Project) => this.fetchDevicesAndVariablesForProject(p, apiFilter).pipe(
+        mergeMap(p => this.fetchSensorGraphsForProject(p).pipe(map(project => project)))
+      ))
     );
   }
 
