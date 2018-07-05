@@ -30,6 +30,9 @@
     "typescript"
   ],
   "license": "MIT",
+  "dependencies": {
+    "iotile-cloud": "0.0.0"
+  },
   "devDependencies": {
     "@angular/common": "6.0.3",
     "@angular/compiler": "6.0.3",
