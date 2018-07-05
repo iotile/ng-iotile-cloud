@@ -640,11 +640,8 @@ export class CloudService {
     );
   }
 
-  public fetchDevicesAndVariablesForProject(project: Project): ReplaySubject<any> {
+  public fetchDevicesAndVariablesForProject(project: Project, apiFilterForDevice?: ApiFilter): ReplaySubject<any> {
     let returnedData = new ReplaySubject(1);
-
-    let apiFilterForDevice: ApiFilter = new ApiFilter();
-    apiFilterForDevice.addFilter('page_size', '2000');
 
     let firstObservable = forkJoin(
       this.getVariables(project),
@@ -722,12 +719,19 @@ export class CloudService {
     return this.get(url).pipe(map((p: Project) => new Project(p)));
   }
 
-  public fetchProjectWithAssociatedData(projectId: string): Observable<Project> {
+  public fetchProjectWithAssociatedData(projectId: string, apiFilter?: ApiFilter): Observable<Project> {
     return this.getProject(projectId).pipe(
-      mergeMap((p: Project) => this.fetchDevicesAndVariablesForProject(p).pipe(
+      mergeMap((p: Project) => {
+        let argsFilter;
+
+        if (apiFilter) {
+          argsFilter = apiFilter;
+        }
+
+        return this.fetchDevicesAndVariablesForProject(p, argsFilter).pipe(
           mergeMap(p => this.fetchSensorGraphsForProject(p).pipe(map(project => project)))
         )
-      )
+      })
     );
   }
 
