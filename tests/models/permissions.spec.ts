@@ -36,5 +36,6 @@ describe('PermissionsTest', () => {
     expect(permissions.canDeleteOrg).toBe(false);
     expect(permissions.canAccessReports).toBe(true);
     expect(permissions.canCreateReports).toBe(false);
+    expect(permissions.canAccessClassic).toBe(true);
   });
 });

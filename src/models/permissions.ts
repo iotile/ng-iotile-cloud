@@ -50,6 +50,9 @@ export class Permissions {
   // Can create generated report
   public canCreateReports: boolean;
 
+  // Can access Classic (strato)
+  public canAccessClassic: boolean;
+
   constructor(data: any = {}) {
     this.canDeleteOrg = data['can_delete_org'];
     this.canManageUsers = data['can_manage_users'];
@@ -68,5 +71,6 @@ export class Permissions {
     this.canAccessWebapp = data['can_access_webapp'];
     this.canAccessReports = data['can_access_reports'];
     this.canCreateReports = data['can_create_reports'];
+    this.canAccessClassic = data['can_access_classic'];
   }
 }
