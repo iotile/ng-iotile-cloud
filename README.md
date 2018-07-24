@@ -9,6 +9,8 @@ Angular IOTile Cloud Interface
 
 If you're using Typescript in your project, `ng-iotile-cloud` requires Typescript v2.0.0 or greater. Also make sure that your editor (Visual Studio Code, Atom, Webstorm, etc.) supports Typescript >= v2.0.0 or you'll see errors even though it compiles.
 
+The lirbrary uses `Node` version `6.10.0` and NPM version `5.6.0`.
+
 ## Dependencies
 
 `ng-iotile-cloud` depends on `moment`
@@ -53,9 +55,11 @@ To have karma to watch for changes:
 npm run test:w
 ```
 
-## release
+## Release
 
 Update `package.json` with a new version number.
+
+`npm install .` to update the `package-lock.json` to the equivalent version number.
 
 Our version numbering follows **Major.Minor.Patch** (e.g 0.12.9)
 
