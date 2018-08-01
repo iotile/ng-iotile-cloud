@@ -3,7 +3,7 @@ export class IndexFile {
   public title: string;
   public url: string;
   public fileType: string;
-  public createdOn: Date;
+  public createdOn: Date | '';
   public createdBy: number;
 
   constructor(data: any = {}) {
