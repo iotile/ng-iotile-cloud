@@ -11,5 +11,6 @@ describe('IOTileSysVar', () => {
     expect(iotileSysVar.gatewayScanEnd).toBe('5a01');
     expect(iotileSysVar.gatewayScanFailure).toBe('5a03');
     expect(iotileSysVar.endOfTripSummary).toBe('5a07');
+    expect(iotileSysVar.deviceDataMask).toBe('5a09');
   });
 });
