@@ -73,7 +73,7 @@ export class DataFilterArgs {
 
   private utcFormat(date: Date): string {
     let day: string = ("0" + date.getUTCDate()).slice(-2)
-    let month: string = ("0" + date.getUTCMonth() + 1).slice(-2)
+    let month: string = ("0" + (date.getUTCMonth() + 1)).slice(-2)
     let year: number = date.getUTCFullYear();
 
     return `${year}/${month}/${day}`;
