@@ -37,10 +37,41 @@ describe('EventPointTest', () => {
     expect(point.timestamp.getFullYear()).toEqual(2016);
     expect(point.incrementalId).toEqual(1);
     expect(point.dirtyTimestamp).toBeFalsy();
+    expect(point.hasRawData).toBeUndefined();
     expect(point.summaryData['pressure']).toEqual(4.7);
     expect(point.summaryData['temperature']).toEqual(21.1875);
     expect(point.summaryData['foo']).toEqual('bar');
     expect(point.summaryData['foobar']).toBeUndefined();
+  });
+
+  it('check full data api', () => {
+    let point: EventPoint = new EventPoint({
+      "id": 102084,
+      "stream": "s--0000-00ef--0000-0000-0000-0512--5020",
+      "project": "p--0000-00ef",
+      "device": "d--0000-0000-0000-0512",
+      "variable": "v--0000-00ef--5020",
+      "s3bucket": "iotile-cloud-stream-event-data",
+      "s3key": "prod/2018/08/15/17/cd290963-36da-465e-9260-62ca6ea6c0da.json",
+      "ext": "json",
+      "has_raw_data": true,
+      "device_timestamp": 989952,
+      "timestamp": "2018-01-30T06:33:43-08:00",
+      "streamer_local_id": 21176,
+      "dirty_ts": false,
+      "extra_data": {
+        "axis": "z",
+        "peak": 1.372,
+        "duration": 11,
+        "delta_v_x": 0.0193634033203125,
+        "delta_v_y": 0.008544921875,
+        "delta_v_z": 0.1346893310546875
+      }
+    });
+    expect(point.hasRawData).toBeTruthy();
+
+    point.hasRawData = false;
+    expect(point.hasRawData).toBeFalsy();
   });
 
 });

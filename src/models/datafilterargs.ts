@@ -57,10 +57,10 @@ export class DataFilterArgs {
   public buildFilterLabel(): string {
     let filterLabel: string = '';
     if (this.startDate) {
-      filterLabel += ' from ' + this.startDate.toLocaleDateString();
+      filterLabel += ' from ' + this.utcFormat(this.endDate);
     }
     if (this.endDate) {
-      filterLabel += ' to ' + this.endDate.toLocaleDateString();
+      filterLabel += ' to ' + this.utcFormat(this.endDate);
     }
     if (this.lastN) {
       filterLabel += ' last ' + this.lastN + ' entries';
@@ -69,5 +69,13 @@ export class DataFilterArgs {
       filterLabel = '';
     }
     return filterLabel;
+  }
+
+  private utcFormat(date: Date): string {
+    let day: number = this.startDate.getUTCDate();
+    let month: number = this.startDate.getUTCMonth();
+    let year: number = this.startDate.getUTCFullYear();
+
+    return `${year}/${month}/${day}`;
   }
 }

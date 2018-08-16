@@ -47,7 +47,7 @@ describe('DataFilterArgsTest', () => {
       let filter_string = args.buildFilterString();
       let end = args.endDate.toISOString();
       expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}`+'&staff=1');
-      
+
       args.extras = ['a=b', 'c=d'];
       filter_string = args.buildFilterString();
       end = args.endDate.toISOString();
@@ -77,12 +77,12 @@ describe('DataFilterArgsTest', () => {
     expect(args).toBeTruthy();
     expect(args.buildFilterLabel()).toEqual('');
     args.startDate = new Date("2016-09-13T20:29:13.825000Z");
-    expect(args.buildFilterLabel()).toEqual(" from 9/13/2016");
+    expect(args.buildFilterLabel()).toEqual(" from 2016/09/13");
     args = new DataFilterArgs();
     args.endDate = new Date("2016-10-13T20:29:13.825000Z");
-    expect(args.buildFilterLabel()).toEqual(" to 10/13/2016");
+    expect(args.buildFilterLabel()).toEqual(" to 2016/10/13");
     args.startDate = new Date("2016-09-13T20:29:13.825000Z");
-    expect(args.buildFilterLabel()).toEqual(" from 9/13/2016 to 10/13/2016");
+    expect(args.buildFilterLabel()).toEqual(" from 2016/09/13 to 2016/10/13");
   });
 
   it('check lastN', () => {
