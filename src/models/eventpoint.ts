@@ -21,6 +21,7 @@ export class EventPoint {
     public dirtyTimestamp: boolean;
     public summaryData: BasicDictionary;
     public ext: string;
+    public hasRawData: boolean;
 
     constructor(data: any = {}) {
       this.id = data.id;
@@ -38,6 +39,9 @@ export class EventPoint {
       }
       if ('extra_data' in data) {
         this.summaryData = data.extra_data;
+      }
+      if ('has_raw_data' in data) {
+        this.hasRawData = data.has_raw_data;
       }
     }
   }
