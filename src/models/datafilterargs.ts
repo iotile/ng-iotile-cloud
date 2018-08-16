@@ -57,7 +57,7 @@ export class DataFilterArgs {
   public buildFilterLabel(): string {
     let filterLabel: string = '';
     if (this.startDate) {
-      filterLabel += ' from ' + this.utcFormat(this.endDate);
+      filterLabel += ' from ' + this.utcFormat(this.startDate);
     }
     if (this.endDate) {
       filterLabel += ' to ' + this.utcFormat(this.endDate);
