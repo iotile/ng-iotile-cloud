@@ -35,7 +35,8 @@ import {
   InvitationPendingDictionary,
   Note,
   GeneratedReport,
-  ReportPostPayoad
+  ReportPostPayoad,
+  Location
 } from './models/index';
 
 /*
@@ -948,6 +949,26 @@ export class CloudService {
 
     return this.post(url, payload).pipe(
       map((data: any) => new GeneratedReport(data))
+    );
+  }
+
+  public getLocations(filter: ApiFilter): Observable<Location[]> {
+    let url = `/location/`;
+
+    if (filter) {
+      url += filter.filterString();
+    }
+
+    return this.get(url).pipe(
+      map((data: any) => {
+        let locations: Location[] = [];
+        data.results.forEach((item: any) => {
+          if (item) {
+            locations.push(new Location(item));
+          }
+        });
+        return locations;
+      })
     );
   }
 }

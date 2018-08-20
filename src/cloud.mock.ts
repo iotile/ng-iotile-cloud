@@ -23,6 +23,7 @@ import { ApiFilter } from './models/apifilter';
 import { Member } from './models/member';
 import { Invitation } from './models/invitation';
 import { Note } from './models/note';
+import { Location } from './models/location';
 import { GeneratedReport } from './models/generated-report';
 
 export class CloudServiceMock {
@@ -1166,4 +1167,35 @@ export class CloudServiceMock {
 
     return of(generatedReport);
   }
+
+  public getLocations(filter: ApiFilter): Observable<Location[]> {
+    let url = `/location/`;
+
+    if (filter) {
+      url += filter.filterString();
+    }
+
+    let locations: Location[] = [
+      new Location({
+        "id": 17,
+        "timestamp": "2018-02-28T16:46:18.711000-08:00",
+        "target": "d--0000-0000-0000-0532",
+        "lat": "37.406493",
+        "lon": "-122.109052",
+        "user": "tim"
+      }),
+      new Location({
+        "id": 178,
+        "timestamp": "2018-04-09T16:17:26.464000-07:00",
+        "target": "d--0000-0000-0000-0532",
+        "lat": "37.406246",
+        "lon": "-122.109423",
+        "user": "kaylie"
+      })
+    ];
+
+    return of(locations);
+  }
+
+
 }

@@ -22,6 +22,7 @@ describe('DataBlock', () => {
     expect(archive.org).toBe('kt-savers');
     expect(archive.block).toBe(1);
     expect(archive.pid).toBe('pid:84e3869d-1fdb-4203-9b69-18b417e2b0e0');
+    expect(archive.createdBy).toBe('vanielle');
   });
 
   describe('getPostPayload()', () => {

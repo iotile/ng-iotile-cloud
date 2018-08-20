@@ -6,7 +6,7 @@ export class DataBlock {
   public block: number;
   public sensorGraphSlug: string;
   public createdOn: Date;
-  public createdBy: Date;
+  public createdBy: string = '';
   public description: string = '';
   public pid: string = '';
   public onComplete: any;
