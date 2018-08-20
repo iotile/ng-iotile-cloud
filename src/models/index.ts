@@ -29,3 +29,4 @@ export * from './note';
 export * from './permissions';
 export * from './index-file';
 export * from './generated-report';
+export * from './location';
