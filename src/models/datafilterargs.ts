@@ -8,7 +8,13 @@ export class DataFilterArgs {
   public pageSize: number;
   public startIncrementalId: number;
   public endIncrementalId: number;
+  public useDataMask: boolean = true;
   public extras: Array<string>;
+
+  constructor (
+  ) {
+      this.useDataMask = true;
+  }
 
   public buildFilterString(): string {
 
@@ -41,6 +47,9 @@ export class DataFilterArgs {
     }
     if (this.endIncrementalId) {
       parameters.push('streamer_id_1=' + this.endIncrementalId);
+    }
+    if (this.useDataMask) {
+      parameters.push('mask=1');
     }
     if (this.extras && this.extras.length > 0) {
       this.extras.forEach(p => {
