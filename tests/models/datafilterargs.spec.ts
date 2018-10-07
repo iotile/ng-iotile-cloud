@@ -14,7 +14,7 @@ describe('DataFilterArgsTest', () => {
     args.startDate = new Date("2016-09-13T20:29:13.825000Z");
     filter_string = args.buildFilterString();
     end = args.endDate.toISOString();
-    expect(filter_string).toEqual("?start=2016-09-13T20:29:13.825Z&end="+end);
+    expect(filter_string).toEqual("?start=2016-09-13T20:29:13.825Z&end="+end+'&mask=1');
     args = new DataFilterArgs();
     args.endDate = new Date("2016-10-13T20:29:13.825000Z");
     filter_string = args.buildFilterString();
@@ -37,7 +37,7 @@ describe('DataFilterArgsTest', () => {
       args.filter = streamSlugMock;
       let filter_string = args.buildFilterString();
       let end = args.endDate.toISOString();
-      expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}`);
+      expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}`+'&mask=1');
     });
 
     it ('should build filter with extras', () => {
