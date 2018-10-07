@@ -49,7 +49,7 @@ describe('DataFilterArgsTest', () => {
       expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}`+'&mask=1&staff=1');
 
       args.extras = ['a=b', 'c=d'];
-      args.ignoreDataMask = true;
+      args.useDataMask = false;
       filter_string = args.buildFilterString();
       end = args.endDate.toISOString();
       expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}`+'&a=b&c=d');
@@ -59,7 +59,7 @@ describe('DataFilterArgsTest', () => {
       let args = new DataFilterArgs();
       args.filter = streamSlugMock;
       args.startIncrementalId = 2412;
-      args.ignoreDataMask = true;
+      args.useDataMask = false;
       let filter_string = args.buildFilterString();
       let end = args.endDate.toISOString();
       expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}&streamer_id_0=${args.startIncrementalId}`);
@@ -68,7 +68,7 @@ describe('DataFilterArgsTest', () => {
     it('should build endStreamerId', () => {
       let args = new DataFilterArgs();
       args.endIncrementalId = 3793;
-      args.ignoreDataMask = true;
+      args.useDataMask = false;
       let filter_string = args.buildFilterString();
       let end = args.endDate.toISOString();
       expect(filter_string).toEqual(`?end=`+end+`&streamer_id_1=${args.endIncrementalId}`);
