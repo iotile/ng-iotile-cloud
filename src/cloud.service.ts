@@ -89,6 +89,11 @@ export class CloudService {
     return this._http.post(this._apiEndpoint + url, payload, options);
   }
 
+  public delete(url: string): Observable<any>  {
+    const options = this._getRequestOptions();
+    return this._http.delete(this._apiEndpoint + url, options);
+  }
+
   public setApiEndPoint (url: string): void {
     this._apiEndpoint = url;
   }
