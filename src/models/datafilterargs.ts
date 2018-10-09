@@ -8,7 +8,7 @@ export class DataFilterArgs {
   public pageSize: number;
   public startIncrementalId: number;
   public endIncrementalId: number;
-  public useDataMask: boolean = true;
+  public useDataMask: boolean;
   public extras: Array<string>;
 
   constructor (

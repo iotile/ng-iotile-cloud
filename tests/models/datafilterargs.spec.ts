@@ -10,18 +10,18 @@ describe('DataFilterArgsTest', () => {
     expect(args).toBeTruthy();
     let filter_string=args.buildFilterString();
     let end = args.endDate.toISOString();
-    expect(filter_string).toEqual('?end='+end+'&mask=1');
+    expect(filter_string).toEqual('?end='+end);
     args.startDate = new Date("2016-09-13T20:29:13.825000Z");
     filter_string = args.buildFilterString();
     end = args.endDate.toISOString();
-    expect(filter_string).toEqual("?start=2016-09-13T20:29:13.825Z&end="+end+'&mask=1');
+    expect(filter_string).toEqual("?start=2016-09-13T20:29:13.825Z&end="+end);
     args = new DataFilterArgs();
     args.endDate = new Date("2016-10-13T20:29:13.825000Z");
     filter_string = args.buildFilterString();
-    expect(filter_string).toEqual("?end=2016-10-13T20:29:13.825Z&mask=1");
+    expect(filter_string).toEqual("?end=2016-10-13T20:29:13.825Z");
     args.startDate = new Date("2016-09-13T20:29:13.825000Z");
     filter_string = args.buildFilterString();
-    expect(filter_string).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&mask=1");
+    expect(filter_string).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z");
     args.page = 2;
     expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&page=2&mask=1");
     args.pageSize=10000;
@@ -37,7 +37,7 @@ describe('DataFilterArgsTest', () => {
       args.filter = streamSlugMock;
       let filter_string = args.buildFilterString();
       let end = args.endDate.toISOString();
-      expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}`+'&mask=1');
+      expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}`);
     });
 
     it ('should build filter with extras', () => {
@@ -46,7 +46,7 @@ describe('DataFilterArgsTest', () => {
       args.extras = ['staff=1'];
       let filter_string = args.buildFilterString();
       let end = args.endDate.toISOString();
-      expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}`+'&mask=1&staff=1');
+      expect(filter_string).toEqual(`?end=`+end+`&filter=${streamSlugMock}`+'&staff=1');
 
       args.extras = ['a=b', 'c=d'];
       args.useDataMask = false;
@@ -94,7 +94,17 @@ describe('DataFilterArgsTest', () => {
     args.lastN = 10;
     let filter_string = args.buildFilterString();
     let end = args.endDate.toISOString();
-    expect(filter_string).toEqual("?end="+end+"&lastn=10&mask=1");
+    expect(filter_string).toEqual("?end="+end+"&lastn=10");
     expect(args.buildFilterLabel()).toEqual(" to "+args['utcFormat'](args.endDate)+" last 10 entries");
+  });
+
+  it('check mask', () => {
+    let args: DataFilterArgs = new DataFilterArgs();
+    expect(args).toBeTruthy();
+    args.useDataMask = true;
+    let filter_string = args.buildFilterString();
+    let end = args.endDate.toISOString();
+    expect(filter_string).toEqual("?end="+end+"&mask=1");
+    expect(args.buildFilterLabel()).toEqual(" to "+args['utcFormat'](args.endDate));
   });
 });
