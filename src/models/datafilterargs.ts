@@ -11,11 +11,6 @@ export class DataFilterArgs {
   public useDataMask: boolean;
   public extras: Array<string>;
 
-  constructor (
-  ) {
-      this.useDataMask = true;
-  }
-
   public buildFilterString(): string {
 
     let parameters: Array<string> = [];
