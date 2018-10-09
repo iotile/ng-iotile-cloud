@@ -23,10 +23,10 @@ describe('DataFilterArgsTest', () => {
     filter_string = args.buildFilterString();
     expect(filter_string).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z");
     args.page = 2;
-    expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&page=2&mask=1");
+    expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&page=2");
     args.pageSize=10000;
     args.page = 0;
-    expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&page_size=10000&mask=1");
+    expect(args.buildFilterString()).toEqual("?start=2016-09-13T20:29:13.825Z&end=2016-10-13T20:29:13.825Z&page_size=10000");
   });
 
   describe('check buildFilterString()', () => {
