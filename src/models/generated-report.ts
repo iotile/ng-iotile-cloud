@@ -4,6 +4,7 @@ import { User } from './user';
 export interface ReportPostPayoad {
   slug: string;
   template: string;
+  label?: string;
   args?: Object;
 }
 
@@ -25,7 +26,6 @@ export class GeneratedReport {
 
   constructor(data: any = {}) {
     this.id = data['id'] || '';
-    this.label = data['label'] || '';
     this.sourceRef = data['source_ref'] || '';
     this.createdOn = new Date(data['created_on']) || new Date();
     this.createdBy = data['created_by'] || '';
@@ -55,11 +55,19 @@ export class GeneratedReport {
       delete this.args;
     }
 
+    if ('label' in data) {
+      this.label = data['label'];
+    } else if (this.template && this.sourceRef) {
+      this.label = this.template + ': ' + this.sourceRef;
+    } else {
+      this.label = 'Generated Report';
+    }
   }
 
   public getSchedulPostPayload(): ReportPostPayoad {
     let payload: ReportPostPayoad = {
       slug: this.sourceRef,
+      label: this.label,
       template: this.template
     };
 
@@ -67,7 +75,7 @@ export class GeneratedReport {
       payload.args = this.args;
     }
 
-    if (!payload.slug || !payload.template) {
+    if (!payload.slug || !payload.template || !payload.label) {
       throw new Error(`Payload cannot be returned because of missing fields: ${JSON.stringify(payload, null, 2)}.`);
     }
 

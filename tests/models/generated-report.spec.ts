@@ -67,6 +67,7 @@ describe('GeneratedGeneratedReport', () => {
   it('checks basic getPostPayload', () => {
     let report: GeneratedReport = new GeneratedReport({
       "source_ref": "b--0008-0000-0000-053a",
+      "label": "My label",
       "template": "shipment_overview"
     });
 
@@ -74,6 +75,7 @@ describe('GeneratedGeneratedReport', () => {
 
     expect('args' in payload).toBeFalsy();
     expect(payload.slug).toEqual('b--0008-0000-0000-053a');
+    expect(payload.label).toEqual('My label');
     expect(payload.template).toEqual('shipment_overview');
   });
 
@@ -88,6 +90,8 @@ describe('GeneratedGeneratedReport', () => {
 
     expect(payload.args).toEqual({'field': 'value'});
     expect(payload.slug).toEqual('b--0008-0000-0000-053a');
+    // If label not set, crate default
+    expect(payload.label).toEqual('shipment_overview: b--0008-0000-0000-053a');
     expect(payload.template).toEqual('shipment_overview');
   });
 
