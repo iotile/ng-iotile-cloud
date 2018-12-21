@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { Observable, ReplaySubject, forkJoin } from 'rxjs';
 import { map, publishReplay, mergeMap, first, refCount } from 'rxjs/operators';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/observable/of';
 
 import {
   DataBlock,

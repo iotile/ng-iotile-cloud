@@ -1,6 +1,6 @@
 {
   "name": "ng-iotile-cloud",
-  "version": "0.25.0",
+  "version": "0.26.0",
   "description": "Build an Angular library compatible with AoT compilation and Tree shaking",
   "main": "./bundles/ng-iotile-cloud.umd.js",
   "module": "./modules/ng-iotile-cloud.es5.js",
@@ -31,6 +31,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@angular/animations": "6.0.3",
     "@angular/common": "6.0.3",
     "@angular/compiler": "6.0.3",
     "@angular/compiler-cli": "6.0.3",
@@ -39,7 +40,6 @@
     "@angular/platform-browser": "6.0.3",
     "@angular/platform-browser-dynamic": "6.0.3",
     "@angular/platform-server": "6.0.3",
-    "@angular/animations": "6.0.3",
     "@compodoc/compodoc": "1.1.2",
     "@types/jasmine": "2.5.52",
     "@types/node": "8.0.1",
@@ -55,6 +55,9 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "3.0.0",
+    "lodash": "^4.17.11",
+    "mime": "^2.4.0",
+    "parsejson": "0.0.3",
     "reflect-metadata": "0.1.10",
     "rollup": "0.43.0",
     "rollup-plugin-local-resolve": "^1.0.7",
