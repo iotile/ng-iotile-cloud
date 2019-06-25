@@ -40,7 +40,7 @@
     "@angular/platform-browser": "6.0.3",
     "@angular/platform-browser-dynamic": "6.0.3",
     "@angular/platform-server": "6.0.3",
-    "@compodoc/compodoc": "1.1.2",
+    "@compodoc/compodoc": "^1.1.9",
     "@types/jasmine": "2.5.52",
     "@types/node": "8.0.1",
     "chalk": "1.1.3",
