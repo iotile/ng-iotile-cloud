@@ -1,6 +1,6 @@
 {
   "name": "ng-iotile-cloud",
-  "version": "0.26.0",
+  "version": "0.27.0",
   "description": "Build an Angular library compatible with AoT compilation and Tree shaking",
   "main": "./bundles/ng-iotile-cloud.umd.js",
   "module": "./modules/ng-iotile-cloud.es5.js",
@@ -40,7 +40,7 @@
     "@angular/platform-browser": "6.0.3",
     "@angular/platform-browser-dynamic": "6.0.3",
     "@angular/platform-server": "6.0.3",
-    "@compodoc/compodoc": "^1.1.9",
+    "@compodoc/compodoc": "1.1.9",
     "@types/jasmine": "2.5.52",
     "@types/node": "8.0.1",
     "chalk": "1.1.3",
