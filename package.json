@@ -65,6 +65,7 @@
     "source-map-loader": "0.2.1",
     "ts-loader": "^4.5.0",
     "tslint": "5.19.0",
+    "tsickle": "^0.37.0",
     "typescript": "3.5.3",
     "uglify-js": "2.8.29",
     "webpack": "^4.39.3",
