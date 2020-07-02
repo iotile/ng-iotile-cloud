@@ -122,6 +122,22 @@ export class CloudService {
     );
   }
 
+  public oauth2Authenticate(credentials: OAuth2CodeCredentials): Observable<any> {
+    console.debug('[CloudService] Authenticating code:' + credentials.code);
+    const options = this._getRequestOptions();
+    const payload = credentials.getPayload();
+
+    return this._http.post(this._apiEndpoint + '/auth/okta/login/', payload, options).pipe(
+      map(response => {
+        let data: any = response;
+        if (data && data.jwt) {
+          this.setToken(data.jwt);
+          return this._token;
+        }
+      })
+    );
+  }
+
   public getUserInfo(): Observable<any> {
 
     return this.get('/account/').pipe(
