@@ -128,7 +128,7 @@ export class CloudService {
     const options = this._getRequestOptions();
     const payload = credentials.getPayload();
 
-    return this._http.post(this._apiEndpoint + '/auth/okta/login/', payload, options).pipe(
+    return this._http.post(this._apiEndpoint + credentials.loginURL, payload, options).pipe(
       map(response => {
         let data: any = response;
         if (data && data.jwt) {
