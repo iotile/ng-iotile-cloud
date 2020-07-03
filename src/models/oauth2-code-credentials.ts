@@ -10,7 +10,7 @@ export class OAuth2CodeCredentials {
   public getPayload(): {} {
     return {
       code: this.code
-    }
+    };
   }
 
   public setToken(token: string): void {
