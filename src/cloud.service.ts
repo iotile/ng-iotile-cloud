@@ -7,6 +7,7 @@ import { map, publishReplay, mergeMap, first, refCount } from 'rxjs/operators';
 import {
   DataBlock,
   Credentials,
+  OAuth2CodeCredentials,
   User,
   Org,
   Project,
